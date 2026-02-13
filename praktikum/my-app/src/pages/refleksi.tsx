@@ -19,9 +19,9 @@ export default function Home() {
         />
         <br />
         <ol>
-          <li>
+          <li><strong>
             Mengapa Pages Router disebut sebagai routing berbasis file?
-            <p>
+          </strong><p>
               Jawaban: Karena Next.js menggunakan struktur file di dalam folder
               <strong>pages</strong> untuk menentukan URL secara otomatis.
               Jadi setiap file yang dibuat di folder tersebut langsung menjadi route.
@@ -30,9 +30,9 @@ export default function Home() {
             </p>
           </li>
 
-          <li>
+          <li><strong>
             Apa perbedaan Next.js dengan React standar (CRA)?
-            <p>
+          </strong><p>
               Jawaban: Next.js memiliki fitur bawaan seperti routing otomatis,
               Server-Side Rendering (SSR), Static Site Generation (SSG),
               dan optimasi gambar. Sedangkan React standar (Create React App)
@@ -41,18 +41,18 @@ export default function Home() {
             </p>
           </li>
 
-          <li>
+          <li><strong>
             Apa fungsi perintah npm run dev?
-            <p>
+          </strong><p>
               Jawaban: Perintah <code>npm run dev</code> digunakan untuk menjalankan
               aplikasi dalam mode development. Mode ini memungkinkan developer
               melihat perubahan secara langsung (hot reload) saat melakukan editing kode.
             </p>
           </li>
 
-          <li>
+          <li><strong>
             Apa perbedaan npm run dev dan npm run build?
-            <p>
+          </strong><p>
               Jawaban: <code>npm run dev</code> digunakan saat proses pengembangan
               (development) dengan fitur hot reload dan debugging.
               Sedangkan <code>npm run build</code> digunakan untuk membuat versi

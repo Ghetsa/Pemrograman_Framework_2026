@@ -10,5 +10,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe', alamat: 'jl. in aja dulu no 22' })
+  res.status(200).json({ name: 'Ghetsa Ramadhani', alamat: 'jl. in aja dulu no 22' })
 }

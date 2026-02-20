@@ -72,11 +72,16 @@ Buka browser dan akses:
 
 Beberapa folder penting:
 
--   `pages/` → Tempat routing halaman ![alt text](public/image-6.png)
--   `public/` → Aset statis ![alt text](public/image-7.png)
--   `styles/` → File CSS ![alt text](public/image-8.png)
--   `package.json` → Konfigurasi project ![alt text](public/image-9.png)
--   `.gitignore` → File yang tidak di-track Git ![alt text](public/image-10.png)
+-   `pages/` → Tempat routing halaman 
+![alt text](public/image-6.png)
+-   `public/` → Aset statis 
+![alt text](public/image-7.png)
+-   `styles/` → File CSS 
+![alt text](public/image-8.png)
+-   `package.json` → Konfigurasi project 
+![alt text](public/image-9.png)
+-   `.gitignore` → File yang tidak di-track Git 
+![alt text](public/image-10.png)
 
 ------------------------------------------------------------------------
 

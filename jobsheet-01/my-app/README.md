@@ -37,12 +37,13 @@ Tujuan: Memastikan Node.js, npm, dan Git sudah terinstal dengan benar.
 
 ## Langkah 2 -- Membuat Project Next.js
 
-1.  Buat direktori baru dan masuk ke direktori kerja.
+1.  Buat direktori baru dan masuk ke direktori kerja.<br>
 ![alt text](public/image-1.png)
 2.  Jalankan perintah:
 ``` bash
 npx create-next-app@13.4.7
 ```
+
 ![alt text](public/image-2.png)
 3.  Masuk ke folder project:
 
@@ -72,15 +73,15 @@ Buka browser dan akses:
 
 Beberapa folder penting:
 
--   `pages/` → Tempat routing halaman 
+-   `pages/` → Tempat routing halaman <br>
 ![alt text](public/image-6.png)
--   `public/` → Aset statis 
+-   `public/` → Aset statis <br>
 ![alt text](public/image-7.png)
--   `styles/` → File CSS 
+-   `styles/` → File CSS <br>
 ![alt text](public/image-8.png)
--   `package.json` → Konfigurasi project 
+-   `package.json` → Konfigurasi project <br>
 ![alt text](public/image-9.png)
--   `.gitignore` → File yang tidak di-track Git 
+-   `.gitignore` → File yang tidak di-track Git <br>
 ![alt text](public/image-10.png)
 
 ------------------------------------------------------------------------
@@ -89,8 +90,8 @@ Beberapa folder penting:
 
 Buka file:
 
-    pages/index.js
-![alt text](public/image-11.png)
+    pages/index.js <br>
+<br>![alt text](public/image-11.png)
 Ubah isi halaman sesuai kebutuhan, lalu simpan dan lihat perubahan di
 browser.
 ![alt text](public/image-12.png)
@@ -103,10 +104,11 @@ browser.
 ```
     pages/api
 ```
+
 ![alt text](public/image-13.png)
-2.  Modifikasi file `hello.ts` 
+2.  Modifikasi file `hello.ts` <br>
 ![alt text](public/image-14.png)
-3.  Akses melalui browser:
+3.  Akses melalui browser: <br>
 ![alt text](public/image-15.png)
 
 ```
@@ -114,7 +116,7 @@ browser.
 ```
 
 Tambahkan extension JSON Formatter pada Chrome agar tampilan JSON lebih
-rapi.
+rapi. <br>
 ![alt text](public/image-16.png)
 ------------------------------------------------------------------------
 
@@ -126,9 +128,9 @@ rapi.
     _app.tsx
 ```
 ![alt text](public/image-17.png)
-2.  Modifikasi sesuai kebutuhan.
+2.  Modifikasi sesuai kebutuhan. <br>
 ![alt text](public/image-18.png)
-3.  Jalankan kembali localhost dan lihat perubahan.
+3.  Jalankan kembali localhost dan lihat perubahan. <br>
 ![alt text](public/image-19.png)
 ------------------------------------------------------------------------
 
@@ -141,6 +143,7 @@ rapi.
     -   Nama Mahasiswa
     -   NIM
     -   Program Studi
+
 
 ![alt text](public/image-20.png)
 ------------------------------------------------------------------------

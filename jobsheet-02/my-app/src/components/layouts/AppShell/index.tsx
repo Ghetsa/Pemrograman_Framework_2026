@@ -10,6 +10,10 @@ const AppShell = (props: AppShellProps) => {
     <main>
       <Navbar />
       {children}
+      <br />
+      <div><strong><i>footer</i></strong>
+        
+      </div>
     </main>
   );
 };

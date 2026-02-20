@@ -26,6 +26,16 @@ a {
   padding: 0 20px;
 }
 
+.Footer {
+  width: 100%;
+  height: 60px;
+  background-color: #424e64;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
 
 @media (prefers-color-scheme: dark) {
   html {

@@ -38,19 +38,19 @@ Tujuan: Memastikan Node.js, npm, dan Git sudah terinstal dengan benar.
 ## Langkah 2 -- Membuat Project Next.js
 
 1.  Buat direktori baru dan masuk ke direktori kerja.<br>
-![alt text](public/image-1.png)
+![alt text](public/image-1.png) <br>
 2.  Jalankan perintah:
 ``` bash
 npx create-next-app@13.4.7
 ```
 
-![alt text](public/image-2.png)
+![alt text](public/image-2.png) <br>
 3.  Masuk ke folder project:
 
 ``` bash
 cd my-app
 ```
-![alt text](public/image-3.png)
+![alt text](public/image-3.png) <br>
 4.  Tunggu proses instalasi selesai.
 
 ------------------------------------------------------------------------
@@ -62,11 +62,11 @@ Jalankan aplikasi dengan:
 ``` bash
 npm run dev
 ```
-![alt text](public/image-4.png)
+![alt text](public/image-4.png) <br>
 Buka browser dan akses:
 
     http://localhost:3000
-![alt text](public/image-5.png)
+![alt text](public/image-5.png) <br>
 ------------------------------------------------------------------------
 
 ## Langkah 4 -- Mengenal Struktur Folder
@@ -91,10 +91,10 @@ Beberapa folder penting:
 Buka file:
 
     pages/index.js <br>
-<br>![alt text](public/image-11.png)
+![alt text](public/image-11.png)<br>
 Ubah isi halaman sesuai kebutuhan, lalu simpan dan lihat perubahan di
 browser.
-![alt text](public/image-12.png)
+![alt text](public/image-12.png)<br>
 ------------------------------------------------------------------------
 
 ## Langkah 6 -- Modifikasi API
@@ -105,11 +105,11 @@ browser.
     pages/api
 ```
 
-![alt text](public/image-13.png)
+![alt text](public/image-13.png) <br>
 2.  Modifikasi file `hello.ts` <br>
-![alt text](public/image-14.png)
+![alt text](public/image-14.png) <br>
 3.  Akses melalui browser: <br>
-![alt text](public/image-15.png)
+![alt text](public/image-15.png) <br>
 
 ```
     http://localhost:3000/api/hello

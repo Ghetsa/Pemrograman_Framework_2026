@@ -19,7 +19,7 @@ export default function Home() {
         />
         <br />
         <ul>
-          <li>My name: <strong>Ghetsa Ramadhani Riska Arryanti</strong></li>
+          <li>My Name: <strong>Ghetsa Ramadhani Riska Arryanti</strong></li>
           <li>My NIM: <strong>2341720004</strong></li>
           <li>My Departement/PRODI: <strong>D4-TI</strong></li>
         </ul>

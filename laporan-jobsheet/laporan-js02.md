@@ -70,7 +70,8 @@ Tambahkan halaman `about.tsx` lalu uji di browser:
 
 <br>
 
-![alt text](image.png)
+![alt text](../jobsheet-02/my-app/public/image.png)
+
 ------------------------------------------------------------------------
 
 ## 2️⃣ Routing Menggunakan Folder
@@ -78,7 +79,7 @@ Tambahkan halaman `about.tsx` lalu uji di browser:
 Rapikan struktur:
 <br>
 
-![alt text](image-1.png) ![alt text](image-2.png)
+![alt text](../jobsheet-02/my-app/public/image-1.png) ![alt text](../jobsheet-02/my-app/public/image-2.png)
 
     pages/
      └── about/
@@ -90,7 +91,8 @@ Akses:
 
 <br>
 
-![alt text](image-3.png)
+![alt text](../jobsheet-02/my-app/public/image-3.png)
+
 ------------------------------------------------------------------------
 
 ## 3️⃣ Nested Routing
@@ -106,30 +108,30 @@ Modifikasi kode:
 -	user.tsx
 <br>
 
-![alt text](image-4.png)
+![alt text](../jobsheet-02/my-app/public/image-4.png)
 
 -	app.tsx
 
 <br>
 
-![alt text](image-5.png)
+![alt text](../jobsheet-02/my-app/public/image-5.png)
 Akses:
 
 - /setting/user 
 <br>
 
-![alt text](image-6.png)
+![alt text](../jobsheet-02/my-app/public/image-6.png)
 
 - /setting/app
 <br>
 
-![alt text](image-7.png)
+![alt text](../jobsheet-02/my-app/public/image-7.png)
 
 Nested lebih dalam:
 
 <br>
 
-![alt text](image-8.png)
+![alt text](../jobsheet-02/my-app/public/image-8.png)
 
 
     pages/
@@ -144,7 +146,8 @@ Akses:
 
 <br>
 
-![alt text](image-9.png)
+![alt text](../jobsheet-02/my-app/public/image-9.png)
+
 ------------------------------------------------------------------------
 
 ## 4️⃣ Dynamic Routing
@@ -164,19 +167,19 @@ Buka browser http://localhost:3000/produk/sepatu tambahkan segment sepatu
 
 <br>
 
-![alt text](image-10.png)
+![alt text](../jobsheet-02/my-app/public/image-10.png)
  
 •	Cek menggunakan console.log
 
 <br>
 
-![alt text](image-11.png)
+![alt text](../jobsheet-02/my-app/public/image-11.png)
  
 •	Modifikasi [id].tsx agar dapat mengambil nilai dari id
 
 <br>
 
-![alt text](image-12.png)
+![alt text](../jobsheet-02/my-app/public/image-12.png)
  
 
 
@@ -186,19 +189,19 @@ Contoh akses:
 
 <br>
 
-![alt text](image-13.png)
+![alt text](../jobsheet-02/my-app/public/image-13.png)
 
 - /produk/sepatu-baru
 
 <br>
 
-![alt text](image-15.png)
+![alt text](../jobsheet-02/my-app/public/image-15.png)
 
 - /produk/baju
 
 <br>
 
-![alt text](image-16.png)
+![alt text](../jobsheet-02/my-app/public/image-16.png)
 
 
 Parameter `id` ditangkap menggunakan `useRouter()`.
@@ -217,30 +220,30 @@ Struktur:
 
 <br>
 
-![alt text](image-17.png)
+![alt text](../jobsheet-02/my-app/public/image-17.png)
 
 
 Modifikasi navbar/index.tsx
 
-![alt text](image-28.png)
+![alt text](../jobsheet-02/my-app/public/image-28.png)
 
 
 Modifikasi _app.tsx 
 
-![alt text](image-26.png)
+![alt text](../jobsheet-02/my-app/public/image-26.png)
 <br>
 Tambahkan style di `globals.css` dan import navbar ke halaman.
 
 
-![alt text](image-27.png)<br>
+![alt text](../jobsheet-02/my-app/public/image-27.png)<br>
 
-![alt text](image-23.png)
+![alt text](../jobsheet-02/my-app/public/image-23.png)
 
 Jalankan di browser 
 
-![alt text](image-25.png)
-![alt text](image-29.png)
-![alt text](image-30.png)
+![alt text](../jobsheet-02/my-app/public/image-25.png)
+![alt text](../jobsheet-02/my-app/public/image-29.png)
+![alt text](../jobsheet-02/my-app/public/image-30.png)
 
 ------------------------------------------------------------------------
 
@@ -252,12 +255,12 @@ Buat komponen `AppShell` yang membungkus:
 -   `{children}` (konten dinamis)
 -   Footer
 
-![alt text](image-31.png)
+![alt text](../jobsheet-02/my-app/public/image-31.png)
 
 Modifikasi index.tsx pada AppShell
 <br>
 
-![alt text](image-32.png)
+![alt text](../jobsheet-02/my-app/public/image-32.png)
 
 ------------------------------------------------------------------------
 
@@ -265,10 +268,10 @@ Modifikasi index.tsx pada AppShell
 
 Modifikasi `_app.tsx` agar semua halaman dibungkus oleh `AppShell`.
 
-![alt text](image-33.png)
+![alt text](../jobsheet-02/my-app/public/image-33.png)
 
 
-![alt text](image-34.png)
+![alt text](../jobsheet-02/my-app/public/image-34.png)
 
 Hasil: 
 - Navbar muncul di semua halaman
@@ -288,20 +291,20 @@ Jawaban:
 - Kode:
   - \profile\index.tsx
  
-    ![alt text](image-37.png)
+    ![alt text](../jobsheet-02/my-app/public/image-37.png)
 
   - \profile\edit\index.tsx
     
-    ![alt text](image-35.png)
+    ![alt text](../jobsheet-02/my-app/public/image-35.png)
  
 - Struktur:
  
-  ![alt text](image-36.png)
+  ![alt text](../jobsheet-02/my-app/public/image-36.png)
 
 - Output:
 
-  ![alt text](image-38.png)
-  ![alt text](image-39.png)
+  ![alt text](../jobsheet-02/my-app/public/image-38.png)
+  ![alt text](../jobsheet-02/my-app/public/image-39.png)
 
 
 
@@ -316,20 +319,20 @@ Jawaban:
 - Kode:
   - \blog\index.tsx
 
-    ![alt text](image-40.png)
+    ![alt text](../jobsheet-02/my-app/public/image-40.png)
  
   - \blog/[slug].tsx
 
-    ![alt text](image-41.png)
+    ![alt text](../jobsheet-02/my-app/public/image-41.png)
  
 - Struktur:
 
-  ![alt text](image-42.png)
+  ![alt text](../jobsheet-02/my-app/public/image-42.png)
  
 - Output:
 
-  ![alt text](image-43.png)
-  ![alt text](image-44.png)
+  ![alt text](../jobsheet-02/my-app/public/image-43.png)
+  ![alt text](../jobsheet-02/my-app/public/image-44.png)
 
 
 ------------------------------------------------------------------------
@@ -343,25 +346,25 @@ Jawaban:
 - Kode:
   - \AppShell\index.tsx
 
-    ![alt text](image-45.png)
+    ![alt text](../jobsheet-02/my-app/public/image-45.png)
  
   - \footer\index.tsx
 
-    ![alt text](image-46.png)
+    ![alt text](../jobsheet-02/my-app/public/image-46.png)
  
   - \globals.css
 
-    ![alt text](image-47.png)
+    ![alt text](../jobsheet-02/my-app/public/image-47.png)
 
 
 - Struktur:
 
-  ![alt text](image-48.png)
+  ![alt text](../jobsheet-02/my-app/public/image-48.png)
  
 - Output:
 
-  ![alt text](image-49.png)
-  ![alt text](image-50.png)
+  ![alt text](../jobsheet-02/my-app/public/image-49.png)
+  ![alt text](../jobsheet-02/my-app/public/image-50.png)
 
 
 ------------------------------------------------------------------------

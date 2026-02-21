@@ -1,10 +1,18 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const HalamanLogin = () => {
+  const { push } = useRouter();
+
+  const handlerLogin = () => {
+    push("/produk");
+  };
+
   return (
     <div>
       <h1>Halaman Login</h1>
-      <Link href="/auth/register">Ke Halaman Register</Link>
+      <button onClick={() => handlerLogin()}>
+        Login
+      </button>
     </div>
   );
 };

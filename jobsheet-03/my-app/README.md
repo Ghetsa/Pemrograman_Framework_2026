@@ -295,7 +295,6 @@ const HalamanLogin = () => {
     </div>
   );
 };
-
 export default HalamanLogin;
 ```
 
@@ -304,7 +303,7 @@ Gunakan:
     onClick={() => handlerLogin()}
 
 Klik tombol dan perhatikan perpindahan halaman tanpa reload.
-
+![alt text](image-15.png)![alt text](image-13.png)
 ------------------------------------------------------------------------
 
 ## Langkah 8 -- Simulasi Redirect (Belum Login)

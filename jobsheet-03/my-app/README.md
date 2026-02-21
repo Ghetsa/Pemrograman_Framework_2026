@@ -224,6 +224,7 @@ Tambahkan validasi agar tidak error saat slug kosong:
 
 Output: <br>
 ![alt text](image-10.png) ![alt text](image-11.png) ![alt text](image-12.png)
+
 ------------------------------------------------------------------------
 
 ## Langkah 6 -- Membuat Halaman Login & Register
@@ -232,12 +233,12 @@ Output: <br>
 
     pages/
      └── auth/
-         ├── login.jsx
-         └── register.jsx
+         ├── login.tsx
+         └── register.tsx
 
-### login.jsx
+### login.tsx
 
-``` jsx
+``` tsx
 import Link from "next/link";
 
 const HalamanLogin = () => {
@@ -252,9 +253,9 @@ const HalamanLogin = () => {
 export default HalamanLogin;
 ```
 
-### register.jsx
+### register.tsx
 
-``` jsx
+``` tsx
 import Link from "next/link";
 
 const HalamanRegister = () => {
@@ -275,7 +276,7 @@ export default HalamanRegister;
 
 Tambahkan button login:
 
-``` jsx
+``` tsx
 import { useRouter } from "next/router";
 
 const HalamanLogin = () => {

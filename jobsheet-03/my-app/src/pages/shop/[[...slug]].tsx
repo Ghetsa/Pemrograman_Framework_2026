@@ -11,6 +11,9 @@ const halamanToko = () => {
       <p>
         Toko: {Array.isArray(query.slug) ? query.slug.join("-") : query.slug}
       </p>
+      <p>
+        Kategori: {query.slug ? query.slug[0] : "Semua Kategori"}
+      </p>
     </div>
   );
 };

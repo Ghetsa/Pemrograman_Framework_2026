@@ -412,6 +412,61 @@ Buat navigasi:
 
 Terapkan redirect otomatis ke login jika user belum login.
 
+### Jawaban:
+#### 1. Kode
+produk/index.tsx
+```tsx
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const Produk = () => {
+  const [isChecking, setIsChecking] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const { push } = useRouter();
+  useEffect(() => {
+    const status = localStorage.getItem("isLogin");
+
+    if (status === "true") {
+      setIsLogin(true);
+      setIsChecking(false);
+    } else {
+      push("/auth/login");
+      setIsChecking(false);
+    }
+  }, []);
+
+  if (isChecking) {
+    return <div>Loading...</div>;
+  }
+  if (!isLogin) {
+    return null;
+  }
+  return <div>Produk User Page</div>;
+
+};
+
+export default Produk;
+```
+
+Pengecekan di login.tsx
+
+```tsx
+  ...
+  const handlerLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple validation
+    if (email && password) {
+      localStorage.setItem("isLogin", "true");
+      push("/produk");
+    }
+  };
+  ...
+```
+#### 2. Output
+- Jika user belum login akan terlempar balik ke login <br>
+  ![alt text](image-20.png)
+- Jika sudah login akan secara langsung mengarahkan ke halaman produk <br>
+  ![alt text](image-21.png)
 ------------------------------------------------------------------------
 
 # F. Pertanyaan Evaluasi

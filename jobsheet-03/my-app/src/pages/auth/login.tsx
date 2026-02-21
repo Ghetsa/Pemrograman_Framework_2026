@@ -11,6 +11,7 @@ const HalamanLogin = () => {
     e.preventDefault();
     // Simple validation
     if (email && password) {
+      localStorage.setItem("isLogin", "true");
       push("/produk");
     }
   };

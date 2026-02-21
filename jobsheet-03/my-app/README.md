@@ -21,24 +21,69 @@
 
 # A. Tujuan Praktikum
 
--   Membuat catch-all route untuk menangkap banyak segmen URL
--   Menggunakan optional catch-all route agar halaman tetap dapat
-    diakses tanpa parameter
--   Mengambil parameter URL berbentuk array menggunakan `useRouter`
--   Menerapkan navigasi antar halaman menggunakan `Link`
--   Melakukan navigasi imperatif menggunakan `router.push()`
--   Mengimplementasikan redirect sederhana berbasis kondisi (simulasi
-    login)
+Setelah menyelesaikan praktikum ini, mahasiswa mampu:
+
+1.  Membuat catch-all route untuk menangkap banyak segmen URL.
+2.  Menggunakan optional catch-all route agar halaman tetap dapat
+    diakses tanpa parameter.
+3.  Mengambil parameter URL berbentuk array menggunakan useRouter.
+4.  Menerapkan navigasi antar halaman menggunakan Link.
+5.  Melakukan navigasi imperatif menggunakan router.push().
+6.  Mengimplementasikan redirect sederhana berbasis kondisi (simulasi
+    login).
 
 ------------------------------------------------------------------------
 
-# B. Tools & Persiapan
+# B. Dasar Teori Singkat
+
+## 1. Segment & Slug pada URL
+
+URL dapat terdiri dari beberapa segmen, contoh:
+
+    /product/clothes/tops/t-shirt
+
+Setiap bagian dipisahkan oleh `/` dan disebut segmen.
+
+## 2. Catch-All Route
+
+Next.js memungkinkan menangkap semua segmen URL menggunakan:
+
+    [...slug].js
+
+Hasil parameter akan berbentuk array.
+
+## 3. Optional Catch-All Route
+
+Agar halaman tetap bisa diakses meskipun tanpa parameter:
+
+    [[...slug]].js
+
+## 4. Navigasi di Next.js
+
+-   Deklaratif: `Link` dari `next/link`
+-   Imperatif: `router.push()` dari `next/router`
+
+------------------------------------------------------------------------
+
+# C. Alat dan Bahan
+
+## Perangkat Lunak
 
 -   Node.js (LTS)
 -   NPM
 -   Visual Studio Code
 -   Browser (Chrome / Firefox)
+
+## Prasyarat
+
 -   Project Next.js Pages Router sudah tersedia
+-   Server dapat dijalankan (`npm run dev`)
+
+------------------------------------------------------------------------
+
+# D. Langkah Kerja Praktikum
+
+## Langkah 1 -- Menjalankan Project
 
 ``` bash
 npm run dev
@@ -50,29 +95,7 @@ Akses:
 
 ------------------------------------------------------------------------
 
-# C. Dasar Konsep (Ringkas)
-
--   `[...slug].tsx` → Catch-All Route
--   `[[...slug]].tsx` → Optional Catch-All Route
--   `useRouter()` → Mengambil parameter URL
--   `Link` → Navigasi deklaratif
--   `router.push()` → Navigasi imperatif
--   Redirect dapat dilakukan menggunakan `router.push()` di dalam
-    `useEffect`
-
-------------------------------------------------------------------------
-
-# D. Langkah Kerja Praktikum
-  
-## 1️⃣ Menjalankan Project
-
-``` bash
-npm run dev
-```
-
-------------------------------------------------------------------------
-
-## 2️⃣ Membuat Catch-All Route
+## Langkah 2 -- Membuat Catch-All Route
 
 ### Struktur Folder
 
@@ -80,106 +103,153 @@ npm run dev
      └── shop/
          └── [...slug].tsx
 
-### Kode Awal `[...slug].tsx`
+### Kode Awal
 
 ``` tsx
 import { useRouter } from "next/router";
 
-export default function Shop() {
+const HalamanToko = () => {
   const router = useRouter();
-  const { slug } = router.query;
-
-  console.log("Slug:", slug);
+  console.log(router);
 
   return (
     <div>
-      <h1>Halaman Shop</h1>
-      <p>Slug: {JSON.stringify(slug)}</p>
+      <h1>Halaman Toko</h1>
     </div>
   );
-}
+};
+
+export default HalamanToko;
 ```
 
-### Contoh URL
+<br>
 
--   /shop/clothes
--   /shop/clothes/tops
--   /shop/clothes/tops/t-shirt
+#### Output awal:
 
-------------------------------------------------------------------------
+![alt text](image.png)
 
-## 3️⃣ Perbaikan Agar Semua Segmen Terbaca
+Cek menggunakan `console.log` apakah nilai segment berhasil didapat.
+
+### Modifikasi untuk menampilkan query
 
 ``` tsx
 import { useRouter } from "next/router";
 
-export default function Shop() {
-  const router = useRouter();
-  const { slug } = router.query;
-
+const halamanToko = () => {
+  const { query } = useRouter();
   return (
     <div>
-      <h1>Halaman Shop</h1>
-
-      {slug && Array.isArray(slug) && (
-        <ul>
-          {slug.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      )}
+      <h1>Halaman Toko</h1>
+      <p>Toko: {`${query.slug && query.slug[0]+"-"+ query.slug[1]}`}</p>  
     </div>
   );
-}
+};
+
+export default halamanToko;
+
 ```
+#### Output setelah:
+
+![alt text](image-1.png)
 
 ------------------------------------------------------------------------
 
-## 4️⃣ Optional Catch-All Route
+## Langkah 3 -- Pengujian Catch-All Route
 
-Rename:
+Akses URL berikut:
 
-    [...slug].tsx → [[...slug]].tsx
+- /shop/clothes <br>
+![alt text](image-2.png)
 
-Akses:
+- /shop/clothes/tops  <br>
+![alt text](image-3.png)
+
+- /shop/clothes/tops/t-shirt  <br>
+![alt text](image-4.png)
+
+Perhatikan bahwa:
+
+-   `slug` berbentuk array
+-   Isi halaman berubah sesuai URL
+
+Jika hanya membaca `array[0]` dan `array[1]`, maka segmen lebih dari dua
+akan `undefined`.
+
+Solusi:
+
+Gunakan:
+
+``` tsx
+Array.isArray(query.slug) ? query.slug.join("-") : query.slug
+```
+
+Sekarang berapapun banyaknya segmen tetap terbaca. <br>
+![alt text](image-5.png)
+
+------------------------------------------------------------------------
+
+## Langkah 4 -- Optional Catch-All Route
+
+Jika menggunakan:
+
+    [...slug].js
+
+Maka saat mengakses:
 
     /shop
 
+Akan terjadi error. <br>
+![alt text](image-6.png)
+
+### Solusi
+
+Rename file:
+
+    [...slug].js → [[...slug]].js
+
+![alt text](image-9.png) <br>
+Sekarang halaman dapat diakses meskipun tanpa parameter.<br>
+![alt text](image-8.png)
 ------------------------------------------------------------------------
 
-## 5️⃣ Validasi Parameter
+## Langkah 5 -- Validasi Parameter
+
+Tambahkan validasi agar tidak error saat slug kosong:
 
 ``` tsx
 <p>
-  Kategori: {slug ? slug[0] : "Semua Kategori"}
+  Kategori: {query.slug ? query.slug[0] : "Semua Kategori"}
 </p>
 ```
 
+Output: <br>
+![alt text](image-10.png)
 ------------------------------------------------------------------------
 
-## 6️⃣ Halaman Login & Register
+## Langkah 6 -- Membuat Halaman Login & Register
+
+### Struktur
+
+    pages/
+     └── auth/
+         ├── login.jsx
+         └── register.jsx
 
 ### login.jsx
 
 ``` jsx
-import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function Login() {
-  const router = useRouter();
-
-  const handlerLogin = () => {
-    router.push("/product");
-  };
-
+const HalamanLogin = () => {
   return (
     <div>
-      <h1>Login Page</h1>
-      <button onClick={() => handlerLogin()}>
-        Login
-      </button>
+      <h1>Halaman Login</h1>
+      <Link href="/auth/register">Ke Halaman Register</Link>
     </div>
   );
-}
+};
+
+export default HalamanLogin;
 ```
 
 ### register.jsx
@@ -187,41 +257,107 @@ export default function Login() {
 ``` jsx
 import Link from "next/link";
 
-export default function Register() {
+const HalamanRegister = () => {
   return (
     <div>
-      <h1>Register Page</h1>
-      <Link href="/auth/login">Kembali ke Login</Link>
+      <h1>Halaman Register</h1>
+      <Link href="/auth/login">Ke Halaman Login</Link>
     </div>
   );
-}
+};
+
+export default HalamanRegister;
 ```
 
 ------------------------------------------------------------------------
 
-## 7️⃣ Simulasi Redirect
+## Langkah 7 -- Navigasi Imperatif (router.push)
+
+Tambahkan button login:
+
+``` jsx
+import { useRouter } from "next/router";
+
+const HalamanLogin = () => {
+  const { push } = useRouter();
+
+  const handlerLogin = () => {
+    push("/produk");
+  };
+
+  return (
+    <div>
+      <h1>Halaman Login</h1>
+      <button onClick={() => handlerLogin()}>
+        Login
+      </button>
+    </div>
+  );
+};
+
+export default HalamanLogin;
+```
+
+Gunakan:
+
+    onClick={() => handlerLogin()}
+
+Klik tombol dan perhatikan perpindahan halaman tanpa reload.
+
+------------------------------------------------------------------------
+
+## Langkah 8 -- Simulasi Redirect (Belum Login)
+
+### pages/produk/index.tsx
 
 ``` tsx
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Product() {
-  const router = useRouter();
-  const isLogin = false;
+const Produk = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const { push } = useRouter();
 
   useEffect(() => {
     if (!isLogin) {
-      router.push("/auth/login");
+      push("/auth/login");
     }
   }, []);
 
-  return <h1>Product Page</h1>;
-}
+  return <div>Produk User Page</div>;
+};
+
+export default Produk;
 ```
+
+Jika akses `/produk` → otomatis diarahkan ke login.
 
 ------------------------------------------------------------------------
 
-# E. Pertanyaan Evaluasi
+# E. Tugas Praktikum
+
+## Tugas 1 (Wajib)
+
+Buat catch-all route:
+
+    /category/[...slug].js
+
+Tampilkan seluruh parameter URL dalam bentuk list.
+
+## Tugas 2 (Wajib)
+
+Buat navigasi:
+
+-   Login → Product (imperatif)
+-   Login ↔ Register (Link)
+
+## Tugas 3 (Pengayaan)
+
+Terapkan redirect otomatis ke login jika user belum login.
+
+------------------------------------------------------------------------
+
+# F. Pertanyaan Evaluasi
 
 ### 1. Apa perbedaan `[id].js` dan `[...slug].js`?
 
@@ -243,11 +379,12 @@ Karena menggunakan client-side navigation (SPA behavior).
 
 ------------------------------------------------------------------------
 
-# F. Kesimpulan
+# G. Kesimpulan
 
 Praktikum ini membahas implementasi Catch-All Routing, Optional
 Catch-All, serta navigasi deklaratif dan imperatif pada Next.js Pages
 Router.
 
-Mahasiswa memahami cara menangkap banyak segmen URL, melakukan redirect
-berbasis kondisi, dan membangun sistem navigasi tanpa reload halaman.
+Mahasiswa memahami cara menangkap banyak segmen URL dalam bentuk array,
+mengimplementasikan navigasi tanpa reload halaman, serta membuat
+simulasi redirect berbasis kondisi login.

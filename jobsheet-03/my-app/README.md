@@ -344,12 +344,69 @@ Buat catch-all route:
 
 Tampilkan seluruh parameter URL dalam bentuk list.
 
+### Jawaban:
+#### 1. Kode
+
+```tsx
+import { useRouter } from "next/router";
+
+const halamanKategori = () => {
+  const router = useRouter();
+
+  if (!router.isReady) return <p>Loading...</p>;
+
+  const { slug } = router.query;
+
+  return (
+    <div>
+      <h1>Halaman Kategori</h1>
+
+      <p>
+        Nilai slug: {Array.isArray(slug) ? slug.join("-") : slug}
+      </p>
+      <br />
+      <h3>List Kategori</h3>
+      {Array.isArray(slug) && (
+        <ol style={{ listStyleType: "decimal", paddingLeft: "20px" }}>
+          {slug.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ol>
+      )}
+    </div>
+  );
+}
+
+export default halamanKategori;
+```
+
+#### 2. Struktur
+
+    pages/
+     └── category/
+         └── [[...slug]].tsx
+
+#### 3. Output
+
+![alt text](image-16.png)
+
 ## Tugas 2 (Wajib)
 
 Buat navigasi:
 
 -   Login → Product (imperatif)
 -   Login ↔ Register (Link)
+
+
+### Jawaban: 
+- Link Daftar telah berhasil mengarahkan ke halaman Register
+- Berhasil melakukan pengecekan sederhana untuk login dan register (belum terhubung ke database). Hanya mengecek telah diisi atau belum.
+- Ketika email dan password diisi dan menekan login, akan mengarahkan ke halaman produk.
+- Jika di refresh halaman akan tetap dan dianggap tetap login.
+
+#### Output
+
+![alt text](image-17.png) ![alt text](image-18.png) ![alt text](image-19.png)
 
 ## Tugas 3 (Pengayaan)
 

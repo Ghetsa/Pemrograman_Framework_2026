@@ -3,23 +3,16 @@
 ```{=html}
 <p align="center">
 ```
-`<img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" width="400"/>`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge"/>`{=html}
-`<img src="https://img.shields.io/badge/Subject-Pemrograman%20Berbasis%20Framework-blue?style=for-the-badge"/>`{=html}
-`<img src="https://img.shields.io/badge/Semester-2026-orange?style=for-the-badge"/>`{=html}
+`<img src="https://img.shields.io/badge/Status-Aktif-success?style=for-the-badge">`{=html}
+`<img src="https://img.shields.io/badge/Mata%20Kuliah-Pemrograman%20Berbasis%20Framework-blue?style=for-the-badge">`{=html}
+`<img src="https://img.shields.io/badge/Kelas-TI--3D-orange?style=for-the-badge">`{=html}
 ```{=html}
 </p>
 ```
 
 ------------------------------------------------------------------------
 
-## 👤 Profil Mahasiswa
+## 👤 Identitas Mahasiswa
 
   Keterangan      Detail
   --------------- ---------------------------
@@ -33,14 +26,10 @@
 ## 📚 Deskripsi Repository
 
 Repository ini digunakan untuk mengumpulkan seluruh tugas **Jobsheet**
-pada mata kuliah\
-**Pemrograman Berbasis Framework**.
+pada mata kuliah **Pemrograman Berbasis Framework**.
 
-Setiap folder berisi hasil praktikum sesuai dengan materi yang diberikan
-selama perkuliahan.
-
-🔗 Repository GitHub:\
-https://github.com/Ghetsa/Pemrograman_Framework_2026
+Repository ini berisi hasil praktikum, latihan, serta implementasi
+konsep framework yang dipelajari selama perkuliahan.
 
 ------------------------------------------------------------------------
 
@@ -48,61 +37,78 @@ https://github.com/Ghetsa/Pemrograman_Framework_2026
 
     Pemrograman_Framework_2026/
     │
-    ├── Jobsheet-1/
-    ├── Jobsheet-2/
-    ├── Jobsheet-3/
-    ├── Jobsheet-4/
-    ├── Jobsheet-5/
+    ├── Jobsheet-01/
+    ├── Jobsheet-02/
+    ├── Jobsheet-03/
+    ├── ...
     └── README.md
 
-> Struktur folder akan terus diperbarui sesuai dengan jobsheet yang
-> diberikan.
-
-------------------------------------------------------------------------
-
-## 🛠️ Teknologi yang Digunakan
-
--   🌐 HTML\
--   🎨 CSS\
--   ⚡ JavaScript\
--   🧩 Framework (sesuai materi perkuliahan)\
--   🔧 Git & GitHub
+> Struktur folder akan terus diperbarui sesuai dengan jumlah jobsheet
+> yang diberikan.
 
 ------------------------------------------------------------------------
 
 ## 🎯 Tujuan Pembuatan Repository
 
-✅ Mengumpulkan tugas praktikum\
-✅ Mendokumentasikan proses pembelajaran\
-✅ Melatih version control menggunakan Git\
-✅ Membangun portofolio akademik
+-   ✅ Mengumpulkan tugas jobsheet
+-   ✅ Mendokumentasikan proses pembelajaran
+-   ✅ Melatih penggunaan Git & GitHub
+-   ✅ Membangun portofolio akademik
 
 ------------------------------------------------------------------------
 
-## ✨ Preview Coding Mode
+## 🛠️ Teknologi yang Digunakan
+
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+🔽 Klik untuk melihat teknologi
+```{=html}
+</summary>
+```
+-   HTML\
+-   CSS\
+-   JavaScript\
+-   Framework (menyesuaikan materi perkuliahan)\
+-   Git & GitHub
+
+```{=html}
+</details>
+```
+
+------------------------------------------------------------------------
+
+## 📈 Progress Jobsheet
+
+  Jobsheet     Status
+  ------------ ----------------
+  Jobsheet 1   ✅ Selesai
+  Jobsheet 2   ⏳ Proses
+  Jobsheet 3   🔜 Akan Datang
+
+------------------------------------------------------------------------
+
+## 🌟 Highlight
+
+> Repository ini dibuat sebagai bagian dari dokumentasi akademik dan
+> pengembangan keterampilan dalam pemrograman berbasis framework.
+
+------------------------------------------------------------------------
+
+## 🔗 Link Repository
+
+👉 https://github.com/Ghetsa/Pemrograman_Framework_2026
+
+------------------------------------------------------------------------
 
 ```{=html}
 <p align="center">
 ```
-`<img src="https://media.giphy.com/media/f3iwJFOVOwuy7K6FFw/giphy.gif" width="400"/>`{=html}
-```{=html}
-</p>
-```
-
-------------------------------------------------------------------------
-
-## 📌 Catatan
-
-Repository ini dibuat untuk keperluan akademik dan dokumentasi
-pembelajaran\
-pada mata kuliah **Pemrograman Berbasis Framework** tahun 2026.
-
-------------------------------------------------------------------------
-
-```{=html}
-<p align="center">
-```
-⭐ Jangan lupa beri star jika repository ini bermanfaat ⭐
+💡 `<i>`{=html}"Learning by Doing is the Best Way to Master
+Programming."`</i>`{=html}
 ```{=html}
 </p>
 ```

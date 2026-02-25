@@ -32,6 +32,7 @@ konsep framework yang dipelajari selama perkuliahan.
     ├── Jobsheet-02/
     ├── Jobsheet-03/
     ├── ...
+    ├── laporan-jobsheet
     └── README.md
 
 > Struktur folder akan terus diperbarui sesuai dengan jumlah jobsheet

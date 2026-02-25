@@ -84,11 +84,6 @@ konsep framework yang dipelajari selama perkuliahan.
 
 ------------------------------------------------------------------------
 
-```{=html}
 <p align="center">
-```
-💡 `<i>`{=html}"Learning by Doing is the Best Way to Master
-Programming."`</i>`{=html}
-```{=html}
+💡 *"Learning by Doing is the Best Way to Master Programming."*
 </p>
-```

@@ -60,11 +60,14 @@ konsep framework yang dipelajari selama perkuliahan.
 
 ## 📈 Progress Jobsheet
 
-  Jobsheet     Status
-  ------------ ----------------
-  Jobsheet 1   ✅ Selesai
-  Jobsheet 2   ⏳ Proses
-  Jobsheet 3   🔜 Akan Datang
+| Jobsheet   | Status        |
+|------------|--------------|
+| Jobsheet 1 | ✅ Selesai    |
+| Jobsheet 2 | ✅ Selesai     |
+| Jobsheet 3 | ✅ Selesai |
+| Jobsheet 4 | 🔜 Akan Datang   |
+<!-- | Jobsheet 5 | ⏳ Proses |
+| Jobsheet 5 | 🔜 Akan Datang | -->
 
 ------------------------------------------------------------------------
 

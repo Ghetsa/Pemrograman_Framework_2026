@@ -10,10 +10,9 @@
 
   Keterangan      Detail
   --------------- ---------------------------
-  **Nama**        GHETSA RAMADHANI RISKA A.
-  **NIM**         2341720004
-  **Kelas**       TI-3D
-  **No. Absen**   11
+  **Nama**        GHETSA RAMADHANI RISKA A. <br>
+  **Kelas**       TI-3D <br>
+  **No. Absen**   11 
 
 ------------------------------------------------------------------------
 

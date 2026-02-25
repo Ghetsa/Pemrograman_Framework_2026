@@ -8,8 +8,6 @@
 
 ## 👤 Identitas Mahasiswa
 
-  Keterangan      Detail
-  --------------- ---------------------------
   **Nama**        GHETSA RAMADHANI RISKA A. <br>
   **Kelas**       TI-3D <br>
   **No. Absen**   11 

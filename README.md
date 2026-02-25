@@ -1,14 +1,8 @@
 # 🚀 Pemrograman Berbasis Framework 2026
 
-```{=html}
-<p align="center">
-```
-`<img src="https://img.shields.io/badge/Status-Aktif-success?style=for-the-badge">`{=html}
-`<img src="https://img.shields.io/badge/Mata%20Kuliah-Pemrograman%20Berbasis%20Framework-blue?style=for-the-badge">`{=html}
-`<img src="https://img.shields.io/badge/Kelas-TI--3D-orange?style=for-the-badge">`{=html}
-```{=html}
-</p>
-```
+![Status](https://img.shields.io/badge/Status-Aktif-success?style=for-the-badge)
+![Mata Kuliah](https://img.shields.io/badge/Mata%20Kuliah-Pemrograman%20Berbasis%20Framework-blue?style=for-the-badge)
+![Kelas](https://img.shields.io/badge/Kelas-TI--3D-orange?style=for-the-badge)
 
 ------------------------------------------------------------------------
 

@@ -137,6 +137,8 @@ export default function Document() {
 }
 ```
 
+![alt text](image.png)
+
 ### Verifikasi
 
 * Buka Inspect Element

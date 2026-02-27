@@ -579,10 +579,26 @@ JAWABAN:
 
 # F. Pertanyaan Refleksi
 
-1. CSS Module digunakan saat styling spesifik komponen dan menghindari konflik class.
-2. Inline styling sulit di-maintain untuk project besar.
-3. SCSS cocok untuk project besar karena mendukung variable & nested rule.
-4. Tailwind lebih cepat dan konsisten dibanding CSS tradisional.
+### 1. CSS Module digunakan saat styling spesifik komponen dan menghindari konflik class.
+
+JAWABAN:
+CSS Module digunakan ketika styling hanya berlaku untuk satu komponen tertentu dan ingin menghindari konflik antar class. Karena bersifat lokal (scoped), CSS Module lebih aman dan cocok untuk komponen yang reusable. Sementara Global CSS lebih tepat untuk styling umum seperti reset, font dasar, atau layout global.
+
+### 2. Inline styling sulit di-maintain untuk project besar.
+
+JAWABAN:
+Inline styling kurang cocok untuk project besar karena sulit dikelola dan tidak mendukung fitur seperti pseudo-class (:hover, :focus) maupun media query. Selain itu, styling yang bercampur dengan logic membuat kode menjadi kurang rapi dan sulit dikembangkan.
+
+### 3. SCSS cocok untuk project besar karena mendukung variable & nested rule.
+
+JAWABAN:
+SCSS mendukung penggunaan variable dan nested rule, sehingga struktur styling lebih terorganisir dan mudah dirawat. Dengan adanya variable, perubahan desain seperti warna atau ukuran dapat dilakukan di satu tempat tanpa mengubah banyak file.
+
+### 4. Tailwind lebih cepat dan konsisten dibanding CSS tradisional.
+
+JAWABAN:
+Tailwind mempercepat proses development karena menggunakan utility class yang siap pakai. Styling menjadi lebih konsisten dan tidak perlu membuat banyak file CSS terpisah. Hal ini membuat pengerjaan tampilan menjadi lebih efisien dan terstruktur.
+
 
 ---
 

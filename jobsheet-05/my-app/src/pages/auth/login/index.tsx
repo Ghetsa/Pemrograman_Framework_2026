@@ -20,12 +20,8 @@ const HalamanLogin = () => {
 
   return (
     <div className={styles.container}>
-      <h1 style={{
-        color: "red",
-        borderRadius: "10px",
-        padding: "10px",
-        textAlign: "center",
-      }}>Halaman Login</h1>
+      <h1 className="text-3xl font-bold text-blue-600 
+      text-center">Halaman Login</h1>
 
       <form onSubmit={handlerLogin} className={styles.form}>
         <div className={styles.formGroup}>

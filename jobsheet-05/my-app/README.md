@@ -454,11 +454,11 @@ Output: <br>
 ### a. Install
 
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@3 postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-Jika error → downgrade versi Tailwind.
+![alt text](image-17.png)
 
 ---
 
@@ -474,6 +474,8 @@ content: [
 ],
 ```
 
+![alt text](image-18.png)
+
 ---
 
 ### c. Import di Global CSS
@@ -483,6 +485,9 @@ content: [
 @tailwind components;
 @tailwind utilities;
 ```
+
+![alt text](image-19.png)
+
 
 ---
 
@@ -495,10 +500,17 @@ views/auth/Login/index.tsx
 ```
 
 ```tsx
-<h1 className="text-3xl font-bold text-blue-600">
+<h1 className="text-3xl font-bold text-blue-600 text-center">
   Halaman Login
 </h1>
 ```
+
+Kode: <br>
+![alt text](image-20.png)
+
+Output: <br>
+![alt text](image-21.png)
+
 
 ---
 

@@ -393,6 +393,11 @@ import Link from "next/link";
 
 Gunakan navigasi Next.js (`Link`).
 
+
+JAWABAN:
+### Output
+![alt text](image-8.png)
+
 ---
 
 # F. Pertanyaan Evaluasi

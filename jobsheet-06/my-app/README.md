@@ -344,6 +344,8 @@ const Custom404 = () => {
 
 Refresh browser dan gambar akan tampil.
 
+![alt text](image-5.png)
+
 ---
 
 # E. Tugas Praktikum

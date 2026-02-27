@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
-import styles from "./login.module.css";
+// import styles from "./login.module.css";
+import styles from "./login.module.scss";
 
 const HalamanLogin = () => {
   const { push } = useRouter();

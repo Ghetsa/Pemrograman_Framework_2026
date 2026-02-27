@@ -381,8 +381,10 @@ Kesimpulan:
 npm install --save-dev sass
 ```
 
-Cek pada `package.json`.
+![alt text](image-13.png)
 
+Cek pada `package.json`. <br>
+![alt text](image-14.png)
 ---
 
 ### b. Tambahkan colors.scss
@@ -431,6 +433,13 @@ Isi file SCSS:
   background-color: map-get($map: $schema, $key: color-secondary);
 }
 ```
+
+Kode:<br>
+![alt text](image-16.png)
+
+Output: <br>
+![alt text](image-15.png)
+
 
 ### Keunggulan SCSS
 

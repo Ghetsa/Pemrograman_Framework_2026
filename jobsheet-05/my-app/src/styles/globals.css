@@ -19,9 +19,4 @@ a {
   font-size: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} 
 

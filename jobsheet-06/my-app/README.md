@@ -137,7 +137,7 @@ export default function Document() {
 }
 ```
 
-![alt text](image.png)
+![alt text](public/img/js06/image.png)
 
 ### Verifikasi
 
@@ -172,7 +172,7 @@ export default function Home() {
 }
 ```
 
-![alt text](image-1.png)
+![alt text](public/img/js06/image-1.png)
 
 Refresh halaman dan perhatikan judul tab browser berubah.
 
@@ -212,7 +212,7 @@ http://localhost:3000/dashboard
 Halaman 404 akan tampil otomatis.
 
 
-![alt text](image-2.png)
+![alt text](public/img/js06/image-2.png)
 
 ---
 
@@ -292,7 +292,7 @@ Sehingga:
 
 Sekarang halaman 404 tidak menampilkan Navbar.
 
-![alt text](image-4.png)
+![alt text](public/img/js06/image-4.png)
 
 ---
 
@@ -344,7 +344,7 @@ const Custom404 = () => {
 
 Refresh browser dan gambar akan tampil.
 
-![alt text](image-5.png)
+![alt text](public/img/js06/image-5.png)
 
 ---
 
@@ -361,7 +361,7 @@ Tambahkan pada halaman 404:
 
 JAWABAN:
 ### Output
-![alt text](image-6.png)
+![alt text](public/img/js06/image-6.png)
 
 
 ---
@@ -374,7 +374,7 @@ JAWABAN:
 
 JAWABAN:
 ### Output
-![alt text](image-7.png)
+![alt text](public/img/js06/image-7.png)
 
 
 ---
@@ -396,7 +396,7 @@ Gunakan navigasi Next.js (`Link`).
 
 JAWABAN:
 ### Output
-![alt text](image-8.png)
+![alt text](public/img/js06/image-8.png)
 
 ---
 

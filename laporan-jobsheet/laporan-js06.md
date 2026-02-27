@@ -137,6 +137,8 @@ export default function Document() {
 }
 ```
 
+![alt text](../jobsheet-06/my-app/public/img/js06/image.png)
+
 ### Verifikasi
 
 * Buka Inspect Element
@@ -169,6 +171,8 @@ export default function Home() {
   );
 }
 ```
+
+![alt text](../jobsheet-06/my-app/public/img/js06/image-1.png)
 
 Refresh halaman dan perhatikan judul tab browser berubah.
 
@@ -206,6 +210,9 @@ http://localhost:3000/dashboard
 ```
 
 Halaman 404 akan tampil otomatis.
+
+
+![alt text](../jobsheet-06/my-app/public/img/js06/image-2.png)
 
 ---
 
@@ -257,6 +264,8 @@ const Custom404 = () => {
 };
 ```
 
+![Styling Halaman 404](image-3.png)
+
 ---
 
 ### Handling Navbar di Halaman 404
@@ -282,6 +291,8 @@ Sehingga:
 ```
 
 Sekarang halaman 404 tidak menampilkan Navbar.
+
+![alt text](../jobsheet-06/my-app/public/img/js06/image-4.png)
 
 ---
 
@@ -333,6 +344,8 @@ const Custom404 = () => {
 
 Refresh browser dan gambar akan tampil.
 
+![alt text](../jobsheet-06/my-app/public/img/js06/image-5.png)
+
 ---
 
 # E. Tugas Praktikum
@@ -345,12 +358,24 @@ Tambahkan pada halaman 404:
 * Deskripsi singkat
 * Gambar ilustrasi
 
+
+JAWABAN:
+### Output
+![alt text](../jobsheet-06/my-app/public/img/js06/image-6.png)
+
+
 ---
 
 ## Tugas 2 (Wajib)
 
 * Custom warna, font, dan layout halaman 404
 * Navbar tidak tampil di halaman 404
+
+
+JAWABAN:
+### Output
+![alt text](../jobsheet-06/my-app/public/img/js06/image-7.png)
+
 
 ---
 
@@ -367,6 +392,11 @@ import Link from "next/link";
 ```
 
 Gunakan navigasi Next.js (`Link`).
+
+
+JAWABAN:
+### Output
+![alt text](../jobsheet-06/my-app/public/img/js06/image-8.png)
 
 ---
 

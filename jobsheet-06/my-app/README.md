@@ -264,6 +264,8 @@ const Custom404 = () => {
 };
 ```
 
+![Styling Halaman 404](image-3.png)
+
 ---
 
 ### Handling Navbar di Halaman 404

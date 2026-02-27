@@ -7,7 +7,7 @@ $bg: map-get($schema, color-background);
 $text: map-get($schema, color-text);
 
 .page {
-  // min-height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   background: $bg;
   color: $text;
@@ -59,6 +59,7 @@ $text: map-get($schema, color-text);
 
 .card {
   padding: 14px;
+  margin: 14px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.10);

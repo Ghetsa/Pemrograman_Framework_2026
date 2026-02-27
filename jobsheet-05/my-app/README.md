@@ -126,7 +126,7 @@ export default HalamanToko;
 
 #### Output awal:
 
-![alt text](image.png)
+![alt text](public/img/js04/image.png)
 
 Cek menggunakan `console.log` apakah nilai segment berhasil didapat.
 
@@ -150,7 +150,7 @@ export default halamanToko;
 ```
 #### Output setelah:
 
-![alt text](image-1.png)
+![alt text](public/img/js04/image-1.png)
 
 ------------------------------------------------------------------------
 
@@ -159,13 +159,13 @@ export default halamanToko;
 Akses URL berikut:
 
 - /shop/clothes <br>
-![alt text](image-2.png)
+![alt text](public/img/js04/image-2.png)
 
 - /shop/clothes/tops  <br>
-![alt text](image-3.png)
+![alt text](public/img/js04/image-3.png)
 
 - /shop/clothes/tops/t-shirt  <br>
-![alt text](image-4.png)
+![alt text](public/img/js04/image-4.png)
 
 Perhatikan bahwa:
 
@@ -184,7 +184,7 @@ Array.isArray(query.slug) ? query.slug.join("-") : query.slug
 ```
 
 Sekarang berapapun banyaknya segmen tetap terbaca. <br>
-![alt text](image-5.png)
+![alt text](public/img/js04/image-5.png)
 
 ------------------------------------------------------------------------
 
@@ -199,7 +199,7 @@ Maka saat mengakses:
     /shop
 
 Akan terjadi error. <br>
-![alt text](image-6.png)
+![alt text](public/img/js04/image-6.png)
 
 ### Solusi
 
@@ -207,9 +207,9 @@ Rename file:
 
     [...slug].js → [[...slug]].js
 
-![alt text](image-9.png) <br>
+![alt text](public/img/js04/image-9.png) <br>
 Sekarang halaman dapat diakses meskipun tanpa parameter.<br>
-![alt text](image-8.png)
+![alt text](public/img/js04/image-8.png)
 ------------------------------------------------------------------------
 
 ## Langkah 5 -- Validasi Parameter
@@ -223,7 +223,7 @@ Tambahkan validasi agar tidak error saat slug kosong:
 ```
 
 Output: <br>
-![alt text](image-10.png) ![alt text](image-11.png) ![alt text](image-12.png)
+![alt text](public/img/js04/image-10.png) ![alt text](public/img/js04/image-11.png) ![alt text](public/img/js04/image-12.png)
 
 ------------------------------------------------------------------------
 
@@ -303,7 +303,7 @@ Gunakan:
     onClick={() => handlerLogin()}
 
 Klik tombol dan perhatikan perpindahan halaman tanpa reload.
-![alt text](image-15.png)![alt text](image-13.png)
+![alt text](public/img/js04/image-15.png)![alt text](public/img/js04/image-13.png)
 ------------------------------------------------------------------------
 
 ## Langkah 8 -- Simulasi Redirect (Belum Login)
@@ -388,7 +388,7 @@ export default halamanKategori;
 
 #### 3. Output
 
-![alt text](image-16.png)
+![alt text](public/img/js04/image-16.png)
 
 ## Tugas 2 (Wajib)
 
@@ -406,7 +406,7 @@ Buat navigasi:
 
 #### Output
 
-![alt text](image-17.png) ![alt text](image-18.png) ![alt text](image-19.png)
+![alt text](public/img/js04/image-17.png) ![alt text](public/img/js04/image-18.png) ![alt text](public/img/js04/image-19.png)
 
 ## Tugas 3 (Pengayaan)
 
@@ -464,9 +464,9 @@ Pengecekan di login.tsx
 ```
 #### 2. Output
 - Jika user belum login akan terlempar balik ke login <br>
-  ![alt text](image-20.png)
+  ![alt text](public/img/js04/image-20.png)
 - Jika sudah login akan secara langsung mengarahkan ke halaman produk <br>
-  ![alt text](image-21.png)
+  ![alt text](public/img/js04/image-21.png)
 ------------------------------------------------------------------------
 
 # F. Pertanyaan Evaluasi

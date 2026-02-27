@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 03
+## JOBSHEET 02
 
-### Catch-All Routing, Optional Catch-All, Linking & Navigating pada Next.js (Pages Router)
+### Routing & Layouting pada Next.js (Pages Router)
 
 ------------------------------------------------------------------------
 
@@ -21,482 +21,376 @@
 
 # A. Tujuan Praktikum
 
-Setelah menyelesaikan praktikum ini, mahasiswa mampu:
-
-1.  Membuat catch-all route untuk menangkap banyak segmen URL.
-2.  Menggunakan optional catch-all route agar halaman tetap dapat
-    diakses tanpa parameter.
-3.  Mengambil parameter URL berbentuk array menggunakan useRouter.
-4.  Menerapkan navigasi antar halaman menggunakan Link.
-5.  Melakukan navigasi imperatif menggunakan router.push().
-6.  Mengimplementasikan redirect sederhana berbasis kondisi (simulasi
-    login).
+-   Memahami konsep Pages Router pada Next.js
+-   Membuat routing statis berbasis file dan folder
+-   Mengimplementasikan nested routing
+-   Mengimplementasikan dynamic routing menggunakan parameter URL
+-   Membuat layout global menggunakan komponen layout (App Shell)
 
 ------------------------------------------------------------------------
 
-# B. Dasar Teori Singkat
+# B. Tools & Persiapan
 
-## 1. Segment & Slug pada URL
-
-URL dapat terdiri dari beberapa segmen, contoh:
-
-    /product/clothes/tops/t-shirt
-
-Setiap bagian dipisahkan oleh `/` dan disebut segmen.
-
-## 2. Catch-All Route
-
-Next.js memungkinkan menangkap semua segmen URL menggunakan:
-
-    [...slug].js
-
-Hasil parameter akan berbentuk array.
-
-## 3. Optional Catch-All Route
-
-Agar halaman tetap bisa diakses meskipun tanpa parameter:
-
-    [[...slug]].js
-
-## 4. Navigasi di Next.js
-
--   Deklaratif: `Link` dari `next/link`
--   Imperatif: `router.push()` dari `next/router`
-
-------------------------------------------------------------------------
-
-# C. Alat dan Bahan
-
-## Perangkat Lunak
-
--   Node.js (LTS)
--   NPM
--   Visual Studio Code
+-   Node.js (minimal v16)
+-   NPM / Yarn / PNPM
+-   Code Editor (VS Code disarankan)
 -   Browser (Chrome / Firefox)
+-   Project Next.js (TypeScript)
 
-## Prasyarat
+``` bash
+npx create-next-app@latest next-routing
+cd next-routing
+npm run dev
+```
 
--   Project Next.js Pages Router sudah tersedia
--   Server dapat dijalankan (`npm run dev`)
+------------------------------------------------------------------------
+
+# C. Dasar Konsep (Ringkas)
+
+-   `pages/` → otomatis menjadi routing
+-   `index.tsx` → root route (`/`)
+-   Folder di dalam `pages/` → nested route
+-   File `[param].tsx` → dynamic routing
+-   `pages/_app.tsx` → entry point global aplikasi
 
 ------------------------------------------------------------------------
 
 # D. Langkah Kerja Praktikum
 
-## Langkah 1 -- Menjalankan Project
+## 1️⃣ Routing Dasar (Static Routing)
 
-``` bash
-npm run dev
-```
-
-Akses:
-
-    http://localhost:3000
-
-------------------------------------------------------------------------
-
-## Langkah 2 -- Membuat Catch-All Route
-
-### Struktur Folder
+**Struktur Awal**
 
     pages/
-     └── shop/
-         └── [...slug].tsx
+     └── index.tsx
 
-### Kode Awal
+Tambahkan halaman `about.tsx` lalu uji di browser:
 
-``` tsx
-import { useRouter } from "next/router";
-
-const HalamanToko = () => {
-  const router = useRouter();
-  console.log(router);
-
-  return (
-    <div>
-      <h1>Halaman Toko</h1>
-    </div>
-  );
-};
-
-export default HalamanToko;
-```
+    http://localhost:3001/about
 
 <br>
 
-#### Output awal:
-
-![alt text](image.png)
-
-Cek menggunakan `console.log` apakah nilai segment berhasil didapat.
-
-### Modifikasi untuk menampilkan query
-
-``` tsx
-import { useRouter } from "next/router";
-
-const halamanToko = () => {
-  const { query } = useRouter();
-  return (
-    <div>
-      <h1>Halaman Toko</h1>
-      <p>Toko: {`${query.slug && query.slug[0]+"-"+ query.slug[1]}`}</p>  
-    </div>
-  );
-};
-
-export default halamanToko;
-
-```
-#### Output setelah:
-
-![alt text](image-1.png)
-
+![alt text](public/image.png)
 ------------------------------------------------------------------------
 
-## Langkah 3 -- Pengujian Catch-All Route
+## 2️⃣ Routing Menggunakan Folder
 
-Akses URL berikut:
+Rapikan struktur:
+<br>
 
-- /shop/clothes <br>
-![alt text](image-2.png)
-
-- /shop/clothes/tops  <br>
-![alt text](image-3.png)
-
-- /shop/clothes/tops/t-shirt  <br>
-![alt text](image-4.png)
-
-Perhatikan bahwa:
-
--   `slug` berbentuk array
--   Isi halaman berubah sesuai URL
-
-Jika hanya membaca `array[0]` dan `array[1]`, maka segmen lebih dari dua
-akan `undefined`.
-
-Solusi:
-
-Gunakan:
-
-``` tsx
-Array.isArray(query.slug) ? query.slug.join("-") : query.slug
-```
-
-Sekarang berapapun banyaknya segmen tetap terbaca. <br>
-![alt text](image-5.png)
-
-------------------------------------------------------------------------
-
-## Langkah 4 -- Optional Catch-All Route
-
-Jika menggunakan:
-
-    [...slug].js
-
-Maka saat mengakses:
-
-    /shop
-
-Akan terjadi error. <br>
-![alt text](image-6.png)
-
-### Solusi
-
-Rename file:
-
-    [...slug].js → [[...slug]].js
-
-![alt text](image-9.png) <br>
-Sekarang halaman dapat diakses meskipun tanpa parameter.<br>
-![alt text](image-8.png)
-------------------------------------------------------------------------
-
-## Langkah 5 -- Validasi Parameter
-
-Tambahkan validasi agar tidak error saat slug kosong:
-
-``` tsx
-<p>
-  Kategori: {query.slug ? query.slug[0] : "Semua Kategori"}
-</p>
-```
-
-Output: <br>
-![alt text](image-10.png) ![alt text](image-11.png) ![alt text](image-12.png)
-
-------------------------------------------------------------------------
-
-## Langkah 6 -- Membuat Halaman Login & Register
-
-### Struktur
+![alt text](public/image-1.png) ![alt text](public/image-2.png)
 
     pages/
-     └── auth/
-         ├── login.tsx
-         └── register.tsx
+     └── about/
+         └── index.tsx
 
-### login.tsx
+Akses:
 
-``` tsx
-import Link from "next/link";
+    /about
 
-const HalamanLogin = () => {
-  return (
-    <div>
-      <h1>Halaman Login</h1>
-      <Link href="/auth/register">Ke Halaman Register</Link>
-    </div>
-  );
-};
+<br>
 
-export default HalamanLogin;
-```
+![alt text](public/image-3.png)
+------------------------------------------------------------------------
 
-### register.tsx
+## 3️⃣ Nested Routing
 
-``` tsx
-import Link from "next/link";
+**Struktur Awal**
 
-const HalamanRegister = () => {
-  return (
-    <div>
-      <h1>Halaman Register</h1>
-      <Link href="/auth/login">Ke Halaman Login</Link>
-    </div>
-  );
-};
+    pages/
+     └── setting/
+         ├── user.tsx
+         └── app.tsx
 
-export default HalamanRegister;
-```
+Modifikasi kode:
+-	user.tsx
+<br>
+
+![alt text](public/image-4.png)
+
+-	app.tsx
+
+<br>
+
+![alt text](public/image-5.png)
+Akses:
+
+- /setting/user 
+<br>
+
+![alt text](public/image-6.png)
+
+- /setting/app
+<br>
+
+![alt text](public/image-7.png)
+
+Nested lebih dalam:
+
+<br>
+
+![alt text](public/image-8.png)
+
+
+    pages/
+     └── setting/
+     └── user/
+          └── password/
+          └── index.tsx
+
+Akses:
+
+    /user/password
+
+<br>
+
+![alt text](public/image-9.png)
+------------------------------------------------------------------------
+
+## 4️⃣ Dynamic Routing
+
+Struktur:
+
+    pages/
+     └── produk/
+         ├── index.tsx
+         └── [id].tsx
+
+<br>
+
+•	Modifikasi index.tsx
+•	Modifikasi [id].tsx
+Buka browser http://localhost:3000/produk/sepatu tambahkan segment sepatu
+
+<br>
+
+![alt text](public/image-10.png)
+ 
+•	Cek menggunakan console.log
+
+<br>
+
+![alt text](public/image-11.png)
+ 
+•	Modifikasi [id].tsx agar dapat mengambil nilai dari id
+
+<br>
+
+![alt text](public/image-12.png)
+ 
+
+
+Contoh akses:
+
+- /produk/sepatu
+
+<br>
+
+![alt text](public/image-13.png)
+
+- /produk/sepatu-baru
+
+<br>
+
+![alt text](public/image-15.png)
+
+- /produk/baju
+
+<br>
+
+![alt text](public/image-16.png)
+
+
+Parameter `id` ditangkap menggunakan `useRouter()`.
 
 ------------------------------------------------------------------------
 
-## Langkah 7 -- Navigasi Imperatif (router.push)
+## 5️⃣ Membuat Komponen Navbar
 
-Tambahkan button login:
+Struktur:
 
-``` tsx
-import { useRouter } from "next/router";
+    src/
+     └── components/
+         └── layouts/
+             └── navbar/
+                 └── index.tsx
 
-const HalamanLogin = () => {
-  const { push } = useRouter();
+<br>
 
-  const handlerLogin = () => {
-    push("/produk");
-  };
+![alt text](public/image-17.png)
 
-  return (
-    <div>
-      <h1>Halaman Login</h1>
-      <button onClick={() => handlerLogin()}>
-        Login
-      </button>
-    </div>
-  );
-};
-export default HalamanLogin;
-```
 
-Gunakan:
+Modifikasi navbar/index.tsx
 
-    onClick={() => handlerLogin()}
+![alt text](public/image-28.png)
 
-Klik tombol dan perhatikan perpindahan halaman tanpa reload.
-![alt text](image-15.png)![alt text](image-13.png)
+
+Modifikasi _app.tsx 
+
+![alt text](public/image-26.png)
+<br>
+Tambahkan style di `globals.css` dan import navbar ke halaman.
+
+
+![alt text](public/image-27.png)<br>
+
+![alt text](public/image-23.png)
+
+Jalankan di browser 
+
+![alt text](public/image-25.png)
+![alt text](public/image-29.png)
+![alt text](public/image-30.png)
+
 ------------------------------------------------------------------------
 
-## Langkah 8 -- Simulasi Redirect (Belum Login)
+## 6️⃣ Membuat Layout Global (App Shell)
 
-### pages/produk/index.tsx
+Buat komponen `AppShell` yang membungkus:
 
-``` tsx
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+-   Navbar (tetap)
+-   `{children}` (konten dinamis)
+-   Footer
 
-const Produk = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const { push } = useRouter();
+![alt text](public/image-31.png)
 
-  useEffect(() => {
-    if (!isLogin) {
-      push("/auth/login");
-    }
-  }, []);
+Modifikasi index.tsx pada AppShell
+<br>
 
-  return <div>Produk User Page</div>;
-};
+![alt text](public/image-32.png)
 
-export default Produk;
-```
+------------------------------------------------------------------------
 
-Jika akses `/produk` → otomatis diarahkan ke login.
+## 7️⃣ Implementasi Layout di `_app.tsx`
+
+Modifikasi `_app.tsx` agar semua halaman dibungkus oleh `AppShell`.
+
+![alt text](public/image-33.png)
+
+
+![alt text](public/image-34.png)
+
+Hasil: 
+- Navbar muncul di semua halaman
+- Footer muncul di semua halaman
 
 ------------------------------------------------------------------------
 
 # E. Tugas Praktikum
 
-## Tugas 1 (Wajib)
+## 📝 Tugas 1 -- Routing
 
-Buat catch-all route:
+-   Buat halaman `/profile`
+-   Buat halaman `/profile/edit`
+-   Pastikan routing berjalan tanpa error
 
-    /category/[...slug].js
+Jawaban:
+- Kode:
+  - \profile\index.tsx
+ 
+    ![alt text](public/image-37.png)
 
-Tampilkan seluruh parameter URL dalam bentuk list.
+  - \profile\edit\index.tsx
+    
+    ![alt text](public/image-35.png)
+ 
+- Struktur:
+ 
+  ![alt text](public/image-36.png)
 
-### Jawaban:
-#### 1. Kode
+- Output:
 
-```tsx
-import { useRouter } from "next/router";
-
-const halamanKategori = () => {
-  const router = useRouter();
-
-  if (!router.isReady) return <p>Loading...</p>;
-
-  const { slug } = router.query;
-
-  return (
-    <div>
-      <h1>Halaman Kategori</h1>
-
-      <p>
-        Nilai slug: {Array.isArray(slug) ? slug.join("-") : slug}
-      </p>
-      <br />
-      <h3>List Kategori</h3>
-      {Array.isArray(slug) && (
-        <ol style={{ listStyleType: "decimal", paddingLeft: "20px" }}>
-          {slug.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ol>
-      )}
-    </div>
-  );
-}
-
-export default halamanKategori;
-```
-
-#### 2. Struktur
-
-    pages/
-     └── category/
-         └── [[...slug]].tsx
-
-#### 3. Output
-
-![alt text](image-16.png)
-
-## Tugas 2 (Wajib)
-
-Buat navigasi:
-
--   Login → Product (imperatif)
--   Login ↔ Register (Link)
+  ![alt text](public/image-38.png)
+  ![alt text](public/image-39.png)
 
 
-### Jawaban: 
-- Link Daftar telah berhasil mengarahkan ke halaman Register
-- Berhasil melakukan pengecekan sederhana untuk login dan register (belum terhubung ke database). Hanya mengecek telah diisi atau belum.
-- Ketika email dan password diisi dan menekan login, akan mengarahkan ke halaman produk.
-- Jika di refresh halaman akan tetap dan dianggap tetap login.
 
-#### Output
-
-![alt text](image-17.png) ![alt text](image-18.png) ![alt text](image-19.png)
-
-## Tugas 3 (Pengayaan)
-
-Terapkan redirect otomatis ke login jika user belum login.
-
-### Jawaban:
-#### 1. Kode
-produk/index.tsx
-```tsx
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
-const Produk = () => {
-  const [isChecking, setIsChecking] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
-  const { push } = useRouter();
-  useEffect(() => {
-    const status = localStorage.getItem("isLogin");
-
-    if (status === "true") {
-      setIsLogin(true);
-      setIsChecking(false);
-    } else {
-      push("/auth/login");
-      setIsChecking(false);
-    }
-  }, []);
-
-  if (isChecking) {
-    return <div>Loading...</div>;
-  }
-  if (!isLogin) {
-    return null;
-  }
-  return <div>Produk User Page</div>;
-
-};
-
-export default Produk;
-```
-
-Pengecekan di login.tsx
-
-```tsx
-  ...
-  const handlerLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simple validation
-    if (email && password) {
-      localStorage.setItem("isLogin", "true");
-      push("/produk");
-    }
-  };
-  ...
-```
-#### 2. Output
-- Jika user belum login akan terlempar balik ke login <br>
-  ![alt text](image-20.png)
-- Jika sudah login akan secara langsung mengarahkan ke halaman produk <br>
-  ![alt text](image-21.png)
 ------------------------------------------------------------------------
 
-# F. Pertanyaan Evaluasi
+## 📝 Tugas 2 -- Dynamic Routing
 
-### 1. Apa perbedaan `[id].js` dan `[...slug].js`?
+-   Buat routing `/blog/[slug]`
+-   Tampilkan nilai slug di halaman
 
-`[id].js` menangkap satu parameter saja, sedangkan `[...slug].js`
-menangkap banyak segmen dalam bentuk array.
+Jawaban:
+- Kode:
+  - \blog\index.tsx
 
-### 2. Mengapa slug berbentuk array?
+    ![alt text](public/image-40.png)
+ 
+  - \blog/[slug].tsx
 
-Karena catch-all route menangkap lebih dari satu segmen URL.
+    ![alt text](public/image-41.png)
+ 
+- Struktur:
 
-### 3. Kapan menggunakan Link dan router.push()?
+  ![alt text](public/image-42.png)
+ 
+- Output:
 
-`Link` untuk navigasi deklaratif, `router.push()` untuk navigasi
-berbasis aksi/logic.
+  ![alt text](public/image-43.png)
+  ![alt text](public/image-44.png)
 
-### 4. Mengapa navigasi Next.js tidak me-refresh halaman?
 
-Karena menggunakan client-side navigation (SPA behavior).
+------------------------------------------------------------------------
+
+## 📝 Tugas 3 -- Layout
+
+-   Tambahkan Footer pada AppShell
+-   Pastikan Footer tampil di semua halaman
+
+Jawaban:
+- Kode:
+  - \AppShell\index.tsx
+
+    ![alt text](public/image-45.png)
+ 
+  - \footer\index.tsx
+
+    ![alt text](public/image-46.png)
+ 
+  - \globals.css
+
+    ![alt text](public/image-47.png)
+
+
+- Struktur:
+
+  ![alt text](public/image-48.png)
+ 
+- Output:
+
+  ![alt text](public/image-49.png)
+  ![alt text](public/image-50.png)
+
+
+------------------------------------------------------------------------
+
+# F. Pertanyaan Refleksi
+
+### 1. Apa perbedaan routing berbasis file dan routing manual?
+
+Routing berbasis file otomatis dibuat berdasarkan struktur folder dan
+nama file, sedangkan routing manual memerlukan konfigurasi eksplisit
+seperti pada React Router.
+
+### 2. Mengapa dynamic routing penting dalam aplikasi web?
+
+Dynamic routing memungkinkan halaman dibuat berdasarkan parameter URL
+sehingga cocok untuk data dinamis seperti blog, produk, atau profil.
+
+### 3. Apa keuntungan menggunakan layout global dibanding memanggil komponen satu per satu?
+
+Layout global membuat komponen seperti Navbar dan Footer otomatis muncul
+di semua halaman sehingga lebih efisien dan mudah dikelola.
 
 ------------------------------------------------------------------------
 
 # G. Kesimpulan
 
-Praktikum ini membahas implementasi Catch-All Routing, Optional
-Catch-All, serta navigasi deklaratif dan imperatif pada Next.js Pages
-Router.
+Melalui praktikum ini, mahasiswa memahami konsep routing statis, nested
+routing, dynamic routing, serta implementasi layout global pada Next.js
+menggunakan Pages Router.
 
-Mahasiswa memahami cara menangkap banyak segmen URL dalam bentuk array,
-mengimplementasikan navigasi tanpa reload halaman, serta membuat
-simulasi redirect berbasis kondisi login.
+Next.js mempermudah pengelolaan routing tanpa konfigurasi manual dan
+mendukung pengembangan aplikasi web yang lebih terstruktur.

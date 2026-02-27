@@ -292,6 +292,8 @@ Sehingga:
 
 Sekarang halaman 404 tidak menampilkan Navbar.
 
+![alt text](image-4.png)
+
 ---
 
 ## Langkah 6 – Menampilkan Gambar dari Folder Public

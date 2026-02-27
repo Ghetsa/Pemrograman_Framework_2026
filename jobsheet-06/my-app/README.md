@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 05
+## JOBSHEET 06
 
-### Styling pada Next.js (Global CSS, CSS Module, Inline Style, SCSS, dan Tailwind CSS)
+### Custom Document dan Custom Error Page (404) pada Next.js
 
 ---
 
@@ -23,27 +23,39 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Memahami berbagai pendekatan styling pada Next.js
-2. Menggunakan Global CSS dan memahami cakupannya
-3. Mengimplementasikan CSS Module (local scope)
-4. Menggunakan Inline Styling (CSS-in-JS) pada JSX
-5. Menggunakan SCSS (SASS) untuk manajemen style yang kompleks
-6. Melakukan refactoring struktur folder agar project lebih maintainable
-7. Mengintegrasikan Tailwind CSS pada Next.js Pages Router
+1. Memahami fungsi Custom Document (`_document.js`) pada Next.js
+2. Mengimplementasikan custom document untuk kebutuhan global aplikasi
+3. Membuat dan mengatur Custom Error Page (404)
+4. Menambahkan styling khusus pada halaman error
+5. Menampilkan gambar dari folder public
+6. Melakukan handling komponen global (Navbar) pada halaman error
 
 ---
 
 # B. Dasar Teori Singkat
 
-Next.js mendukung beberapa metode styling:
+## 1️⃣ Custom Document
 
-1. **Global CSS** → berlaku untuk seluruh aplikasi
-2. **CSS Module** → memiliki scope lokal
-3. **Inline Style (CSS-in-JS)** → styling langsung di dalam JSX
-4. **SCSS / SASS** → mendukung variable & nested rule
-5. **Tailwind CSS** → utility-first CSS framework
+`_document.js` digunakan untuk:
 
-Pemilihan metode styling disesuaikan dengan kebutuhan dan skala project.
+* Mengatur struktur dasar HTML (`<html>`, `<head>`, `<body>`)
+* Menambahkan meta tag global (SEO, verification)
+* Menambahkan CDN (Bootstrap, Font, Analytics)
+
+⚠ **Catatan penting:**
+`<title>` tidak direkomendasikan ditaruh di `_document.js`, tetapi di masing-masing halaman.
+
+---
+
+## 2️⃣ Custom Error Page (404)
+
+Next.js memungkinkan membuat halaman error sendiri dengan membuat file:
+
+```
+pages/404.tsx
+```
+
+Halaman ini otomatis ditampilkan saat route tidak ditemukan.
 
 ---
 
@@ -51,17 +63,15 @@ Pemilihan metode styling disesuaikan dengan kebutuhan dan skala project.
 
 ## Perangkat Lunak
 
-* Node.js (minimal v16)
+* Node.js (LTS)
 * NPM
 * Visual Studio Code
 * Browser
-* Project Next.js (Pages Router, TypeScript)
 
-## Menjalankan Project
+## Prasyarat
 
-```bash
-npm run dev
-```
+* Project Next.js (Pages Router) sudah tersedia
+* Aplikasi dapat dijalankan (`npm run dev`)
 
 ---
 
@@ -69,172 +79,189 @@ npm run dev
 
 ---
 
-## 1️⃣ Global CSS
+## Langkah 1 – Menjalankan Project
 
-### a. Membuat File Global CSS
+1. Buka folder project
+2. Jalankan:
 
-Lokasi:
-
-```
-styles/globals.css
-```
-
-Isi contoh:
-
-```css
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+```bash
+npm run dev
 ```
 
-### b. Import Global CSS
-
-Modifikasi pada:
+3. Akses:
 
 ```
-pages/_app.tsx
+http://localhost:3000
 ```
+
+### Jika ada kendala tampilan index lama (Tailwind masih aktif)
+
+Uninstall Tailwind:
+
+```bash
+npm uninstall tailwindcss postcss autoprefixer
+```
+
+Hapus file config:
+
+```
+tailwind.config.js
+postcss.config.js
+```
+
+---
+
+## Langkah 2 – Membuat Custom Document
+
+Masuk ke folder:
+
+```
+pages/_document.tsx
+```
+
+### Modifikasi `_document.tsx`
 
 ```tsx
-import "@/styles/globals.css";
-```
+import { Html, Head, Main, NextScript } from "next/document";
 
-![alt text](image.png)
-
-### Catatan:
-
-* Global CSS hanya bisa di-import di `_app.tsx`
-* Berlaku untuk seluruh aplikasi
-
----
-
-## 2️⃣ CSS Module (Local Scope)
-
-### a. Struktur Komponen Navbar
-
-```
-src/components/layout/Navbar/
-├── index.tsx
-└── Navbar.module.css
-```
-
-![alt text](public/img/js05/image-1.png)
-
----
-
-### b. Modifikasi global.css
-
-Tambahkan styling umum jika diperlukan.
-
----
-
-### c. Modifikasi Navbar.module.css
-
-```css
-.navbar {
-  width: 100%;
-  height: 60px;
-  background-color: #333;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-}
-```
-
-![alt text](public/img/js05/image-2.png)
-
----
-
-### d. Modifikasi index.tsx pada folder Navbar
-
-```tsx
-import styles from "./Navbar.module.css";
-
-const Navbar = () => {
+export default function Document() {
   return (
-    <div className={styles.navbar}>
-      <h1>Navbar Component</h1>
-    </div>
+    <Html lang="id">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
   );
-};
-
-export default Navbar;
-
-![alt text](public/img/js05/image-3.png)
-
-```
-
-### Keunggulan CSS Module
-
-* Scope lokal
-* Tidak bentrok antar class
-* Cocok untuk komponen reusable
-
----
-
-## 3️⃣ Styling untuk Pages (CSS Module)
-
-### a. Tambahkan login.module.css pada folder auth
-
-```
-pages/auth/login.module.css
-```
-
-Isi contoh:
-
-```css
-.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 ```
 
-Kode:
-login.module.css<br>
-![alt text](public/img/js05/image-6.png)
+### Verifikasi
 
-login.tsx<br>
-![alt text](public/img/js05/image-7.png)
-
-Output:<br>
-![alt text](public/img/js05/image-4.png)
+* Buka Inspect Element
+* Pastikan `<html lang="id">` sudah berubah
 
 ---
 
-### b. Modifikasi login.tsx
+## Langkah 3 – Pengaturan Title per Halaman
+
+Buka:
+
+```
+pages/index.tsx
+```
 
 Tambahkan:
 
 ```tsx
-import styles from "./login.module.css";
+import Head from "next/head";
+
+export default function Home() {
+  return (
+    <div>
+      <Head>
+        <title>Praktikum Next.js Pages Router</title>
+      </Head>
+      <h1>Praktikum Next.js Pages Router</h1>
+      <p>Mahasiswa D4 Pengembangan Web</p>
+    </div>
+  );
+}
 ```
 
-Gunakan:
+Refresh halaman dan perhatikan judul tab browser berubah.
+
+---
+
+## Langkah 4 – Membuat Custom Error Page (404)
+
+Di folder `pages`, buat file:
+
+```
+pages/404.tsx
+```
+
+### Isi kode awal:
 
 ```tsx
-<div className={styles.login}>
+const Custom404 = () => {
+  return (
+    <div>
+      <h1>404 - Halaman Tidak Ditemukan</h1>
+      <p>Maaf, halaman yang Anda cari tidak ada.</p>
+    </div>
+  );
+};
+
+export default Custom404;
+```
+
+### Pengujian
+
+Akses URL yang tidak ada:
+
+```
+http://localhost:3000/dashboard
+```
+
+Halaman 404 akan tampil otomatis.
+
+---
+
+## Langkah 5 – Styling Halaman 404
+
+### Buat file:
+
+```
+styles/404.module.scss
+```
+
+### Tambahkan style:
+
+```scss
+.error {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__image {
+    width: 300px;
+  }
+}
 ```
 
 ---
 
-## 4️⃣ Conditional Rendering Navbar (Tanpa Navbar di Login)
+### Modifikasi `pages/404.tsx`
+
+Tambahkan import:
+
+```tsx
+import styles from "@/styles/404.module.scss";
+```
+
+Ubah menjadi:
+
+```tsx
+const Custom404 = () => {
+  return (
+    <div className={styles.error}>
+      <h1>404 - Halaman Tidak Ditemukan</h1>
+      <p>Maaf, halaman yang Anda cari tidak ada.</p>
+    </div>
+  );
+};
+```
+
+---
+
+### Handling Navbar di Halaman 404
+
+Jika Navbar masih muncul, tambahkan `/404` pada disableNavbar.
 
 Modifikasi pada:
 
@@ -242,374 +269,136 @@ Modifikasi pada:
 src/components/layout/AppShell/index.tsx
 ```
 
-Tambahkan:
+Ubah menjadi:
 
 ```tsx
-import { useRouter } from "next/router";
+const disableNavbar = ["/auth/login", "/auth/register", "/404"];
+```
 
-const disableNavbar = ["/auth/login", "/auth/register"];
-const { pathname } = useRouter();
+Sehingga:
 
+```tsx
 {!disableNavbar.includes(pathname) && <Navbar />}
 ```
 
-Kode:<br>
-![alt text](public/img/js05/image-8.png)
-
-Output:<br>
-![alt text](public/img/js05/image-9.png)
-
-### Insight
-
-* Gunakan `router.pathname`
-* Jangan gunakan `asPath` jika ada query parameter
+Sekarang halaman 404 tidak menampilkan Navbar.
 
 ---
 
-## 5️⃣ Refactoring Struktur Project (Best Practice)
+## Langkah 6 – Menampilkan Gambar dari Folder Public
 
-### Struktur Awal
+### 1️⃣ Download gambar
+
+* Buka: [https://undraw.co/](https://undraw.co/)
+* Cari “404”
+* Download file PNG
+
+### 2️⃣ Simpan di folder:
 
 ```
-pages/login.tsx
-styles/login.module.css
-```
-
-### Struktur Refactor
-
-```
-pages/auth/login.tsx
-src/views/auth/Login/
-├── index.tsx
-└── Login.module.css
+public/page-not-found.png
 ```
 
 ---
 
-### Modifikasi:
+### 3️⃣ Modifikasi `404.tsx`
 
-1. Hapus `login.module.css` dari folder pages
-2. Pindahkan ke `views/auth/Login/`
-3. Modifikasi `pages/auth/login.tsx` agar hanya menjadi wrapper
-4. Modifikasi `views/auth/Login/index.tsx`
-
-Contoh:
+Tambahkan:
 
 ```tsx
-const HalamanLogin = () => {
-  return <TampilanLogin />;
+<img 
+  src="/page-not-found.png" 
+  alt="404"
+  className={styles.error__image} 
+/>
+```
+
+Sehingga menjadi:
+
+```tsx
+const Custom404 = () => {
+  return (
+    <div className={styles.error}>
+      <img
+        src="/page-not-found.png"
+        alt="404"
+        className={styles.error__image}
+      />
+      <h1>404 - Halaman Tidak Ditemukan</h1>
+      <p>Maaf, halaman yang Anda cari tidak ada.</p>
+    </div>
+  );
 };
 ```
 
-Manfaat:
-
-* Routing tetap bersih
-* Logic & UI terpisah
-* Mudah dikembangkan
-
----
-
-## 6️⃣ Inline Styling (CSS-in-JS)
-
-Modifikasi pada:
-
-```
-views/auth/Login/index.tsx
-```
-
-Tambahkan:
-
-```tsx
-<h1 style={{ 
-  color: "red",
-  borderRadius: "10px",
-  padding: "10px"
-}}>
-  Halaman Login
-</h1>
-```
-
-Kode:<br>
-![alt text](public/img/js05/image-10.png)
-
-Output:<br>
-![alt text](public/img/js05/image-11.png)
-
-### Catatan:
-
-* Gunakan camelCase (`borderRadius`)
-* Cocok untuk styling kecil & dinamis
-* Tidak disarankan untuk layout besar
-
----
-
-## 7️⃣ Kombinasi Global CSS + CSS Module
-
-### Modifikasi global.css
-
-Tambahkan:
-
-```css
-.big {
-  font-size: 1.5rem;
-}
-```
-
-
-### Modifikasi Navbar
-
-```tsx
-<div className="big">Navbar</div>
-```
-
-Kode: <br>
-![alt text](public/img/js05/image-12.png)
-
-
-Kesimpulan:
-
-* Global → utility umum
-* Module → styling spesifik komponen
-
----
-
-## 8️⃣ SCSS (SASS)
-
-### a. Install SASS
-
-```bash
-npm install --save-dev sass
-```
-
-![alt text](public/img/js05/image-13.png)
-
-Cek pada `package.json`. <br>
-![alt text](public/img/js05/image-14.png)
----
-
-### b. Tambahkan colors.scss
-
-```
-styles/colors.scss
-```
-
-```scss
-$schema: (
-  color-primary: #3498db,
-  color-secondary: #2ecc71,
-  color-accent: #e74c3c,
-  color-background: #ecf0f1,
-  color-text: #2c3e50,
-);
-```
-
----
-
-### c. Gunakan di Module
-
-Tambahkan:
-
-```
-views/auth/Login/login.module.scss
-```
-
-Import:
-
-```tsx
-import styles from "./login.module.scss";
-```
-
-Isi file SCSS:
-
-```scss
-@import "@/styles/colors.scss";
-
-.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: map-get($map: $schema, $key: color-secondary);
-}
-```
-
-Kode:<br>
-![alt text](public/img/js05/image-16.png)
-
-Output: <br>
-![alt text](public/img/js05/image-15.png)
-
-
-### Keunggulan SCSS
-
-* Variable
-* Nested rule
-* Maintainable untuk project besar
-
----
-
-## 9️⃣ Tailwind CSS
-
-### a. Install
-
-```bash
-npm install -D tailwindcss@3 postcss autoprefixer
-npx tailwindcss init -p
-```
-
-![alt text](public/img/js05/image-17.png)
-
----
-
-### b. Konfigurasi tailwind.config.js
-
-Tambahkan path:
-
-```js
-content: [
-  "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-  "./components/**/*.{js,ts,jsx,tsx,mdx}",
-  "./src/**/*.{js,ts,jsx,tsx,mdx}",
-],
-```
-
-![alt text](public/img/js05/image-18.png)
-
----
-
-### c. Import di Global CSS
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-![alt text](public/img/js05/image-19.png)
-
-
----
-
-### d. Contoh Penggunaan
-
-Modifikasi pada:
-
-```
-views/auth/Login/index.tsx
-```
-
-```tsx
-<h1 className="text-3xl font-bold text-blue-600 text-center">
-  Halaman Login
-</h1>
-```
-
-Kode: <br>
-![alt text](public/img/js05/image-20.png)
-
-Output: <br>
-![alt text](public/img/js05/image-21.png)
-
+Refresh browser dan gambar akan tampil.
 
 ---
 
 # E. Tugas Praktikum
 
-## Tugas 1
+## Tugas 1 (Wajib)
 
-Buat halaman Register menggunakan CSS Module.
+Tambahkan pada halaman 404:
 
-JAWABAN:
-### Struktur
-![alt text](public/img/js05/image-22.png)
+* Judul halaman
+* Deskripsi singkat
+* Gambar ilustrasi
 
-
-### Kode
-![alt text](public/img/js05/image-24.png)<br>
-![alt text](public/img/js05/image-23.png)
-
-### Output
-![alt text](public/img/js05/image-25.png)
-
-
-## Tugas 2
-
-Refactor halaman Produk ke folder views dan pisahkan:
-
-* Hero Section
-* Main Section
-
-
-JAWABAN:
-### Struktur
-![alt text](public/img/js05/image-34.png)<br>
-![alt text](public/img/js05/image-35.png)
-
-
-### Kode
-![alt text](public/img/js05/image-27.png)<br>
-![alt text](public/img/js05/image-28.png)<br>
-![alt text](public/img/js05/image-29.png)<br>
-![alt text](public/img/js05/image-30.png)<br>
-![alt text](public/img/js05/image-31.png)
-
-### Output
-![alt text](public/img/js05/image-32.png)<br>
-![alt text](public/img/js05/image-33.png)
-
-## Tugas 3
-
-Terapkan Tailwind CSS dengan minimal 5 utility class.
-
-
-JAWABAN:
-### Struktur
-![alt text](public/img/js05/image-26.png)
-
-
-### Kode
-![alt text](public/img/js05/image-36.png)<br>
-![alt text](public/img/js05/image-37.png)
-
-### Output
-![alt text](public/img/js05/image-38.png)<br>
-![alt text](public/img/js05/image-39.png)
 ---
 
-# F. Pertanyaan Refleksi
+## Tugas 2 (Wajib)
 
-### 1. CSS Module digunakan saat styling spesifik komponen dan menghindari konflik class.
+* Custom warna, font, dan layout halaman 404
+* Navbar tidak tampil di halaman 404
 
-JAWABAN:
-CSS Module digunakan ketika styling hanya berlaku untuk satu komponen tertentu dan ingin menghindari konflik antar class. Karena bersifat lokal (scoped), CSS Module lebih aman dan cocok untuk komponen yang reusable. Sementara Global CSS lebih tepat untuk styling umum seperti reset, font dasar, atau layout global.
+---
 
-### 2. Inline styling sulit di-maintain untuk project besar.
+## Tugas 3 (Pengayaan)
 
-JAWABAN:
-Inline styling kurang cocok untuk project besar karena sulit dikelola dan tidak mendukung fitur seperti pseudo-class (:hover, :focus) maupun media query. Selain itu, styling yang bercampur dengan logic membuat kode menjadi kurang rapi dan sulit dikembangkan.
+Tambahkan tombol:
 
-### 3. SCSS cocok untuk project besar karena mendukung variable & nested rule.
+```tsx
+import Link from "next/link";
 
-JAWABAN:
-SCSS mendukung penggunaan variable dan nested rule, sehingga struktur styling lebih terorganisir dan mudah dirawat. Dengan adanya variable, perubahan desain seperti warna atau ukuran dapat dilakukan di satu tempat tanpa mengubah banyak file.
+<Link href="/">
+  <button>Kembali ke Home</button>
+</Link>
+```
 
-### 4. Tailwind lebih cepat dan konsisten dibanding CSS tradisional.
+Gunakan navigasi Next.js (`Link`).
 
-JAWABAN:
-Tailwind mempercepat proses development karena menggunakan utility class yang siap pakai. Styling menjadi lebih konsisten dan tidak perlu membuat banyak file CSS terpisah. Hal ini membuat pengerjaan tampilan menjadi lebih efisien dan terstruktur.
+---
 
+# F. Pertanyaan Evaluasi
+
+### 1. Apa fungsi utama `_document.js`?
+
+Mengatur struktur dasar HTML dan konfigurasi global aplikasi.
+
+### 2. Mengapa `<title>` tidak disarankan di `_document.js`?
+
+Karena setiap halaman sebaiknya memiliki title berbeda untuk SEO dan usability.
+
+### 3. Apa perbedaan halaman biasa dan halaman 404?
+
+Halaman 404 otomatis dipanggil ketika route tidak ditemukan.
+
+### 4. Mengapa folder public tidak perlu di-import?
+
+Karena file di dalam folder `public` dapat diakses langsung melalui root URL aplikasi.
 
 ---
 
 # G. Kesimpulan
 
-Next.js memberikan fleksibilitas penuh dalam styling:
+Pada praktikum ini telah dipelajari:
 
-* Global CSS → utility umum
-* CSS Module → komponen
-* Inline Style → dinamis
-* SCSS → scalable
-* Tailwind CSS → cepat & konsisten
+* Custom Document untuk konfigurasi global HTML
+* Pengaturan title per halaman menggunakan `Head`
+* Pembuatan Custom Error Page (404)
+* Styling halaman error menggunakan SCSS Module
+* Handling Navbar agar tidak tampil di halaman 404
+* Menampilkan gambar dari folder `public`
 
-Pemilihan teknik styling harus disesuaikan dengan skala dan kebutuhan project.
+Next.js memberikan fleksibilitas tinggi dalam pengaturan struktur HTML global serta pengelolaan halaman error secara terstruktur dan profesional.

@@ -355,11 +355,16 @@ Tambahkan:
 }
 ```
 
+
 ### Modifikasi Navbar
 
 ```tsx
 <div className="big">Navbar</div>
 ```
+
+Kode: <br>
+![alt text](image-12.png)
+
 
 Kesimpulan:
 

@@ -112,6 +112,8 @@ pages/_app.tsx
 import "@/styles/globals.css";
 ```
 
+![alt text](image.png)
+
 ### Catatan:
 
 * Global CSS hanya bisa di-import di `_app.tsx`
@@ -128,6 +130,8 @@ src/components/layout/Navbar/
 ├── index.tsx
 └── Navbar.module.css
 ```
+
+![alt text](../jobsheet-05/my-app/public/img/js05/image-1.png)
 
 ---
 
@@ -151,6 +155,8 @@ Tambahkan styling umum jika diperlukan.
 }
 ```
 
+![alt text](../jobsheet-05/my-app/public/img/js05/image-2.png)
+
 ---
 
 ### d. Modifikasi index.tsx pada folder Navbar
@@ -167,6 +173,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+![alt text](../jobsheet-05/my-app/public/img/js05/image-3.png)
+
 ```
 
 ### Keunggulan CSS Module
@@ -196,6 +205,16 @@ Isi contoh:
   height: 100vh;
 }
 ```
+
+Kode:
+login.module.css<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-6.png)
+
+login.tsx<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-7.png)
+
+Output:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-4.png)
 
 ---
 
@@ -233,6 +252,12 @@ const { pathname } = useRouter();
 
 {!disableNavbar.includes(pathname) && <Navbar />}
 ```
+
+Kode:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-8.png)
+
+Output:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-9.png)
 
 ### Insight
 
@@ -304,6 +329,12 @@ Tambahkan:
 </h1>
 ```
 
+Kode:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-10.png)
+
+Output:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-11.png)
+
 ### Catatan:
 
 * Gunakan camelCase (`borderRadius`)
@@ -324,11 +355,16 @@ Tambahkan:
 }
 ```
 
+
 ### Modifikasi Navbar
 
 ```tsx
 <div className="big">Navbar</div>
 ```
+
+Kode: <br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-12.png)
+
 
 Kesimpulan:
 
@@ -345,8 +381,10 @@ Kesimpulan:
 npm install --save-dev sass
 ```
 
-Cek pada `package.json`.
+![alt text](../jobsheet-05/my-app/public/img/js05/image-13.png)
 
+Cek pada `package.json`. <br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-14.png)
 ---
 
 ### b. Tambahkan colors.scss
@@ -396,6 +434,13 @@ Isi file SCSS:
 }
 ```
 
+Kode:<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-16.png)
+
+Output: <br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-15.png)
+
+
 ### Keunggulan SCSS
 
 * Variable
@@ -409,11 +454,11 @@ Isi file SCSS:
 ### a. Install
 
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@3 postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-Jika error → downgrade versi Tailwind.
+![alt text](../jobsheet-05/my-app/public/img/js05/image-17.png)
 
 ---
 
@@ -429,6 +474,8 @@ content: [
 ],
 ```
 
+![alt text](../jobsheet-05/my-app/public/img/js05/image-18.png)
+
 ---
 
 ### c. Import di Global CSS
@@ -438,6 +485,9 @@ content: [
 @tailwind components;
 @tailwind utilities;
 ```
+
+![alt text](../jobsheet-05/my-app/public/img/js05/image-19.png)
+
 
 ---
 
@@ -450,10 +500,17 @@ views/auth/Login/index.tsx
 ```
 
 ```tsx
-<h1 className="text-3xl font-bold text-blue-600">
+<h1 className="text-3xl font-bold text-blue-600 text-center">
   Halaman Login
 </h1>
 ```
+
+Kode: <br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-20.png)
+
+Output: <br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-21.png)
+
 
 ---
 
@@ -463,6 +520,19 @@ views/auth/Login/index.tsx
 
 Buat halaman Register menggunakan CSS Module.
 
+JAWABAN:
+### Struktur
+![alt text](../jobsheet-05/my-app/public/img/js05/image-22.png)
+
+
+### Kode
+![alt text](../jobsheet-05/my-app/public/img/js05/image-24.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-23.png)
+
+### Output
+![alt text](../jobsheet-05/my-app/public/img/js05/image-25.png)
+
+
 ## Tugas 2
 
 Refactor halaman Produk ke folder views dan pisahkan:
@@ -470,18 +540,65 @@ Refactor halaman Produk ke folder views dan pisahkan:
 * Hero Section
 * Main Section
 
+
+JAWABAN:
+### Struktur
+![alt text](../jobsheet-05/my-app/public/img/js05/image-34.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-35.png)
+
+
+### Kode
+![alt text](../jobsheet-05/my-app/public/img/js05/image-27.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-28.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-29.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-30.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-31.png)
+
+### Output
+![alt text](../jobsheet-05/my-app/public/img/js05/image-32.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-33.png)
+
 ## Tugas 3
 
 Terapkan Tailwind CSS dengan minimal 5 utility class.
 
+
+JAWABAN:
+### Struktur
+![alt text](../jobsheet-05/my-app/public/img/js05/image-26.png)
+
+
+### Kode
+![alt text](../jobsheet-05/my-app/public/img/js05/image-36.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-37.png)
+
+### Output
+![alt text](../jobsheet-05/my-app/public/img/js05/image-38.png)<br>
+![alt text](../jobsheet-05/my-app/public/img/js05/image-39.png)
 ---
 
 # F. Pertanyaan Refleksi
 
-1. CSS Module digunakan saat styling spesifik komponen dan menghindari konflik class.
-2. Inline styling sulit di-maintain untuk project besar.
-3. SCSS cocok untuk project besar karena mendukung variable & nested rule.
-4. Tailwind lebih cepat dan konsisten dibanding CSS tradisional.
+### 1. CSS Module digunakan saat styling spesifik komponen dan menghindari konflik class.
+
+JAWABAN:
+CSS Module digunakan ketika styling hanya berlaku untuk satu komponen tertentu dan ingin menghindari konflik antar class. Karena bersifat lokal (scoped), CSS Module lebih aman dan cocok untuk komponen yang reusable. Sementara Global CSS lebih tepat untuk styling umum seperti reset, font dasar, atau layout global.
+
+### 2. Inline styling sulit di-maintain untuk project besar.
+
+JAWABAN:
+Inline styling kurang cocok untuk project besar karena sulit dikelola dan tidak mendukung fitur seperti pseudo-class (:hover, :focus) maupun media query. Selain itu, styling yang bercampur dengan logic membuat kode menjadi kurang rapi dan sulit dikembangkan.
+
+### 3. SCSS cocok untuk project besar karena mendukung variable & nested rule.
+
+JAWABAN:
+SCSS mendukung penggunaan variable dan nested rule, sehingga struktur styling lebih terorganisir dan mudah dirawat. Dengan adanya variable, perubahan desain seperti warna atau ukuran dapat dilakukan di satu tempat tanpa mengubah banyak file.
+
+### 4. Tailwind lebih cepat dan konsisten dibanding CSS tradisional.
+
+JAWABAN:
+Tailwind mempercepat proses development karena menggunakan utility class yang siap pakai. Styling menjadi lebih konsisten dan tidak perlu membuat banyak file CSS terpisah. Hal ini membuat pengerjaan tampilan menjadi lebih efisien dan terstruktur.
+
 
 ---
 

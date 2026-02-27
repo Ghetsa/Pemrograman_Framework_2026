@@ -131,7 +131,7 @@ src/components/layout/Navbar/
 └── Navbar.module.css
 ```
 
-![alt text](image-1.png)
+![alt text](public/img/js05/image-1.png)
 
 ---
 
@@ -155,7 +155,7 @@ Tambahkan styling umum jika diperlukan.
 }
 ```
 
-![alt text](image-2.png)
+![alt text](public/img/js05/image-2.png)
 
 ---
 
@@ -174,7 +174,7 @@ const Navbar = () => {
 
 export default Navbar;
 
-![alt text](image-3.png)
+![alt text](public/img/js05/image-3.png)
 
 ```
 
@@ -208,13 +208,13 @@ Isi contoh:
 
 Kode:
 login.module.css<br>
-![alt text](image-6.png)
+![alt text](public/img/js05/image-6.png)
 
 login.tsx<br>
-![alt text](image-7.png)
+![alt text](public/img/js05/image-7.png)
 
 Output:<br>
-![alt text](image-4.png)
+![alt text](public/img/js05/image-4.png)
 
 ---
 
@@ -254,10 +254,10 @@ const { pathname } = useRouter();
 ```
 
 Kode:<br>
-![alt text](image-8.png)
+![alt text](public/img/js05/image-8.png)
 
 Output:<br>
-![alt text](image-9.png)
+![alt text](public/img/js05/image-9.png)
 
 ### Insight
 
@@ -330,10 +330,10 @@ Tambahkan:
 ```
 
 Kode:<br>
-![alt text](image-10.png)
+![alt text](public/img/js05/image-10.png)
 
 Output:<br>
-![alt text](image-11.png)
+![alt text](public/img/js05/image-11.png)
 
 ### Catatan:
 
@@ -363,7 +363,7 @@ Tambahkan:
 ```
 
 Kode: <br>
-![alt text](image-12.png)
+![alt text](public/img/js05/image-12.png)
 
 
 Kesimpulan:
@@ -381,10 +381,10 @@ Kesimpulan:
 npm install --save-dev sass
 ```
 
-![alt text](image-13.png)
+![alt text](public/img/js05/image-13.png)
 
 Cek pada `package.json`. <br>
-![alt text](image-14.png)
+![alt text](public/img/js05/image-14.png)
 ---
 
 ### b. Tambahkan colors.scss
@@ -435,10 +435,10 @@ Isi file SCSS:
 ```
 
 Kode:<br>
-![alt text](image-16.png)
+![alt text](public/img/js05/image-16.png)
 
 Output: <br>
-![alt text](image-15.png)
+![alt text](public/img/js05/image-15.png)
 
 
 ### Keunggulan SCSS
@@ -458,7 +458,7 @@ npm install -D tailwindcss@3 postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-![alt text](image-17.png)
+![alt text](public/img/js05/image-17.png)
 
 ---
 
@@ -474,7 +474,7 @@ content: [
 ],
 ```
 
-![alt text](image-18.png)
+![alt text](public/img/js05/image-18.png)
 
 ---
 
@@ -486,7 +486,7 @@ content: [
 @tailwind utilities;
 ```
 
-![alt text](image-19.png)
+![alt text](public/img/js05/image-19.png)
 
 
 ---
@@ -506,10 +506,10 @@ views/auth/Login/index.tsx
 ```
 
 Kode: <br>
-![alt text](image-20.png)
+![alt text](public/img/js05/image-20.png)
 
 Output: <br>
-![alt text](image-21.png)
+![alt text](public/img/js05/image-21.png)
 
 
 ---
@@ -522,15 +522,15 @@ Buat halaman Register menggunakan CSS Module.
 
 JAWABAN:
 ### Struktur
-![alt text](image-22.png)
+![alt text](public/img/js05/image-22.png)
 
 
 ### Kode
-![alt text](image-24.png)<br>
-![alt text](image-23.png)
+![alt text](public/img/js05/image-24.png)<br>
+![alt text](public/img/js05/image-23.png)
 
 ### Output
-![alt text](image-25.png)
+![alt text](public/img/js05/image-25.png)
 
 
 ## Tugas 2
@@ -543,20 +543,20 @@ Refactor halaman Produk ke folder views dan pisahkan:
 
 JAWABAN:
 ### Struktur
-![alt text](image-34.png)<br>
-![alt text](image-35.png)
+![alt text](public/img/js05/image-34.png)<br>
+![alt text](public/img/js05/image-35.png)
 
 
 ### Kode
-![alt text](image-27.png)<br>
-![alt text](image-28.png)<br>
-![alt text](image-29.png)<br>
-![alt text](image-30.png)<br>
-![alt text](image-31.png)
+![alt text](public/img/js05/image-27.png)<br>
+![alt text](public/img/js05/image-28.png)<br>
+![alt text](public/img/js05/image-29.png)<br>
+![alt text](public/img/js05/image-30.png)<br>
+![alt text](public/img/js05/image-31.png)
 
 ### Output
-![alt text](image-32.png)<br>
-![alt text](image-33.png)
+![alt text](public/img/js05/image-32.png)<br>
+![alt text](public/img/js05/image-33.png)
 
 ## Tugas 3
 
@@ -565,16 +565,16 @@ Terapkan Tailwind CSS dengan minimal 5 utility class.
 
 JAWABAN:
 ### Struktur
-![alt text](image-26.png)
+![alt text](public/img/js05/image-26.png)
 
 
 ### Kode
-![alt text](image-36.png)<br>
-![alt text](image-37.png)
+![alt text](public/img/js05/image-36.png)<br>
+![alt text](public/img/js05/image-37.png)
 
 ### Output
-![alt text](image-38.png)<br>
-![alt text](image-39.png)
+![alt text](public/img/js05/image-38.png)<br>
+![alt text](public/img/js05/image-39.png)
 ---
 
 # F. Pertanyaan Refleksi

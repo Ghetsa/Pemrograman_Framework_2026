@@ -358,12 +358,24 @@ Tambahkan pada halaman 404:
 * Deskripsi singkat
 * Gambar ilustrasi
 
+
+JAWABAN:
+### Output
+![alt text](image-6.png)
+
+
 ---
 
 ## Tugas 2 (Wajib)
 
 * Custom warna, font, dan layout halaman 404
 * Navbar tidak tampil di halaman 404
+
+
+JAWABAN:
+### Output
+![alt text](image-7.png)
+
 
 ---
 

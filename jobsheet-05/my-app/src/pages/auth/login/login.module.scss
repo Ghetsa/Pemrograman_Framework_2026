@@ -6,6 +6,7 @@ $secondary: map-get($schema, color-secondary);
 $accent: map-get($schema, color-accent);
 $bg: map-get($schema, color-background);
 $text: map-get($schema, color-text);
+$input: map-get($schema, color-text-input);
 
 .login {
   min-height: 100vh;
@@ -61,7 +62,7 @@ $text: map-get($schema, color-text);
   outline: none;
 
   background-color: rgba(255, 255, 255, 0.95);
-  color: $text;
+  color: $input;
 
   &:focus {
     border-color: $primary;

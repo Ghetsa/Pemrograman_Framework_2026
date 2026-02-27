@@ -540,6 +540,23 @@ Refactor halaman Produk ke folder views dan pisahkan:
 * Hero Section
 * Main Section
 
+
+JAWABAN:
+### Struktur
+![alt text](image-26.png)
+
+
+### Kode
+![alt text](image-27.png)<br>
+![alt text](image-28.png)<br>
+![alt text](image-29.png)<br>
+![alt text](image-30.png)<br>
+![alt text](image-31.png)
+
+### Output
+![alt text](image-32.png)<br>
+![alt text](image-33.png)
+
 ## Tugas 3
 
 Terapkan Tailwind CSS dengan minimal 5 utility class.

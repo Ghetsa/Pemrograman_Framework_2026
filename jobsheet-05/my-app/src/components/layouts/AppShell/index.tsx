@@ -15,7 +15,7 @@ const AppShell = (props: AppShellProps) => {
     <main>
       {!disableNavbar.includes(pathname) && <Navbar />}
       {children}
-      <br />
+      {/* <br /> */}
       {!disableNavbar.includes(pathname) && <Footer />}
     </main>
 

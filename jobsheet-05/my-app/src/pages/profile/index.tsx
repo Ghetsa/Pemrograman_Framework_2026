@@ -1,10 +1,7 @@
-const UserProfilePage =  () => {
-  return (
-    <div>
-      <h1>Profile Page</h1>
-      <p>Ini merupakan halaman profile</p>
-    </div>
-  );
+import UserProfileView from "@/views/profile";
+
+const UserProfilePage = () => {
+  return <UserProfileView />;
 };
 
 export default UserProfilePage;

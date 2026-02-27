@@ -1,10 +1,7 @@
-const ProfileEditPage =  () => {
-  return (
-    <div>
-      <h1>Edit Profile Page</h1>
-      <p>Ini merupakan halaman edit profile</p>
-    </div>
-  );
+import ProfileEditView from "@/views/profile/edit";
+
+const ProfileEditPage = () => {
+  return <ProfileEditView />;
 };
 
 export default ProfileEditPage;

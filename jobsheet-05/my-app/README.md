@@ -543,7 +543,8 @@ Refactor halaman Produk ke folder views dan pisahkan:
 
 JAWABAN:
 ### Struktur
-![alt text](image-26.png)
+![alt text](image-34.png)<br>
+![alt text](image-35.png)
 
 
 ### Kode
@@ -561,6 +562,19 @@ JAWABAN:
 
 Terapkan Tailwind CSS dengan minimal 5 utility class.
 
+
+JAWABAN:
+### Struktur
+![alt text](image-26.png)
+
+
+### Kode
+![alt text](image-36.png)<br>
+![alt text](image-37.png)
+
+### Output
+![alt text](image-38.png)<br>
+![alt text](image-39.png)
 ---
 
 # F. Pertanyaan Refleksi

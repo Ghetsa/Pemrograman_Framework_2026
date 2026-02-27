@@ -253,6 +253,12 @@ const { pathname } = useRouter();
 {!disableNavbar.includes(pathname) && <Navbar />}
 ```
 
+Kode:<br>
+![alt text](image-8.png)
+
+Output:<br>
+![alt text](image-9.png)
+
 ### Insight
 
 * Gunakan `router.pathname`

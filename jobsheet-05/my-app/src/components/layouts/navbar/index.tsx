@@ -1,11 +1,11 @@
-const Navbar = () => {
+import styles from "./navbar.module.css";
+
+const navbar = () => {
   return (
-    <div className="Navbar">
-      <div>
-        <h2>Navbar Component</h2>
-      </div>
+    <div className={styles.navbar}>
+      <h1>Navbar Component</h1>
     </div>
   );
 };
 
-export default Navbar;
+export default navbar;

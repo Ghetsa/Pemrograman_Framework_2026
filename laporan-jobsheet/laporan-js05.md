@@ -112,8 +112,6 @@ pages/_app.tsx
 import "@/styles/globals.css";
 ```
 
-![alt text](image.png)
-
 ### Catatan:
 
 * Global CSS hanya bisa di-import di `_app.tsx`
@@ -130,8 +128,6 @@ src/components/layout/Navbar/
 ├── index.tsx
 └── Navbar.module.css
 ```
-
-![alt text](image-1.png)
 
 ---
 
@@ -155,8 +151,6 @@ Tambahkan styling umum jika diperlukan.
 }
 ```
 
-![alt text](image-2.png)
-
 ---
 
 ### d. Modifikasi index.tsx pada folder Navbar
@@ -173,9 +167,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-![alt text](image-3.png)
-
 ```
 
 ### Keunggulan CSS Module
@@ -205,16 +196,6 @@ Isi contoh:
   height: 100vh;
 }
 ```
-
-Kode:
-login.module.css<br>
-![alt text](image-6.png)
-
-login.tsx<br>
-![alt text](image-7.png)
-
-Output:<br>
-![alt text](image-4.png)
 
 ---
 

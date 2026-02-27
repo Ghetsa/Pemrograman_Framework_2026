@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-
+import Head from 'next/head'
 const halamanKategori = () => {
   const router = useRouter();
 
@@ -9,6 +9,9 @@ const halamanKategori = () => {
 
   return (
     <div>
+      <Head>
+          <title>Kategori</title>
+        </Head>
       <h1>Halaman Kategori</h1>
 
       <p>

@@ -9,6 +9,9 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
+        <Head>
+          <title>About</title>
+        </Head>
         <h1 className={styles.title}>IT'S ABOUT GHETSA</h1>
         <br />
         <img

@@ -172,6 +172,8 @@ export default function Home() {
 }
 ```
 
+![alt text](image-1.png)
+
 Refresh halaman dan perhatikan judul tab browser berubah.
 
 ---

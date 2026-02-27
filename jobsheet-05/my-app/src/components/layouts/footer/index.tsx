@@ -1,6 +1,8 @@
-const Footer = () => {
+import styles from "./footer.module.css";
+
+const footer = () => {
   return (
-    <div className="footer">
+    <div className={styles.footer}>
       <div>
         <h3><i>Footer Component</i></h3>
       </div>
@@ -8,4 +10,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default footer;

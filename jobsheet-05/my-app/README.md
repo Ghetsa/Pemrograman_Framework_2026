@@ -329,6 +329,12 @@ Tambahkan:
 </h1>
 ```
 
+Kode:<br>
+![alt text](image-10.png)
+
+Output:<br>
+![alt text](image-11.png)
+
 ### Catatan:
 
 * Gunakan camelCase (`borderRadius`)

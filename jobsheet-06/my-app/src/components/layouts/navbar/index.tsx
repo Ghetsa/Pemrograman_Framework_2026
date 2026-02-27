@@ -1,13 +1,21 @@
+import Link from "next/link";
 import styles from "./navbar.module.css";
 
-const navbar = () => {
+const Navbar = () => {
   return (
-    <div className={styles.navbar}>
-      <div className="big">
-        <h1>Navbar Component</h1>
+    <nav className={styles.navbar}>
+      <div className={styles.logo}>
+        <h1>MyApp</h1>
       </div>
-    </div>
+
+      <div className={styles.menu}>
+        <Link href="/">Home</Link>
+        <Link href="/produk">Produk</Link>
+        <Link href="/profile">Profile</Link>
+        <Link href="/auth/login">Login</Link>
+      </div>
+    </nav>
   );
 };
 
-export default navbar;
+export default Navbar;

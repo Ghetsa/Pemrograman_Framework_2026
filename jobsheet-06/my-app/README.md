@@ -211,6 +211,9 @@ http://localhost:3000/dashboard
 
 Halaman 404 akan tampil otomatis.
 
+
+![alt text](image-2.png)
+
 ---
 
 ## Langkah 5 – Styling Halaman 404

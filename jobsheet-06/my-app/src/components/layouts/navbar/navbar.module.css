@@ -1,12 +1,35 @@
 .navbar {
   width: 100%;
-  font-weight: 700;
-  font-family:'Times New Roman', Times, serif;
-  font-size: 30px;
   height: 60px;
   background-color: #333;
   color: white;
+
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  justify-content: space-between;
+
+  padding: 0 24px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.logo h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.menu a:hover {
+  color: #00bcd4;
 }

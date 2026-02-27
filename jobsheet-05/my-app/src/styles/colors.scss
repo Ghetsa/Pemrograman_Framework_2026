@@ -1,7 +1,10 @@
 $schema: (
-  color-primary: #3498db,
-  color-secondary: #2ecc71,
-  color-accent: #e74c3c,
-  color-background: #ecf0f1,
-  color-text: #2c3e50,
+  color-primary: #6366f1,      // Indigo modern (CTA / button utama)
+  color-secondary: #10b981,    // Emerald soft (success / highlight)
+  color-accent: #f59e0b,       // Amber warm (warning / accent)
+  color-background: #0f172a,   // Dark navy (background utama)
+  color-surface: #1e293b,      // Card / container surface
+  color-border: #334155,       // Border soft
+  color-text: #f1f5f9,         // Text utama terang
+  color-text-muted: #94a3b8    // Text secondary
 );

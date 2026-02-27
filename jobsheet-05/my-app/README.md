@@ -520,6 +520,19 @@ Output: <br>
 
 Buat halaman Register menggunakan CSS Module.
 
+JAWABAN:
+### Struktur
+![alt text](image-22.png)
+
+
+### Kode
+![alt text](image-24.png)<br>
+![alt text](image-23.png)
+
+### Output
+![alt text](image-25.png)
+
+
 ## Tugas 2
 
 Refactor halaman Produk ke folder views dan pisahkan:

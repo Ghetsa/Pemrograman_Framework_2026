@@ -313,6 +313,8 @@ Saat halaman dimuat:
 npm install swr
 ```
 
+![alt text](image-7.png)
+
 ---
 
 ### 2️⃣ Buat folder utils/swr
@@ -347,6 +349,8 @@ Tampilkan data:
 <TampilProduk products={isLoading ? [] : data.data} />
 ```
 
+![alt text](<load swr.gif>)
+
 ---
 
 ## Perbandingan
@@ -370,12 +374,36 @@ Tampilkan data:
 * Server Side Rendering
 * Static Site Generation
 
+JAWABAN:
+
+1. Client Side Rendering (CSR)
+
+Rendering dilakukan di browser setelah halaman dimuat. Data diambil menggunakan JavaScript.
+Kelebihan: Cocok untuk aplikasi interaktif seperti dashboard.
+Kekurangan: Kurang baik untuk SEO dan loading awal lebih lambat.
+
+2. Server Side Rendering (SSR)
+
+Rendering dilakukan di server setiap ada permintaan dari user. Server mengirim HTML yang sudah berisi data.
+Kelebihan: SEO baik dan data selalu terbaru.
+Kekurangan: Beban server lebih besar karena render dilakukan setiap request.
+
+3. Static Site Generation (SSG)
+
+Rendering dilakukan saat proses build sebelum website diakses. Halaman yang dihasilkan bersifat statis.
+Kelebihan: Sangat cepat dan SEO sangat baik.
+Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
+
 ### 2️⃣ Buat Halaman Produk Dengan:
 
 * Skeleton loading
 * Animasi
 
+![alt text](<LOAD 3.gif>)
+
 ### 3️⃣ Refactor dari useEffect menjadi SWR
+
+![alt text](image-8.png)
 
 ---
 

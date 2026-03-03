@@ -246,7 +246,7 @@ products
 
 ---
 
-## Langkah 6 – Install Firebase
+## Langkah 6 – Install dan Konfigurasi Firebase
 
 ```bash
 npm install firebase
@@ -254,17 +254,19 @@ npm install firebase
 
 ![alt text](image-12.png)
 
----
 
-## Langkah 8 – Konfigurasi Firebase
-
-### 1️⃣ Buat file:
+### Buat file:
 
 ```
 src/utils/db/firebase.ts
 ```
 
-### 2️⃣ Buat file environment:
+![alt text](image-13.png)<br>
+![alt text](image-14.png)
+
+
+## Langkah 7 – Konfigurasi Environment Variable
+### Buat file environment:
 
 ```
 .env.local

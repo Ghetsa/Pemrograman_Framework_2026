@@ -151,6 +151,9 @@ http://localhost:3000/api/produk
 
 Response JSON akan tampil di browser.
 
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image.png)
+
 ---
 
 ## Langkah 3 – Fetch Data API di Frontend
@@ -175,6 +178,10 @@ useEffect(() => {
 }, []);
 ```
 
+Kode:
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-1.png)
+
 ### 3️⃣ Jalankan:
 
 ```
@@ -182,6 +189,8 @@ http://localhost:3000/produk
 ```
 
 Data dari API akan tampil di halaman produk.
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-3.png)
 
 ---
 
@@ -193,30 +202,39 @@ Data dari API akan tampil di halaman produk.
 
 1. Buka Firebase Console
 2. Buat project baru
+![alt text](/jobsheet-07/my-app/public/img/js07/image-4.png)<br>
+
 3. Disable Google Analytics
+![alt text](/jobsheet-07/my-app/public/img/js07/image-5.png)<br>
 4. Klik Add App → Pilih Web
 5. Register App
 6. Continue to Console
+![alt text](/jobsheet-07/my-app/public/img/js07/image-6.png)
+
+
+
 
 ---
 
 ## Langkah 5 – Aktifkan Firestore
 
 1. Klik **Firestore Database**
+![alt text](/jobsheet-07/my-app/public/img/js07/image-7.png)
 2. Klik **Create Database**
+![alt text](/jobsheet-07/my-app/public/img/js07/image-8.png)
 3. Ubah rules menjadi `true`
+![alt text](/jobsheet-07/my-app/public/img/js07/image-9.png)
 4. Klik **Publish**
 
----
 
-## Langkah 6 – Buat Collection
+### – Buat Collection
 
 1. Buat collection bernama:
 
 ```
 products
 ```
-
+![alt text](/jobsheet-07/my-app/public/img/js07/image-10.png)
 2. Gunakan **Auto-ID**
 3. Tambahkan field:
 
@@ -224,29 +242,36 @@ products
 * price (number)
 * size (string)
 
+![alt text](/jobsheet-07/my-app/public/img/js07/image-11.png)
+
 ---
 
-## Langkah 7 – Install Firebase
+## Langkah 6 – Install dan Konfigurasi Firebase
 
 ```bash
 npm install firebase
 ```
 
----
+![alt text](/jobsheet-07/my-app/public/img/js07/image-12.png)
 
-## Langkah 8 – Konfigurasi Firebase
 
-### 1️⃣ Buat file:
+### Buat file:
 
 ```
 src/utils/db/firebase.ts
 ```
 
-### 2️⃣ Buat file environment:
+![alt text](/jobsheet-07/my-app/public/img/js07/image-13.png)<br>
+![alt text](/jobsheet-07/my-app/public/img/js07/image-16.png)
+
+## Langkah 7 – Konfigurasi Environment Variable
+### Buat file environment:
 
 ```
 .env.local
 ```
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-15.png)
 
 Isi:
 
@@ -263,7 +288,27 @@ FIREBASE_APP_ID=xxxx
 
 ---
 
-## Langkah 9 – Buat Service Firebase
+
+## Langkah 8 –  Konfigurasi Firebase
+
+### Modifikasi firebase.ts
+
+```
+const firebaseConfig = { 
+  apiKey: process.env.FIREBASE_API_KEY, 
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN, 
+  projectId: process.env.FIREBASE_PROJECT_ID, 
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, 
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID, 
+  appId: process.env.FIREBASE_APP_ID 
+};
+```
+
+
+---
+
+
+## Langkah 9 – Ambil Data dari Firestore
 
 ### Buat file:
 
@@ -314,6 +359,8 @@ Akses:
 http://localhost:3000/api/produk
 ```
 
+![alt text](/jobsheet-07/my-app/public/img/js07/image-17.png)
+
 Sekarang data berasal dari Firestore (data dinamis).
 
 ---
@@ -323,7 +370,11 @@ Sekarang data berasal dari Firestore (data dinamis).
 ## Tugas 1 (Wajib)
 
 * Tambahkan minimal 3 data produk di Firestore
+![alt text](/jobsheet-07/my-app/public/img/js07/image-18.png)
+
+
 * Pastikan data tampil di halaman produk
+![alt text](/jobsheet-07/my-app/public/img/js07/image-19.png)
 
 ---
 
@@ -335,9 +386,15 @@ Sekarang data berasal dari Firestore (data dinamis).
 category
 ```
 
+![alt text](/jobsheet-07/my-app/public/img/js07/image-22.png)
+
 * Tampilkan `category` di frontend
 
 Modifikasi tipe data dan tampilan di `pages/produk/index.tsx`.
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-21.png)
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-20.png)
 
 ---
 
@@ -350,6 +407,10 @@ Tambahkan tombol:
 ```
 
 Gunakan fetch ulang tanpa reload halaman.
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-23.png)
+
+![alt text](/jobsheet-07/my-app/public/img/js07/image-24.png)
 
 ---
 

@@ -152,7 +152,7 @@ http://localhost:3000/api/produk
 Response JSON akan tampil di browser.
 
 
-![alt text](image.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image.png)
 
 ---
 
@@ -180,7 +180,7 @@ useEffect(() => {
 
 Kode:
 
-![alt text](image-1.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-1.png)
 
 ### 3️⃣ Jalankan:
 
@@ -190,7 +190,7 @@ http://localhost:3000/produk
 
 Data dari API akan tampil di halaman produk.
 
-![alt text](image-3.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-3.png)
 
 ---
 
@@ -202,14 +202,14 @@ Data dari API akan tampil di halaman produk.
 
 1. Buka Firebase Console
 2. Buat project baru
-![alt text](image-4.png)<br>
+![alt text](/jobsheet-07/my-app/public/img/js07/image-4.png)<br>
 
 3. Disable Google Analytics
-![alt text](image-5.png)<br>
+![alt text](/jobsheet-07/my-app/public/img/js07/image-5.png)<br>
 4. Klik Add App → Pilih Web
 5. Register App
 6. Continue to Console
-![alt text](image-6.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-6.png)
 
 
 
@@ -219,11 +219,11 @@ Data dari API akan tampil di halaman produk.
 ## Langkah 5 – Aktifkan Firestore
 
 1. Klik **Firestore Database**
-![alt text](image-7.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-7.png)
 2. Klik **Create Database**
-![alt text](image-8.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-8.png)
 3. Ubah rules menjadi `true`
-![alt text](image-9.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-9.png)
 4. Klik **Publish**
 
 
@@ -234,7 +234,7 @@ Data dari API akan tampil di halaman produk.
 ```
 products
 ```
-![alt text](image-10.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-10.png)
 2. Gunakan **Auto-ID**
 3. Tambahkan field:
 
@@ -242,7 +242,7 @@ products
 * price (number)
 * size (string)
 
-![alt text](image-11.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-11.png)
 
 ---
 
@@ -252,7 +252,7 @@ products
 npm install firebase
 ```
 
-![alt text](image-12.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-12.png)
 
 
 ### Buat file:
@@ -261,8 +261,8 @@ npm install firebase
 src/utils/db/firebase.ts
 ```
 
-![alt text](image-13.png)<br>
-![alt text](image-16.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-13.png)<br>
+![alt text](/jobsheet-07/my-app/public/img/js07/image-16.png)
 
 ## Langkah 7 – Konfigurasi Environment Variable
 ### Buat file environment:
@@ -271,7 +271,7 @@ src/utils/db/firebase.ts
 .env.local
 ```
 
-![alt text](image-15.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-15.png)
 
 Isi:
 
@@ -359,7 +359,7 @@ Akses:
 http://localhost:3000/api/produk
 ```
 
-![alt text](image-17.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-17.png)
 
 Sekarang data berasal dari Firestore (data dinamis).
 
@@ -370,11 +370,11 @@ Sekarang data berasal dari Firestore (data dinamis).
 ## Tugas 1 (Wajib)
 
 * Tambahkan minimal 3 data produk di Firestore
-![alt text](image-18.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-18.png)
 
 
 * Pastikan data tampil di halaman produk
-![alt text](image-19.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-19.png)
 
 ---
 
@@ -386,15 +386,15 @@ Sekarang data berasal dari Firestore (data dinamis).
 category
 ```
 
-![alt text](image-22.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-22.png)
 
 * Tampilkan `category` di frontend
 
 Modifikasi tipe data dan tampilan di `pages/produk/index.tsx`.
 
-![alt text](image-21.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-21.png)
 
-![alt text](image-20.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-20.png)
 
 ---
 
@@ -408,9 +408,9 @@ Tambahkan tombol:
 
 Gunakan fetch ulang tanpa reload halaman.
 
-![alt text](image-23.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-23.png)
 
-![alt text](image-24.png)
+![alt text](/jobsheet-07/my-app/public/img/js07/image-24.png)
 
 ---
 

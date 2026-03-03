@@ -288,7 +288,27 @@ FIREBASE_APP_ID=xxxx
 
 ---
 
-## Langkah 9 – Buat Service Firebase
+
+## Langkah 8 –  Konfigurasi Firebase
+
+### Modifikasi firebase.ts
+
+```
+const firebaseConfig = { 
+  apiKey: process.env.FIREBASE_API_KEY, 
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN, 
+  projectId: process.env.FIREBASE_PROJECT_ID, 
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, 
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID, 
+  appId: process.env.FIREBASE_APP_ID 
+};
+```
+
+
+---
+
+
+## Langkah 9 – Ambil Data dari Firestore
 
 ### Buat file:
 

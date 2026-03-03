@@ -370,7 +370,11 @@ Sekarang data berasal dari Firestore (data dinamis).
 ## Tugas 1 (Wajib)
 
 * Tambahkan minimal 3 data produk di Firestore
+![alt text](image-18.png)
+
+
 * Pastikan data tampil di halaman produk
+![alt text](image-19.png)
 
 ---
 
@@ -382,9 +386,15 @@ Sekarang data berasal dari Firestore (data dinamis).
 category
 ```
 
+![alt text](image-22.png)
+
 * Tampilkan `category` di frontend
 
 Modifikasi tipe data dan tampilan di `pages/produk/index.tsx`.
+
+![alt text](image-21.png)
+
+![alt text](image-20.png)
 
 ---
 

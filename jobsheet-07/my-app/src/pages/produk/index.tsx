@@ -1,45 +1,57 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 type ProductType = {
   id: string;
-  nama: string;
-  harga: number;
-  ukuran: string;
-  warna: string;
+  name: string;
+  price: number;
+  size: string;
+  category: string;
 };
 
-const kategori = () => {
-  // const [isLogin, setIsLogin] = useState(false);
-  // const { push } = useRouter();
-  const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     push("/auth/login");
-  //   }
-  // }, []);
+const ProdukPage = () => {
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/produk")
       .then((res) => res.json())
-      .then((data) => setProducts(data.data))
-      .catch((err) => console.error(err));
+      .then((json) => {
+        setProducts(json.data || []);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Daftar Produk</h1>
-      {products.map((product: ProductType) => (
-        <div key={product.id}>
-          <h2>{product.nama}</h2>
-          <p>Harga: {product.harga}</p>
-          <p>Ukuran: {product.ukuran}</p>
-          <p>Warna: {product.warna}</p>
+    <div style={{ padding: "24px" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "24px" }}>
+        Daftar Produk
+      </h1>
+
+      {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
+
+      {products.map((product) => (
+        <div
+          key={product.id}
+          style={{
+            marginBottom: "16px",
+            padding: "16px",
+            borderRadius: "12px",
+            border: "1px solid #334155",
+            background: "#1e293b",
+            color: "#ffffff",
+          }}
+        >
+          <h2>{product.name}</h2>
+          <p>Harga: Rp {product.price}</p>
+          <p>Ukuran: {product.size}</p>
+          <p>
+            <strong>Kategori:</strong> {product.category}
+          </p>
         </div>
       ))}
     </div>
   );
 };
 
-export default kategori;
+export default ProdukPage;

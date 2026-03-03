@@ -10,16 +10,23 @@ type ProductType = {
 
 const ProdukPage = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/produk");
+      const json = await res.json();
+      setProducts(json.data || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch("/api/produk")
-      .then((res) => res.json())
-      .then((json) => {
-        setProducts(json.data || []);
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+    fetchData();
   }, []);
 
   return (
@@ -27,6 +34,23 @@ const ProdukPage = () => {
       <h1 style={{ textAlign: "center", marginBottom: "24px" }}>
         Daftar Produk
       </h1>
+
+      {/* 🔥 Tombol Refresh */}
+      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+        <button
+          onClick={fetchData}
+          style={{
+            padding: "8px 16px",
+            borderRadius: "8px",
+            border: "none",
+            cursor: "pointer",
+            backgroundColor: "#6366f1",
+            color: "white",
+          }}
+        >
+          Refresh Data
+        </button>
+      </div>
 
       {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
 

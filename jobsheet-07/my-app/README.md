@@ -408,6 +408,10 @@ Tambahkan tombol:
 
 Gunakan fetch ulang tanpa reload halaman.
 
+![alt text](image-23.png)
+
+![alt text](image-24.png)
+
 ---
 
 # G. Pertanyaan Evaluasi

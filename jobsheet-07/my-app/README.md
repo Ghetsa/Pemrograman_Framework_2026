@@ -219,8 +219,11 @@ Data dari API akan tampil di halaman produk.
 ## Langkah 5 – Aktifkan Firestore
 
 1. Klik **Firestore Database**
+![alt text](image-7.png)
 2. Klik **Create Database**
+![alt text](image-8.png)
 3. Ubah rules menjadi `true`
+![alt text](image-9.png)
 4. Klik **Publish**
 
 ---

@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 07
+## JOBSHEET 08
 
-### API Routes pada Next.js dan Integrasi Firebase (Fullstack Next.js)
+### Client Side Rendering (CSR) & Data Fetching dengan SWR pada Next.js
 
 ---
 
@@ -23,431 +23,398 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Memahami konsep API Routes pada Next.js
-2. Membuat API sederhana menggunakan Next.js
-3. Mengirim response JSON dengan status code
-4. Mengambil data API di sisi frontend menggunakan `fetch`
-5. Mengintegrasikan Firebase Firestore sebagai database
-6. Mengelola environment variable (`.env.local`)
-7. Menampilkan data dinamis dari database ke halaman web
+1. Menjelaskan konsep Client Side Rendering (CSR)
+2. Mengimplementasikan data fetching menggunakan `useEffect`
+3. Membuat Skeleton Loading menggunakan conditional rendering
+4. Menggunakan library SWR untuk optimasi data fetching
+5. Mengimplementasikan caching pada aplikasi berbasis framework
 
 ---
 
 # B. Dasar Teori Singkat
 
-## 1️⃣ API Routes pada Next.js
+## 1️⃣ Client Side Rendering (CSR)
 
-Next.js tidak hanya berfungsi sebagai frontend framework, tetapi juga dapat bertindak sebagai backend melalui API Routes.
+Client Side Rendering adalah proses rendering UI yang dilakukan di sisi browser.
 
-Struktur folder:
+Ciri-ciri:
 
-```
-pages/api/
-```
+* HTML awal kosong
+* Data diambil setelah halaman dimuat
+* Ada delay sebelum data tampil
+* Cocok untuk aplikasi interaktif
 
-Contoh:
+Alur CSR:
 
-```
-pages/api/produk.js
-```
-
-Endpoint dapat diakses melalui:
-
-```
-http://localhost:3000/api/produk
-```
-
----
-
-## 2️⃣ Firebase Firestore
-
-Firebase adalah layanan backend dari Google yang menyediakan:
-
-* Database (Firestore)
-* Authentication
-* Storage
-
-Firestore bersifat NoSQL dan cocok untuk aplikasi modern berbasis web.
+Server → kirim HTML kosong + JS
+↓
+Browser menjalankan JS
+↓
+Fetch data dari API
+↓
+Render UI di client
 
 ---
 
-# C. Alat dan Bahan
+## 2️⃣ Data Fetching dengan useEffect
 
-## Perangkat Lunak
-
-* Node.js (LTS)
-* NPM
-* Visual Studio Code
-* Browser
-* Akun Google (untuk Firebase)
-
-## Prasyarat
-
-* Project Next.js (Pages Router) sudah tersedia
-* Aplikasi dapat dijalankan (`npm run dev`)
-
----
-
-# D. Langkah Kerja Praktikum
-
----
-
-## Langkah 1 – Menjalankan Project
-
-```bash
-npm run dev
-```
-
-Akses:
-
-```
-http://localhost:3000
-```
-
----
-
-## Langkah 2 – Membuat API Produk (Data Statis)
-
-### 1️⃣ Buat file:
-
-```
-pages/api/produk.js
-```
-
-### 2️⃣ Tambahkan kode:
-
-```js
-export default function handler(req, res) {
-  const data = [
-    {
-      id: "1",
-      nama: "Kaos Polos",
-      harga: 10000,
-      ukuran: "L",
-      warna: "merah",
-    },
-    {
-      id: "2",
-      nama: "Kaos Berlengan Panjang",
-      harga: 15000,
-      ukuran: "M",
-      warna: "biru",
-    },
-  ];
-
-  res.status(200).json({
-    status: true,
-    status_code: 200,
-    data: data,
-  });
-}
-```
-
-### 3️⃣ Uji endpoint:
-
-```
-http://localhost:3000/api/produk
-```
-
-Response JSON akan tampil di browser.
-
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image.png)
-
----
-
-## Langkah 3 – Fetch Data API di Frontend
-
-### 1️⃣ Buka:
-
-```
-pages/produk/index.tsx
-```
-
-### 2️⃣ Modifikasi kode
-
-* Tambahkan `useEffect()`
-* Comment sementara useEffect untuk `isLogin`
+Contoh pola dasar CSR:
 
 ```tsx
 useEffect(() => {
-  fetch("/api/produk")
-    .then((res) => res.json())
-    .then((data) => setProducts(data.data))
-    .catch((err) => console.error(err));
-}, []);
+  fetch('/api/products')
+    .then(res => res.json())
+    .then(data => setProducts(data))
+}, [])
 ```
 
-Kode:
+Karakteristik:
 
-![alt text](/jobsheet-07/my-app/public/img/js07/image-1.png)
+* Data diambil di sisi client
+* Memerlukan loading state
+* Menggunakan conditional rendering
 
-### 3️⃣ Jalankan:
+---
+
+## 3️⃣ Skeleton Loading
+
+Skeleton digunakan untuk:
+
+* Menghindari tampilan kosong
+* Memberikan feedback visual
+* Meningkatkan pengalaman pengguna
+
+Contoh konsep:
+
+```tsx
+{products.length > 0 ? (
+  products.map(...)
+) : (
+  <Skeleton />
+)}
+```
+
+---
+
+## 4️⃣ SWR (Stale While Revalidate)
+
+SWR adalah React Hook untuk data fetching dengan caching otomatis.
+
+Instalasi:
+
+```bash
+npm install swr
+```
+
+Contoh penggunaan:
+
+```tsx
+import useSWR from 'swr'
+
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+const { data, error, isLoading } = useSWR('/api/products', fetcher)
+```
+
+Keunggulan:
+
+* Caching otomatis
+* Revalidation
+* Handling loading & error lebih sederhana
+* Kode lebih clean dibanding useEffect manual
+
+---
+
+# C. Langkah Kerja Praktikum
+
+---
+
+## Bagian 1 – Setup Data Produk
+
+### 1️⃣ Modifikasi Data di Firebase
+
+* Tambahkan field baru:
+
+  * id
+  * name
+  * category
+  * price
+  * image
+* Gunakan URL image dari toko sepatu (copy image address)
+* Tambahkan minimal 2 document pada collection `products`
+
+![alt text](image-2.png)
+
+
+### 2️⃣ Buat Endpoint API
+
+Pastikan endpoint tersedia:
+
+```
+/api/produk
+```
+
+### 3️⃣ Uji Endpoint
+
+```
+http://localhost:3000/api/produk
+```
+
+Data JSON akan menampilkan produk lengkap dengan image dan category.
+
+![alt text](image-1.png)
+
+---
+
+## Bagian 2 – Implementasi CSR dengan useEffect
+
+### Langkah 1 – Buat File View
+
+Buat file:
+
+```
+src/views/products/index.tsx
+```
+
+![alt text](image-3.png)
+
+---
+
+### Langkah 2 – Modifikasi index.tsx (View Produk)
+
+Tambahkan tipe data:
+
+```tsx
+type ProductType = {
+  id: string
+  name: string
+  price: number
+  image: string
+  category: string
+}
+```
+
+Buat komponen tampil produk:
+
+```tsx
+const TampilProduk = ({ products }: { products: ProductType[] }) => {
+  return (
+    <div>
+      <h1>Daftar Produk</h1>
+      {products.map((products) => (
+        <div key={products.id}>
+          <h3>{products.name}</h3>
+          <img src={products.image} width={200} />
+          <p>Harga: {products.price}</p>
+          <p>Kategori: {products.category}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+![alt text](image-4.png)
+
+---
+
+### Langkah 3 – Modifikasi pages/produk/index.tsx
+
+Tambahkan `useEffect`:
+
+```tsx
+useEffect(() => {
+  fetch('/api/produk')
+    .then((res) => res.json())
+    .then((respondata) => {
+      setProducts(respondata.data)
+    })
+}, [])
+```
+
+Jalankan:
 
 ```
 http://localhost:3000/produk
 ```
 
-Data dari API akan tampil di halaman produk.
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-3.png)
+![alt text](image-5.png)
 
 ---
 
-# E. Integrasi Firebase
+## Bagian 3 – Styling Produk
 
----
-
-## Langkah 4 – Setup Firebase
-
-1. Buka Firebase Console
-2. Buat project baru
-![alt text](/jobsheet-07/my-app/public/img/js07/image-4.png)<br>
-
-3. Disable Google Analytics
-![alt text](/jobsheet-07/my-app/public/img/js07/image-5.png)<br>
-4. Klik Add App → Pilih Web
-5. Register App
-6. Continue to Console
-![alt text](/jobsheet-07/my-app/public/img/js07/image-6.png)
-
-
-
-
----
-
-## Langkah 5 – Aktifkan Firestore
-
-1. Klik **Firestore Database**
-![alt text](/jobsheet-07/my-app/public/img/js07/image-7.png)
-2. Klik **Create Database**
-![alt text](/jobsheet-07/my-app/public/img/js07/image-8.png)
-3. Ubah rules menjadi `true`
-![alt text](/jobsheet-07/my-app/public/img/js07/image-9.png)
-4. Klik **Publish**
-
-
-### – Buat Collection
-
-1. Buat collection bernama:
+### 1️⃣ Buat file:
 
 ```
-products
+produk.module.scss
 ```
-![alt text](/jobsheet-07/my-app/public/img/js07/image-10.png)
-2. Gunakan **Auto-ID**
-3. Tambahkan field:
 
-* name (string)
-* price (number)
-* size (string)
+### 2️⃣ Tambahkan styling produk (grid, card, image, dll)
 
-![alt text](/jobsheet-07/my-app/public/img/js07/image-11.png)
+### 3️⃣ Import styling pada view produk
+
+```tsx
+import styles from "./produk.module.scss"
+```
 
 ---
 
-## Langkah 6 – Install dan Konfigurasi Firebase
+## Bagian 4 – Implementasi Skeleton Loading
+
+### 1️⃣ Modifikasi index.tsx pada views/products
+
+Tambahkan conditional rendering:
+
+```tsx
+{products.length > 0 ? (
+  products.map(...)
+) : (
+  <div className={styles.skeleton}></div>
+)}
+```
+
+---
+
+### 2️⃣ Tambahkan animasi skeleton di produk.module.scss
+
+```scss
+@keyframes skeletonAnimation {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+.skeleton {
+  background-color: #ddd;
+  animation: skeletonAnimation 1.5s infinite;
+}
+```
+
+---
+
+### 3️⃣ Jalankan Browser
+
+Saat halaman dimuat:
+
+* Skeleton tampil terlebih dahulu
+* Setelah data masuk → produk tampil
+
+---
+
+## Bagian 5 – Implementasi SWR
+
+### 1️⃣ Install SWR
 
 ```bash
-npm install firebase
+npm install swr
 ```
 
-![alt text](/jobsheet-07/my-app/public/img/js07/image-12.png)
+---
 
+### 2️⃣ Buat folder utils/swr
 
-### Buat file:
-
-```
-src/utils/db/firebase.ts
-```
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-13.png)<br>
-![alt text](/jobsheet-07/my-app/public/img/js07/image-16.png)
-
-## Langkah 7 – Konfigurasi Environment Variable
-### Buat file environment:
+Buat file:
 
 ```
-.env.local
+src/utils/swr/fetcher.ts
 ```
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-15.png)
 
 Isi:
 
-```
-FIREBASE_API_KEY=xxxx
-FIREBASE_AUTH_DOMAIN=xxxx
-FIREBASE_PROJECT_ID=xxxx
-FIREBASE_STORAGE_BUCKET=xxxx
-FIREBASE_MESSAGING_SENDER_ID=xxxx
-FIREBASE_APP_ID=xxxx
-```
-
-⚠ Tanpa tanda petik dan tanpa koma.
-
----
-
-
-## Langkah 8 –  Konfigurasi Firebase
-
-### Modifikasi firebase.ts
-
-```
-const firebaseConfig = { 
-  apiKey: process.env.FIREBASE_API_KEY, 
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN, 
-  projectId: process.env.FIREBASE_PROJECT_ID, 
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, 
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID, 
-  appId: process.env.FIREBASE_APP_ID 
-};
-```
-
-
----
-
-
-## Langkah 9 – Ambil Data dari Firestore
-
-### Buat file:
-
-```
-src/utils/db/servicefirebase.js
-```
-
-```js
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase";
-
-export async function retrieveData(collectionName) {
-  const snapshot = await getDocs(collection(db, collectionName));
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-}
+```tsx
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+export default fetcher
 ```
 
 ---
 
-## Langkah 10 – API Mengambil Data Firebase
-
-Edit:
-
-```
-pages/api/produk.js
-```
-
-```js
-import { retrieveData } from "@/utils/db/servicefirebase";
-
-export default async function handler(req, res) {
-  const data = await retrieveData("products");
-
-  res.status(200).json({
-    status: true,
-    status_code: 200,
-    data: data,
-  });
-}
-```
-
-Akses:
-
-```
-http://localhost:3000/api/produk
-```
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-17.png)
-
-Sekarang data berasal dari Firestore (data dinamis).
-
----
-
-# F. Tugas Praktikum
-
-## Tugas 1 (Wajib)
-
-* Tambahkan minimal 3 data produk di Firestore
-![alt text](/jobsheet-07/my-app/public/img/js07/image-18.png)
-
-
-* Pastikan data tampil di halaman produk
-![alt text](/jobsheet-07/my-app/public/img/js07/image-19.png)
-
----
-
-## Tugas 2 (Wajib)
-
-* Tambahkan field baru:
-
-```
-category
-```
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-22.png)
-
-* Tampilkan `category` di frontend
-
-Modifikasi tipe data dan tampilan di `pages/produk/index.tsx`.
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-21.png)
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-20.png)
-
----
-
-## Tugas 3 (Pengayaan)
-
-Tambahkan tombol:
+### 3️⃣ Modifikasi pages/produk/index.tsx
 
 ```tsx
-<button onClick={fetchData}>Refresh Data</button>
+import useSWR from "swr"
+import fetcher from "@/utils/swr/fetcher"
+
+const { data, error, isLoading } = useSWR('/api/produk', fetcher)
 ```
 
-Gunakan fetch ulang tanpa reload halaman.
+Tampilkan data:
 
-![alt text](/jobsheet-07/my-app/public/img/js07/image-23.png)
-
-![alt text](/jobsheet-07/my-app/public/img/js07/image-24.png)
-
----
-
-# G. Pertanyaan Evaluasi
-
-### 1. Apa fungsi API Routes pada Next.js?
-
-API Routes memungkinkan Next.js berfungsi sebagai backend untuk membuat endpoint API tanpa perlu server terpisah.
+```tsx
+<TampilProduk products={isLoading ? [] : data.data} />
+```
 
 ---
 
-### 2. Mengapa `.env.local` tidak boleh di-push ke repository?
+## Perbandingan
 
-Karena file tersebut berisi kredensial sensitif seperti API key dan konfigurasi database.
-
----
-
-### 3. Apa perbedaan data statis dan data dinamis?
-
-Data statis ditulis langsung di dalam kode, sedangkan data dinamis berasal dari database atau API dan dapat berubah tanpa mengubah source code.
-
----
-
-### 4. Mengapa Next.js disebut framework fullstack?
-
-Karena Next.js dapat menangani frontend dan backend dalam satu framework, termasuk rendering UI dan pembuatan API.
+| useEffect Manual      | SWR             |
+| --------------------- | --------------- |
+| Perlu state manual    | Otomatis        |
+| Tidak ada caching     | Ada caching     |
+| Lebih panjang         | Lebih ringkas   |
+| Handling error manual | Lebih sederhana |
 
 ---
 
-# H. Kesimpulan
+# D. Tugas Praktikum
+
+## Tugas Individu
+
+### 1️⃣ Jelaskan Perbedaan
+
+* Client Side Rendering
+* Server Side Rendering
+* Static Site Generation
+
+### 2️⃣ Buat Halaman Produk Dengan:
+
+* Skeleton loading
+* Animasi
+
+### 3️⃣ Refactor dari useEffect menjadi SWR
+
+---
+
+# E. Penanganan Error
+
+Jika muncul error saat membuka:
+
+```
+http://localhost:3000/produk/server
+```
+
+Modifikasi:
+
+```tsx
+<p>{products.price.toLocaleString("id-ID")}</p>
+```
+
+---
+
+# F. Pertanyaan Evaluasi
+
+### 1. Apa itu Client Side Rendering?
+
+CSR adalah proses rendering halaman di sisi browser setelah data di-fetch dari API.
+
+### 2. Mengapa perlu Skeleton Loading?
+
+Untuk meningkatkan UX dan menghindari tampilan kosong saat data belum tersedia.
+
+### 3. Apa keunggulan SWR dibanding useEffect manual?
+
+SWR menyediakan caching, revalidation, dan handling loading/error secara otomatis.
+
+---
+
+# G. Kesimpulan
 
 Pada praktikum ini telah dipelajari:
 
-* Pembuatan API Routes pada Next.js
-* Fetch data dari API ke frontend
-* Integrasi Firebase Firestore sebagai database
-* Penggunaan environment variable untuk keamanan
-* Pengelolaan data dinamis dalam aplikasi
+* Konsep Client Side Rendering
+* Data fetching menggunakan useEffect
+* Implementasi Skeleton Loading
+* Optimasi data fetching dengan SWR
+* Caching dan revalidation otomatis
 
-Dengan API Routes dan Firebase, Next.js dapat berfungsi sebagai framework fullstack yang memungkinkan pengembangan aplikasi web secara terintegrasi dan efisien.
+Pendekatan CSR memberikan fleksibilitas tinggi dalam aplikasi interaktif, sementara SWR memberikan efisiensi dan optimasi dalam pengelolaan data pada sisi client.

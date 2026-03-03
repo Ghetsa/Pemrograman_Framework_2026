@@ -359,6 +359,8 @@ Akses:
 http://localhost:3000/api/produk
 ```
 
+![alt text](image-17.png)
+
 Sekarang data berasal dari Firestore (data dinamis).
 
 ---

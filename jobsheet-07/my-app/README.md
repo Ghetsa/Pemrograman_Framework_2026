@@ -202,10 +202,17 @@ Data dari API akan tampil di halaman produk.
 
 1. Buka Firebase Console
 2. Buat project baru
+![alt text](image-4.png)<br>
+
 3. Disable Google Analytics
+![alt text](image-5.png)<br>
 4. Klik Add App → Pilih Web
 5. Register App
 6. Continue to Console
+![alt text](image-6.png)
+
+
+
 
 ---
 

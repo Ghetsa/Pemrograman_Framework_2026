@@ -29,7 +29,7 @@ const kategori = () => {
 
   return (
     <div>
-      <h1>Daftar Produk</h1>
+      <h1 style={{ textAlign: "center" }}>Daftar Produk</h1>
       {products.map((product: ProductType) => (
         <div key={product.id}>
           <h2>{product.nama}</h2>

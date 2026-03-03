@@ -142,7 +142,7 @@ Keunggulan:
 * Gunakan URL image dari toko sepatu (copy image address)
 * Tambahkan minimal 2 document pada collection `products`
 
-![alt text](image-2.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-2.png)
 
 
 ### 2️⃣ Buat Endpoint API
@@ -161,7 +161,7 @@ http://localhost:3000/api/produk
 
 Data JSON akan menampilkan produk lengkap dengan image dan category.
 
-![alt text](image-1.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-1.png)
 
 ---
 
@@ -175,7 +175,7 @@ Buat file:
 src/views/products/index.tsx
 ```
 
-![alt text](image-3.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-3.png)
 
 ---
 
@@ -213,7 +213,7 @@ const TampilProduk = ({ products }: { products: ProductType[] }) => {
 }
 ```
 
-![alt text](image-4.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-4.png)
 
 ---
 
@@ -237,7 +237,7 @@ Jalankan:
 http://localhost:3000/produk
 ```
 
-![alt text](image-5.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-5.png)
 
 ---
 
@@ -257,7 +257,7 @@ produk.module.scss
 import styles from "./produk.module.scss"
 ```
 
-![alt text](image-6.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-6.png)
 
 ---
 
@@ -303,7 +303,7 @@ Saat halaman dimuat:
 
 ---
 
-![alt text](load.gif)
+![alt text](/jobsheet-08/my-app/public/img/js08/load.gif)
 
 ## Bagian 5 – Implementasi SWR
 
@@ -313,7 +313,7 @@ Saat halaman dimuat:
 npm install swr
 ```
 
-![alt text](image-7.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-7.png)
 
 ---
 
@@ -349,7 +349,7 @@ Tampilkan data:
 <TampilProduk products={isLoading ? [] : data.data} />
 ```
 
-![alt text](<load swr.gif>)
+![alt text](/jobsheet-08/my-app/public/img/js08/<load swr.gif>)
 
 ---
 
@@ -399,11 +399,11 @@ Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
 * Skeleton loading
 * Animasi
 
-![alt text](<LOAD 3.gif>)
+![alt text](/jobsheet-08/my-app/public/img/js08/<LOAD 3.gif>)
 
 ### 3️⃣ Refactor dari useEffect menjadi SWR
 
-![alt text](image-8.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-8.png)
 
 ---
 

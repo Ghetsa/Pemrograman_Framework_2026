@@ -142,7 +142,7 @@ Keunggulan:
 * Gunakan URL image dari toko sepatu (copy image address)
 * Tambahkan minimal 2 document pada collection `products`
 
-![alt text](image.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-2.png)
 
 
 ### 2️⃣ Buat Endpoint API
@@ -161,7 +161,7 @@ http://localhost:3000/api/produk
 
 Data JSON akan menampilkan produk lengkap dengan image dan category.
 
-![alt text](image-1.png)
+![alt text](/jobsheet-08/my-app/public/img/js08/image-1.png)
 
 ---
 
@@ -174,6 +174,8 @@ Buat file:
 ```
 src/views/products/index.tsx
 ```
+
+![alt text](/jobsheet-08/my-app/public/img/js08/image-3.png)
 
 ---
 
@@ -211,6 +213,8 @@ const TampilProduk = ({ products }: { products: ProductType[] }) => {
 }
 ```
 
+![alt text](/jobsheet-08/my-app/public/img/js08/image-4.png)
+
 ---
 
 ### Langkah 3 – Modifikasi pages/produk/index.tsx
@@ -233,6 +237,8 @@ Jalankan:
 http://localhost:3000/produk
 ```
 
+![alt text](/jobsheet-08/my-app/public/img/js08/image-5.png)
+
 ---
 
 ## Bagian 3 – Styling Produk
@@ -250,6 +256,8 @@ produk.module.scss
 ```tsx
 import styles from "./produk.module.scss"
 ```
+
+![alt text](/jobsheet-08/my-app/public/img/js08/image-6.png)
 
 ---
 
@@ -295,6 +303,8 @@ Saat halaman dimuat:
 
 ---
 
+![alt text](/jobsheet-08/my-app/public/img/js08/load.gif)
+
 ## Bagian 5 – Implementasi SWR
 
 ### 1️⃣ Install SWR
@@ -302,6 +312,8 @@ Saat halaman dimuat:
 ```bash
 npm install swr
 ```
+
+![alt text](/jobsheet-08/my-app/public/img/js08/image-7.png)
 
 ---
 
@@ -337,6 +349,8 @@ Tampilkan data:
 <TampilProduk products={isLoading ? [] : data.data} />
 ```
 
+![alt text](/jobsheet-08/my-app/public/img/js08/<load swr.gif>)
+
 ---
 
 ## Perbandingan
@@ -360,12 +374,36 @@ Tampilkan data:
 * Server Side Rendering
 * Static Site Generation
 
+JAWABAN:
+
+1. Client Side Rendering (CSR)
+
+Rendering dilakukan di browser setelah halaman dimuat. Data diambil menggunakan JavaScript.
+Kelebihan: Cocok untuk aplikasi interaktif seperti dashboard.
+Kekurangan: Kurang baik untuk SEO dan loading awal lebih lambat.
+
+2. Server Side Rendering (SSR)
+
+Rendering dilakukan di server setiap ada permintaan dari user. Server mengirim HTML yang sudah berisi data.
+Kelebihan: SEO baik dan data selalu terbaru.
+Kekurangan: Beban server lebih besar karena render dilakukan setiap request.
+
+3. Static Site Generation (SSG)
+
+Rendering dilakukan saat proses build sebelum website diakses. Halaman yang dihasilkan bersifat statis.
+Kelebihan: Sangat cepat dan SEO sangat baik.
+Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
+
 ### 2️⃣ Buat Halaman Produk Dengan:
 
 * Skeleton loading
 * Animasi
 
+![alt text](/jobsheet-08/my-app/public/img/js08/<LOAD 3.gif>)
+
 ### 3️⃣ Refactor dari useEffect menjadi SWR
+
+![alt text](/jobsheet-08/my-app/public/img/js08/image-8.png)
 
 ---
 

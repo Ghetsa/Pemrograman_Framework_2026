@@ -303,6 +303,8 @@ Saat halaman dimuat:
 
 ---
 
+![alt text](load.gif)
+
 ## Bagian 5 – Implementasi SWR
 
 ### 1️⃣ Install SWR

@@ -262,8 +262,7 @@ src/utils/db/firebase.ts
 ```
 
 ![alt text](image-13.png)<br>
-![alt text](image-14.png)
-
+![alt text](image-16.png)
 
 ## Langkah 7 – Konfigurasi Environment Variable
 ### Buat file environment:
@@ -271,6 +270,8 @@ src/utils/db/firebase.ts
 ```
 .env.local
 ```
+
+![alt text](image-15.png)
 
 Isi:
 

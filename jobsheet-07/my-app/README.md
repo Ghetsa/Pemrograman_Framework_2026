@@ -226,16 +226,15 @@ Data dari API akan tampil di halaman produk.
 ![alt text](image-9.png)
 4. Klik **Publish**
 
----
 
-## Langkah 6 – Buat Collection
+### – Buat Collection
 
 1. Buat collection bernama:
 
 ```
 products
 ```
-
+![alt text](image-10.png)
 2. Gunakan **Auto-ID**
 3. Tambahkan field:
 
@@ -243,13 +242,17 @@ products
 * price (number)
 * size (string)
 
+![alt text](image-11.png)
+
 ---
 
-## Langkah 7 – Install Firebase
+## Langkah 6 – Install Firebase
 
 ```bash
 npm install firebase
 ```
+
+![alt text](image-12.png)
 
 ---
 

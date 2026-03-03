@@ -151,6 +151,9 @@ http://localhost:3000/api/produk
 
 Response JSON akan tampil di browser.
 
+
+![alt text](image.png)
+
 ---
 
 ## Langkah 3 – Fetch Data API di Frontend
@@ -175,6 +178,10 @@ useEffect(() => {
 }, []);
 ```
 
+Kode:
+
+![alt text](image-1.png)
+
 ### 3️⃣ Jalankan:
 
 ```
@@ -183,7 +190,7 @@ http://localhost:3000/produk
 
 Data dari API akan tampil di halaman produk.
 
-![alt text](image.png)
+![alt text](image-2.png)
 
 ---
 

@@ -1,23 +1,43 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <div>
-      <head>
+    <>
+      <Head>
         <title>Praktikum Next.js Pages Router</title>
-        </head>
-      <h1>
-        Praktikum Next.js Pages Router
-      </h1> <br />
-      <p>Mahasiswa D4 TI Pengembangan Web dengan Framework. <br /></p>
-      <p>This is me learning NEXT.js</p>
+        <meta name="description" content="Belajar Next.js Pages Router" />
+      </Head>
 
-    </div>
+      <main
+        className={inter.className}
+        style={{
+          padding: '40px',
+          textAlign: 'center',
+          backgroundColor: '#f4f6f9',
+          minHeight: '100vh'
+        }}
+      >
+        <h1
+          style={{
+            color: '#0070f3',
+            fontSize: '36px',
+            marginBottom: '20px'
+          }}
+        >
+          Praktikum Next.js Pages Router
+        </h1>
+
+        <p style={{ fontSize: '18px', color: '#333' }}>
+          Mahasiswa D4 TI Pengembangan Web dengan Framework.
+        </p>
+
+        <p style={{ fontSize: '16px', color: '#555' }}>
+          This is me learning Next.js
+        </p>
+      </main>
+    </>
   )
 }

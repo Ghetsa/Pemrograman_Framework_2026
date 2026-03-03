@@ -142,6 +142,9 @@ Keunggulan:
 * Gunakan URL image dari toko sepatu (copy image address)
 * Tambahkan minimal 2 document pada collection `products`
 
+![alt text](image.png)
+
+
 ### 2️⃣ Buat Endpoint API
 
 Pastikan endpoint tersedia:
@@ -157,6 +160,8 @@ http://localhost:3000/api/produk
 ```
 
 Data JSON akan menampilkan produk lengkap dengan image dan category.
+
+![alt text](image-1.png)
 
 ---
 

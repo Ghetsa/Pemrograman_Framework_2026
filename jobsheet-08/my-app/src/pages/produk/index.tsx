@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import TampilanProduk from "../../views/product";
+import TampilanProduk from "../views/product";
 
 const kategori = () => {
   // const [isLogin, setIsLogin] = useState(false);

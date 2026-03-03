@@ -257,6 +257,8 @@ produk.module.scss
 import styles from "./produk.module.scss"
 ```
 
+![alt text](image-6.png)
+
 ---
 
 ## Bagian 4 – Implementasi Skeleton Loading

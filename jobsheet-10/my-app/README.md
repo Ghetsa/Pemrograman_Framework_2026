@@ -331,6 +331,8 @@ Hasil:
 
 Data **langsung bertambah**.
 
+![alt text](image-6.png)
+
 ---
 
 #### Halaman SSR
@@ -343,6 +345,8 @@ Hasil:
 
 Data **langsung bertambah**.
 
+![alt text](image-7.png)
+
 ---
 
 #### Halaman SSG
@@ -354,6 +358,8 @@ Data **langsung bertambah**.
 Hasil:
 
 Data **tidak berubah**.
+
+![alt text](image-8.png)
 
 Hal ini karena data SSG hanya diambil saat build.
 

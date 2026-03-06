@@ -1,0 +1,602 @@
+# PEMROGRAMAN BERBASIS FRAMEWORK
+
+## JOBSHEET 11
+
+### Dynamic Routing & Detail Produk (CSR, SSR, SSG) pada Next.js
+
+---
+
+## 👤 Identitas Mahasiswa
+
+* **Nama:** Ghetsa Ramadhani Riska A.
+* **Kelas:** TI-3D
+* **No. Absen:** 10
+* **Program Studi:** Teknik Informatika
+* **Jurusan:** Teknologi Informasi
+* **Politeknik Negeri Malang**
+* **Tahun:** 2026
+
+---
+
+# A. Tujuan Praktikum
+
+Setelah menyelesaikan praktikum ini, mahasiswa mampu:
+
+1. Membuat halaman detail produk menggunakan **Dynamic Routing**.
+2. Mengambil parameter URL pada Next.js.
+3. Mengimplementasikan halaman detail produk dengan metode:
+
+   * Client Side Rendering (CSR)
+   * Server Side Rendering (SSR)
+   * Static Site Generation (SSG)
+4. Menggunakan **getStaticPaths** pada dynamic SSG.
+5. Menganalisis perbedaan performa ketiga metode rendering. 
+
+---
+
+# B. Dasar Teori Singkat
+
+## 1️⃣ Dynamic Routing
+
+Dynamic Routing pada Next.js digunakan untuk membuat halaman dengan parameter URL.
+
+Contoh struktur file:
+
+```
+pages/products/[product].tsx
+```
+
+Jika URL diakses:
+
+```
+/products/123
+```
+
+Maka nilai parameter:
+
+```
+product = 123
+```
+
+Dynamic routing memungkinkan kita membuat **halaman detail produk berdasarkan ID** tanpa membuat banyak file halaman. 
+
+---
+
+## 2️⃣ Rendering pada Halaman Detail
+
+Pada halaman detail produk, terdapat tiga metode rendering:
+
+| Metode | Cara Ambil ID           | Cara Fetch Data    |
+| ------ | ----------------------- | ------------------ |
+| CSR    | useRouter()             | fetch / useSWR     |
+| SSR    | context.params          | getServerSideProps |
+| SSG    | params + getStaticPaths | getStaticProps     |
+
+Metode ini menentukan **kapan data diambil dan bagaimana halaman dirender**. 
+
+---
+
+## 3️⃣ getStaticPaths
+
+`getStaticPaths` digunakan pada **Dynamic Static Generation (SSG)** untuk:
+
+* Menentukan daftar halaman yang akan dibuat saat build
+* Mendaftarkan ID produk yang akan dijadikan halaman statis
+
+Contoh konsep:
+
+```tsx
+export async function getStaticPaths() {
+
+ const res = await fetch('http://localhost:3000/api/produk')
+ const data = await res.json()
+
+ const paths = data.map((product) => ({
+   params: { product: product.id }
+ }))
+
+ return { paths, fallback: false }
+}
+```
+
+Fungsi ini **wajib digunakan ketika SSG menggunakan dynamic route**. 
+
+---
+
+# C. Langkah Kerja Praktikum
+
+---
+
+# Bagian 1 – Membuat Dynamic Route
+
+### 1️⃣ Modifikasi file
+
+Buka file:
+
+```
+pages/products/[product].tsx
+```
+
+Modifikasi pada bagian link produk agar dapat menuju halaman detail:
+
+```tsx
+<Link href={`/produk/${products.id}`}>
+```
+
+Tujuannya agar setiap produk dapat menuju halaman detail berdasarkan ID.
+
+---
+
+### 2️⃣ Jalankan aplikasi
+
+Buka browser:
+
+```
+http://localhost:3000/produk
+```
+
+Jika salah satu produk diklik maka akan diarahkan ke halaman:
+
+```
+http://localhost:3000/produk/{id_produk}
+```
+
+Hal ini membuktikan bahwa **dynamic routing berhasil dibuat**. 
+
+---
+
+# Bagian 2 – Implementasi CSR (Client Side Rendering)
+
+---
+
+## Langkah 1 – Modifikasi file `[product].tsx`
+
+Buka file:
+
+```
+src/pages/produk/[product].tsx
+```
+
+Tambahkan kode berikut:
+
+```tsx
+import fetcher from "@/utils/swr/fetcher"
+import useSWR from "swr"
+import { useRouter } from "next/router"
+
+const HalamanProduk = () => {
+
+  const Router = useRouter()
+  const { query } = Router
+
+  const { data, error, isLoading } = useSWR(`/api/products/${query.product}`, fetcher)
+
+  return (
+    <div>
+      <h1>Halaman Produk</h1>
+      <p>Produk: {query.product}</p>
+    </div>
+  )
+}
+
+export default HalamanProduk
+```
+
+---
+
+## Langkah 2 – Rename API route
+
+Buka folder:
+
+```
+pages/api
+```
+
+Rename file:
+
+```
+produk.ts
+```
+
+menjadi:
+
+```
+[[...produk]].ts
+```
+
+Tujuannya agar API dapat menerima **parameter ID produk secara dinamis**.
+
+---
+
+## Langkah 3 – Modifikasi service Firebase
+
+Buka file:
+
+```
+utils/db/servicefirebase.ts
+```
+
+Tambahkan fungsi untuk mengambil detail produk berdasarkan ID.
+
+---
+
+## Langkah 4 – Modifikasi file API
+
+Buka file:
+
+```
+pages/api/[[...produk]].ts
+```
+
+Tambahkan kode handler:
+
+```tsx
+export default async function handler(req, res) {
+
+  const {
+    query: { produk },
+  } = req
+
+  if (produk) {
+    const data = await retrieveDataById("products", produk[0])
+    res.status(200).json({
+      status: true,
+      status_code: 200,
+      data,
+    })
+  } else {
+    const data = await retrieveProducts("products")
+    res.status(200).json({
+      status: true,
+      status_code: 200,
+      data,
+    })
+  }
+}
+```
+
+---
+
+## Langkah 5 – Uji endpoint API
+
+Akses:
+
+```
+http://localhost:3000/api/produk/{id}
+```
+
+Jika berhasil maka akan menampilkan data detail produk dalam bentuk JSON. 
+
+---
+
+# Bagian 3 – Membuat View Detail Produk
+
+---
+
+## 1️⃣ Buat folder baru
+
+```
+src/views/DetailProduct
+```
+
+Buat file:
+
+```
+index.tsx
+detailProduct.module.scss
+```
+
+---
+
+## 2️⃣ Modifikasi `detailProduct.module.scss`
+
+Tambahkan styling card detail produk:
+
+```scss
+.productdetail {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.image img {
+  width: 100%;
+  object-fit: cover;
+}
+```
+
+---
+
+## 3️⃣ Modifikasi `index.tsx`
+
+```tsx
+const DetailProduk = ({ products }) => {
+
+ return (
+   <div className={styles.productdetail}>
+
+     <div className={styles.image}>
+       <img src={products.image} alt={products.name} />
+     </div>
+
+     <div className={styles.info}>
+       <h1>{products.name}</h1>
+       <p>{products.category}</p>
+       <p>{products.price.toLocaleString("id-ID")}</p>
+     </div>
+
+   </div>
+ )
+}
+
+export default DetailProduk
+```
+
+---
+
+## 4️⃣ Hubungkan dengan halaman `[product].tsx`
+
+Tambahkan:
+
+```tsx
+import DetailProduk from "@/views/DetailProduct"
+
+<DetailProduk products={isLoading ? [] : data.data} />
+```
+
+---
+
+## 5️⃣ Jalankan browser
+
+```
+http://localhost:3000/produk/{id_produk}
+```
+
+Maka akan muncul **halaman detail produk**. 
+
+---
+
+# Bagian 4 – Implementasi SSR
+
+---
+
+### 1️⃣ Modifikasi `[product].tsx`
+
+Comment kode CSR.
+
+Tambahkan kode SSR:
+
+```tsx
+export async function getServerSideProps(context) {
+
+ const { product } = context.params
+
+ const res = await fetch(`http://localhost:3000/api/produk/${product}`)
+ const response = await res.json()
+
+ return {
+   props: {
+     products: response.data
+   }
+ }
+}
+```
+
+---
+
+### 2️⃣ Jalankan halaman
+
+```
+http://localhost:3000/produk/server
+```
+
+Perbedaan SSR:
+
+* Tidak memerlukan loading state
+* Data sudah tersedia sebelum halaman dirender. 
+
+---
+
+# Bagian 5 – Implementasi Static Site Generation (Dynamic SSG)
+
+---
+
+## 1️⃣ Modifikasi `[product].tsx`
+
+Tambahkan fungsi berikut:
+
+### getStaticPaths
+
+```tsx
+export async function getStaticPaths() {
+
+ const res = await fetch("http://localhost:3000/api/produk")
+ const products = await res.json()
+
+ const paths = products.data.map((product) => ({
+   params: { product: product.id }
+ }))
+
+ return {
+   paths,
+   fallback: false
+ }
+}
+```
+
+---
+
+### getStaticProps
+
+```tsx
+export async function getStaticProps({ params }) {
+
+ const res = await fetch(`http://localhost:3000/api/produk/${params.product}`)
+ const response = await res.json()
+
+ return {
+   props: {
+     products: response.data
+   }
+ }
+}
+```
+
+---
+
+## 2️⃣ Jalankan aplikasi
+
+```
+http://localhost:3000/produk
+```
+
+Klik salah satu produk.
+
+Halaman detail produk akan terbuka dengan metode **Static Site Generation**. 
+
+---
+
+# D. Pengujian
+
+---
+
+## Uji 1 – CSR
+
+Langkah:
+
+1. Refresh halaman detail produk
+2. Buka **Network tab**
+3. Perhatikan request API
+
+Hasil:
+
+* Ada request API di Network tab
+* Halaman memerlukan loading state.
+
+---
+
+## Uji 2 – SSR
+
+Langkah:
+
+1. Refresh halaman detail
+2. Periksa Network tab
+
+Hasil:
+
+* Tidak ada request API dari client
+* Data sudah dirender dari server.
+
+---
+
+## Uji 3 – SSG
+
+Langkah:
+
+1. Jalankan build
+
+```
+npm run build
+npm run start
+```
+
+2. Tambahkan produk baru di database.
+3. Buka halaman detail produk baru.
+
+Hasil:
+
+* Produk tidak muncul.
+
+Setelah build ulang:
+
+```
+npm run build
+npm run start
+```
+
+Baru produk akan muncul.
+
+---
+
+# E. Tugas Praktikum
+
+## Tugas Individu
+
+### 1️⃣ Implementasikan halaman detail produk dengan:
+
+* CSR
+* SSR
+* SSG
+
+---
+
+### 2️⃣ Buat tabel perbandingan
+
+| Aspek          | CSR       | SSR       | SSG               |
+| -------------- | --------- | --------- | ----------------- |
+| Loading        | Ada       | Tidak     | Tidak             |
+| Build Required | Tidak     | Tidak     | Ya                |
+| SEO            | Kurang    | Baik      | Sangat Baik       |
+| Perubahan Data | Real-time | Real-time | Perlu build ulang |
+
+---
+
+### 3️⃣ Dokumentasi
+
+Tambahkan pada laporan:
+
+* Screenshot hasil halaman
+* Screenshot Network tab
+* Screenshot hasil build
+
+---
+
+# F. Pertanyaan Analisis
+
+### 1. Mengapa `getStaticPaths` wajib pada dynamic SSG?
+
+Karena Next.js perlu mengetahui daftar halaman yang harus dibuat saat proses build.
+
+---
+
+### 2. Mengapa CSR membutuhkan loading state?
+
+Karena data diambil setelah halaman dirender di browser.
+
+---
+
+### 3. Mengapa SSG tidak menampilkan produk baru tanpa build ulang?
+
+Karena halaman sudah dibuat secara statis saat build.
+
+---
+
+### 4. Mana metode terbaik untuk halaman detail e-commerce?
+
+SSR lebih cocok karena:
+
+* SEO baik
+* Data selalu terbaru
+* Tidak perlu build ulang.
+
+---
+
+### 5. Apa risiko menggunakan SSG untuk produk yang sering berubah?
+
+Data produk bisa menjadi **tidak sinkron dengan database** sampai dilakukan build ulang.
+
+---
+
+# G. Kesimpulan
+
+Pada praktikum ini telah dipelajari:
+
+* Implementasi **Dynamic Routing pada Next.js**
+* Pengambilan parameter URL pada halaman detail
+* Implementasi detail produk menggunakan **CSR, SSR, dan SSG**
+* Penggunaan **getStaticPaths** untuk dynamic static generation
+* Analisis performa dan perbedaan ketiga metode rendering
+
+Dynamic Routing memungkinkan pembuatan halaman detail secara fleksibel berdasarkan parameter URL. Kombinasi CSR, SSR, dan SSG memberikan pilihan strategi rendering yang dapat disesuaikan dengan kebutuhan aplikasi web modern.

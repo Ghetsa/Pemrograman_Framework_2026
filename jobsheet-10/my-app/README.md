@@ -107,7 +107,7 @@ Tabel perbandingan ini juga ditampilkan pada diagram jobsheet halaman awal mater
 Buat file baru pada folder:
 
 ```
-pages/products/static.tsx
+pages/produk/static.tsx
 ```
 
 ---
@@ -155,6 +155,8 @@ export async function getStaticProps() {
   };
 }
 ```
+
+![alt text](image.png)
 
 Catatan penting:
 

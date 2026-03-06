@@ -26,7 +26,7 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
                   {products.category}
                 </p>
                 <p className={styles.produk__content__item__price}>
-                  Rp {products.price.toLocaleString()}
+                  Rp {products.price.toLocaleString("id-ID")}
                 </p>
               </div>
             ))}

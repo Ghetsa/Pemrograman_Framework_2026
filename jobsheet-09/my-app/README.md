@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 08
+## JOBSHEET 09
 
-### Client Side Rendering (CSR) & Data Fetching dengan SWR pada Next.js
+### Server Side Rendering (SSR) pada Next.js
 
 ---
 
@@ -23,431 +23,329 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Menjelaskan konsep Client Side Rendering (CSR)
-2. Mengimplementasikan data fetching menggunakan `useEffect`
-3. Membuat Skeleton Loading menggunakan conditional rendering
-4. Menggunakan library SWR untuk optimasi data fetching
-5. Mengimplementasikan caching pada aplikasi berbasis framework
+1. Menjelaskan konsep Server Side Rendering (SSR)
+2. Membedakan SSR dengan Client Side Rendering (CSR)
+3. Mengimplementasikan `getServerSideProps`
+4. Mengelola data melalui props pada SSR
+5. Menganalisis perbedaan performa SSR dan CSR melalui DevTools
 
 ---
 
 # B. Dasar Teori Singkat
 
-## 1️⃣ Client Side Rendering (CSR)
+## 1️⃣ Konsep Server Side Rendering (SSR)
 
-Client Side Rendering adalah proses rendering UI yang dilakukan di sisi browser.
+Server Side Rendering adalah proses rendering HTML yang dilakukan di server sebelum dikirim ke browser.
 
-Ciri-ciri:
+Alur SSR:
 
-* HTML awal kosong
-* Data diambil setelah halaman dimuat
-* Ada delay sebelum data tampil
-* Cocok untuk aplikasi interaktif
-
-Alur CSR:
-
-Server → kirim HTML kosong + JS
+User Request
 ↓
-Browser menjalankan JS
+Server fetch data
 ↓
-Fetch data dari API
+Server generate HTML lengkap
 ↓
-Render UI di client
+HTML dikirim ke browser
+↓
+React melakukan hydration
+
+Karakteristik SSR:
+
+* HTML sudah lengkap saat diterima client
+* Tidak ada skeleton awal
+* Cocok untuk SEO
+* Data diambil setiap request
 
 ---
 
-## 2️⃣ Data Fetching dengan useEffect
+## 2️⃣ Perbedaan CSR dan SSR
 
-Contoh pola dasar CSR:
+| Aspek         | CSR                  | SSR                        |
+| ------------- | -------------------- | -------------------------- |
+| Rendering     | Client               | Server                     |
+| Data Fetching | `useEffect`          | `getServerSideProps`       |
+| Skeleton      | Perlu                | Tidak perlu                |
+| SEO           | Kurang optimal       | Lebih optimal              |
+| Network Tab   | Request API terlihat | Request API tidak terlihat |
+
+---
+
+# C. Langkah Kerja Praktikum
+
+---
+
+## Bagian 1 – Setup Halaman SSR
+
+### 1️⃣ Buat file baru
+
+Buat file berikut pada folder produk:
 
 ```tsx
-useEffect(() => {
-  fetch('/api/products')
-      .then(res => res.json())
-          .then(data => setProducts(data))
-          }, [])
-          ```
+pages/produk/server.tsx
+```
 
-          Karakteristik:
+### 2️⃣ Modifikasi file `server.tsx`
 
-          * Data diambil di sisi client
-          * Memerlukan loading state
-          * Menggunakan conditional rendering
+Isi awal file:
 
-          ---
+```tsx
+import TampilProduk from "../views/produk";
 
-          ## 3️⃣ Skeleton Loading
+const halamanProdukServer = () => {
+  return (
+    <div>
+      <h1>Halaman Produk Server</h1>
+      <TampilProduk products={[]} />
+    </div>
+  );
+};
 
-          Skeleton digunakan untuk:
+export default halamanProdukServer;
+```
 
-          * Menghindari tampilan kosong
-          * Memberikan feedback visual
-          * Meningkatkan pengalaman pengguna
+### 3️⃣ Jalankan browser
 
-          Contoh konsep:
+Akses:
 
-          ```tsx
-          {products.length > 0 ? (
-            products.map(...)
-            ) : (
-              <Skeleton />
-              )}
-              ```
+```text
+http://localhost:3000/produk/server
+```
 
-              ---
+![alt text](image.png)
 
-              ## 4️⃣ SWR (Stale While Revalidate)
+Pada tahap awal, halaman SSR sudah berhasil dibuat dan menampilkan komponen produk, tetapi data masih kosong sehingga yang tampil masih struktur awal halaman.
 
-              SWR adalah React Hook untuk data fetching dengan caching otomatis.
+---
 
-              Instalasi:
+## Bagian 2 – Implementasi `getServerSideProps` pada `server.tsx`
 
-              ```bash
-              npm install swr
-              ```
+Pada tahap ini, data produk diambil di server sebelum halaman dirender.
 
-              Contoh penggunaan:
+### 1️⃣ Tambahkan tipe data produk
 
-              ```tsx
-              import useSWR from 'swr'
+```tsx
+type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+};
+```
 
-              const fetcher = (url: string) => fetch(url).then(res => res.json())
-              const { data, error, isLoading } = useSWR('/api/products', fetcher)
-              ```
+### 2️⃣ Modifikasi komponen halaman
 
-              Keunggulan:
+```tsx
+const halamanProdukServer = (props: { products: ProductType[] }) => {
+  const { products } = props;
 
-              * Caching otomatis
-              * Revalidation
-              * Handling loading & error lebih sederhana
-              * Kode lebih clean dibanding useEffect manual
+  return (
+    <div>
+      <h1>Halaman Produk Server</h1>
+      <TampilProduk products={products} />
+    </div>
+  );
+};
+```
 
-              ---
+### 3️⃣ Tambahkan `getServerSideProps`
 
-              # C. Langkah Kerja Praktikum
+```tsx
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/produk");
+  const response = await res.json();
 
-              ---
+  return {
+    props: {
+      products: response.data,
+    },
+  };
+}
+```
 
-              ## Bagian 1 – Setup Data Produk
+### 4️⃣ Jalankan browser
 
-              ### 1️⃣ Modifikasi Data di Firebase
+Akses kembali:
 
-              * Tambahkan field baru:
+```text
+http://localhost:3000/produk/server
+```
 
-                * id
-                  * name
-                    * category
-                      * price
-                        * image
-                        * Gunakan URL image dari toko sepatu (copy image address)
-                        * Tambahkan minimal 2 document pada collection `products`
+![alt text](image-1.png)
 
-                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-2.png)
+### Catatan penting
 
+* Skeleton tidak muncul karena data sudah diambil di server
+* Harus menggunakan **full URL**
+* `getServerSideProps` dipanggil pada setiap request halaman
 
-                        ### 2️⃣ Buat Endpoint API
+---
 
-                        Pastikan endpoint tersedia:
+## Bagian 3 – Refactor Type (Product Type)
 
-                        ```
-                        /api/produk
-                        ```
+Agar tipe data lebih rapi dan dapat digunakan ulang, tipe produk dipindahkan ke file terpisah.
 
-                        ### 3️⃣ Uji Endpoint
+### 1️⃣ Buat folder dan file type
 
-                        ```
-                        http://localhost:3000/api/produk
-                        ```
+```tsx
+pages/types/Product.type.ts
+```
 
-                        Data JSON akan menampilkan produk lengkap dengan image dan category.
+### 2️⃣ Modifikasi `Product.type.ts`
 
-                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-1.png)
+```tsx
+export type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+};
+```
 
-                        ---
+### 3️⃣ Modifikasi `server.tsx` agar menggunakan type terpisah
 
-                        ## Bagian 2 – Implementasi CSR dengan useEffect
+```tsx
+import TampilProduk from "../views/produk";
+import { ProductType } from "../types/Product.type";
 
-                        ### Langkah 1 – Buat File View
+const halamanProdukServer = (props: { products: ProductType[] }) => {
+  const { products } = props;
 
-                        Buat file:
+  return (
+    <div>
+      <h1>Halaman Produk Server</h1>
+      <TampilProduk products={products} />
+    </div>
+  );
+};
 
-                        ```
-                        src/views/products/index.tsx
-                        ```
+export default halamanProdukServer;
 
-                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-3.png)
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/produk");
+  const response = await res.json();
 
-                        ---
+  return {
+    props: {
+      products: response.data,
+    },
+  };
+}
+```
 
-                        ### Langkah 2 – Modifikasi index.tsx (View Produk)
+Dengan refactor ini, tipe data produk menjadi lebih terpusat dan mudah digunakan di halaman lain.
 
-                        Tambahkan tipe data:
+---
 
-                        ```tsx
-                        type ProductType = {
-                          id: string
-                            name: string
-                              price: number
-                                image: string
-                                  category: string
-                                  }
-                                  ```
+## Bagian 4 – Uji Perbedaan SSR vs CSR
 
-                                  Buat komponen tampil produk:
+### Uji 1 – Skeleton
 
-                                  ```tsx
-                                  const TampilProduk = ({ products }: { products: ProductType[] }) => {
-                                    return (
-                                        <div>
-                                              <h1>Daftar Produk</h1>
-                                                    {products.map((products) => (
-                                                            <div key={products.id}>
-                                                                      <h3>{products.name}</h3>
-                                                                                <img src={products.image} width={200} />
-                                                                                          <p>Harga: {products.price}</p>
-                                                                                                    <p>Kategori: {products.category}</p>
-                                                                                                            </div>
-                                                                                                                  ))}
-                                                                                                                      </div>
-                                                                                                                        )
-                                                                                                                        }
-                                                                                                                        ```
+#### Pada halaman CSR
 
-                                                                                                                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-4.png)
+* Buka halaman CSR
+* Refresh browser
+* Skeleton muncul terlebih dahulu
 
-                                                                                                                        ---
+#### Pada halaman SSR
 
-                                                                                                                        ### Langkah 3 – Modifikasi pages/produk/index.tsx
+* Buka halaman SSR
+* Refresh browser
+* Skeleton tidak muncul
 
-                                                                                                                        Tambahkan `useEffect`:
+---
 
-                                                                                                                        ```tsx
-                                                                                                                        useEffect(() => {
-                                                                                                                          fetch('/api/produk')
-                                                                                                                              .then((res) => res.json())
-                                                                                                                                  .then((respondata) => {
-                                                                                                                                        setProducts(respondata.data)
-                                                                                                                                            })
-                                                                                                                                            }, [])
-                                                                                                                                            ```
+### Uji 2 – Network Tab
 
-                                                                                                                                            Jalankan:
+1. Buka DevTools → **Network** → **XHR**
+2. Refresh halaman CSR
+   → Request API terlihat
+3. Refresh halaman SSR
+   → Request API tidak terlihat
 
-                                                                                                                                            ```
-                                                                                                                                            http://localhost:3000/produk
-                                                                                                                                            ```
+---
 
-                                                                                                                                            ![alt text](/jobsheet-08/my-app/public/img/js08/image-5.png)
+### Uji 3 – Response HTML
 
-                                                                                                                                            ---
+#### CSR
 
-                                                                                                                                            ## Bagian 3 – Styling Produk
+HTML awal kosong atau hanya berisi skeleton.
 
-                                                                                                                                            ### 1️⃣ Buat file:
+#### SSR
 
-                                                                                                                                            ```
-                                                                                                                                            produk.module.scss
-                                                                                                                                            ```
+HTML awal sudah berisi data produk lengkap.
 
-                                                                                                                                            ### 2️⃣ Tambahkan styling produk (grid, card, image, dll)
+---
 
-                                                                                                                                            ### 3️⃣ Import styling pada view produk
+# D. Tugas Praktikum
 
-                                                                                                                                            ```tsx
-                                                                                                                                            import styles from "./produk.module.scss"
-                                                                                                                                            ```
+## Tugas Individu
 
-                                                                                                                                            ![alt text](/jobsheet-08/my-app/public/img/js08/image-6.png)
+### 1️⃣ Buat 2 halaman
 
-                                                                                                                                            ---
+* `/products` → CSR
+* `/products/server` → SSR
 
-                                                                                                                                            ## Bagian 4 – Implementasi Skeleton Loading
+### 2️⃣ Dokumentasikan
 
-                                                                                                                                            ### 1️⃣ Modifikasi index.tsx pada views/products
+* Screenshot CSR
+* Screenshot SSR
+* Perbedaan Network tab
+* Perbedaan View Source
 
-                                                                                                                                            Tambahkan conditional rendering:
+### 3️⃣ Buat laporan analisis minimal 2 halaman
 
-                                                                                                                                            ```tsx
-                                                                                                                                            {products.length > 0 ? (
-                                                                                                                                              products.map(...)
-                                                                                                                                              ) : (
-                                                                                                                                                <div className={styles.skeleton}></div>
-                                                                                                                                                )}
-                                                                                                                                                ```
+---
 
-                                                                                                                                                ---
+# E. Studi Analisis
 
-                                                                                                                                                ### 2️⃣ Tambahkan animasi skeleton di produk.module.scss
+### 1. Mengapa SSR lebih baik untuk SEO?
 
-                                                                                                                                                ```scss
-                                                                                                                                                @keyframes skeletonAnimation {
-                                                                                                                                                  0% { opacity: 0.6; }
-                                                                                                                                                    50% { opacity: 0.3; }
-                                                                                                                                                      100% { opacity: 0.6; }
-                                                                                                                                                      }
+Karena pada SSR, HTML sudah lengkap dengan data saat pertama kali dikirim ke browser. Hal ini memudahkan mesin pencari membaca isi halaman tanpa harus menunggu JavaScript dijalankan.
 
-                                                                                                                                                      .skeleton {
-                                                                                                                                                        background-color: #ddd;
-                                                                                                                                                          animation: skeletonAnimation 1.5s infinite;
-                                                                                                                                                          }
-                                                                                                                                                          ```
+### 2. Kapan sebaiknya menggunakan SSR?
 
-                                                                                                                                                          ---
+SSR sebaiknya digunakan ketika halaman membutuhkan data yang selalu terbaru, membutuhkan SEO yang baik, atau perlu menampilkan konten lengkap sejak awal halaman dibuka.
 
-                                                                                                                                                          ### 3️⃣ Jalankan Browser
+### 3. Apa kekurangan SSR dibanding CSR?
 
-                                                                                                                                                          Saat halaman dimuat:
+SSR membebani server lebih besar karena proses render dilakukan setiap request. Selain itu, waktu respon server bisa lebih lama dibanding halaman statis atau CSR sederhana.
 
-                                                                                                                                                          * Skeleton tampil terlebih dahulu
-                                                                                                                                                          * Setelah data masuk → produk tampil
+### 4. Mengapa skeleton tidak muncul pada SSR?
 
-                                                                                                                                                          ---
+Karena data sudah diambil di server sebelum halaman dirender. Saat halaman sampai ke browser, data sudah siap ditampilkan sehingga tidak memerlukan loading state awal.
 
-                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/load.gif)
+---
 
-                                                                                                                                                          ## Bagian 5 – Implementasi SWR
+# F. Pertanyaan Evaluasi
 
-                                                                                                                                                          ### 1️⃣ Install SWR
+### 1. Apa itu Server Side Rendering?
 
-                                                                                                                                                          ```bash
-                                                                                                                                                          npm install swr
-                                                                                                                                                          ```
+Server Side Rendering adalah proses rendering halaman di server sebelum dikirim ke browser.
 
-                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/image-7.png)
+### 2. Apa perbedaan utama SSR dan CSR?
 
-                                                                                                                                                          ---
+Perbedaan utamanya terletak pada tempat render dan pengambilan data. CSR dilakukan di client menggunakan `useEffect`, sedangkan SSR dilakukan di server menggunakan `getServerSideProps`.
 
-                                                                                                                                                          ### 2️⃣ Buat folder utils/swr
+### 3. Mengapa SSR tidak menampilkan skeleton loading?
 
-                                                                                                                                                          Buat file:
+Karena data sudah tersedia saat HTML dikirim dari server.
 
-                                                                                                                                                          ```
-                                                                                                                                                          src/utils/swr/fetcher.ts
-                                                                                                                                                          ```
+### 4. Mengapa pada SSR request API tidak terlihat di tab XHR browser?
 
-                                                                                                                                                          Isi:
+Karena proses fetch data dilakukan di server, bukan di browser.
 
-                                                                                                                                                          ```tsx
-                                                                                                                                                          const fetcher = (url: string) => fetch(url).then(res => res.json())
-                                                                                                                                                          export default fetcher
-                                                                                                                                                          ```
+---
 
-                                                                                                                                                          ---
+# G. Kesimpulan
 
-                                                                                                                                                          ### 3️⃣ Modifikasi pages/produk/index.tsx
+Pada praktikum ini telah dipelajari:
 
-                                                                                                                                                          ```tsx
-                                                                                                                                                          import useSWR from "swr"
-                                                                                                                                                          import fetcher from "@/utils/swr/fetcher"
+* Konsep Server Side Rendering pada Next.js
+* Implementasi `getServerSideProps`
+* Pengiriman data melalui props
+* Refactor tipe data produk ke file terpisah
+* Analisis perbedaan SSR dan CSR melalui skeleton, Network tab, dan response HTML
 
-                                                                                                                                                          const { data, error, isLoading } = useSWR('/api/produk', fetcher)
-                                                                                                                                                          ```
-
-                                                                                                                                                          Tampilkan data:
-
-                                                                                                                                                          ```tsx
-                                                                                                                                                          <TampilProduk products={isLoading ? [] : data.data} />
-                                                                                                                                                          ```
-
-                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/<load swr.gif>)
-
-                                                                                                                                                          ---
-
-                                                                                                                                                          ## Perbandingan
-
-                                                                                                                                                          | useEffect Manual      | SWR             |
-                                                                                                                                                          | --------------------- | --------------- |
-                                                                                                                                                          | Perlu state manual    | Otomatis        |
-                                                                                                                                                          | Tidak ada caching     | Ada caching     |
-                                                                                                                                                          | Lebih panjang         | Lebih ringkas   |
-                                                                                                                                                          | Handling error manual | Lebih sederhana |
-
-                                                                                                                                                          ---
-
-                                                                                                                                                          # D. Tugas Praktikum
-
-                                                                                                                                                          ## Tugas Individu
-
-                                                                                                                                                          ### 1️⃣ Jelaskan Perbedaan
-
-                                                                                                                                                          * Client Side Rendering
-                                                                                                                                                          * Server Side Rendering
-                                                                                                                                                          * Static Site Generation
-
-                                                                                                                                                          JAWABAN:
-
-                                                                                                                                                          1. Client Side Rendering (CSR)
-
-                                                                                                                                                          Rendering dilakukan di browser setelah halaman dimuat. Data diambil menggunakan JavaScript.
-                                                                                                                                                          Kelebihan: Cocok untuk aplikasi interaktif seperti dashboard.
-                                                                                                                                                          Kekurangan: Kurang baik untuk SEO dan loading awal lebih lambat.
-
-                                                                                                                                                          2. Server Side Rendering (SSR)
-
-                                                                                                                                                          Rendering dilakukan di server setiap ada permintaan dari user. Server mengirim HTML yang sudah berisi data.
-                                                                                                                                                          Kelebihan: SEO baik dan data selalu terbaru.
-                                                                                                                                                          Kekurangan: Beban server lebih besar karena render dilakukan setiap request.
-
-                                                                                                                                                          3. Static Site Generation (SSG)
-
-                                                                                                                                                          Rendering dilakukan saat proses build sebelum website diakses. Halaman yang dihasilkan bersifat statis.
-                                                                                                                                                          Kelebihan: Sangat cepat dan SEO sangat baik.
-                                                                                                                                                          Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
-
-                                                                                                                                                          ### 2️⃣ Buat Halaman Produk Dengan:
-
-                                                                                                                                                          * Skeleton loading
-                                                                                                                                                          * Animasi
-
-                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/<LOAD 3.gif>)
-
-                                                                                                                                                          ### 3️⃣ Refactor dari useEffect menjadi SWR
-
-                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/image-8.png)
-
-                                                                                                                                                          ---
-
-                                                                                                                                                          # E. Penanganan Error
-
-                                                                                                                                                          Jika muncul error saat membuka:
-
-                                                                                                                                                          ```
-                                                                                                                                                          http://localhost:3000/produk/server
-                                                                                                                                                          ```
-
-                                                                                                                                                          Modifikasi:
-
-                                                                                                                                                          ```tsx
-                                                                                                                                                          <p>{products.price.toLocaleString("id-ID")}</p>
-                                                                                                                                                          ```
-
-                                                                                                                                                          ---
-
-                                                                                                                                                          # F. Pertanyaan Evaluasi
-
-                                                                                                                                                          ### 1. Apa itu Client Side Rendering?
-
-                                                                                                                                                          CSR adalah proses rendering halaman di sisi browser setelah data di-fetch dari API.
-
-                                                                                                                                                          ### 2. Mengapa perlu Skeleton Loading?
-
-                                                                                                                                                          Untuk meningkatkan UX dan menghindari tampilan kosong saat data belum tersedia.
-
-                                                                                                                                                          ### 3. Apa keunggulan SWR dibanding useEffect manual?
-
-                                                                                                                                                          SWR menyediakan caching, revalidation, dan handling loading/error secara otomatis.
-
-                                                                                                                                                          ---
-
-                                                                                                                                                          # G. Kesimpulan
-
-                                                                                                                                                          Pada praktikum ini telah dipelajari:
-
-                                                                                                                                                          * Konsep Client Side Rendering
-                                                                                                                                                          * Data fetching menggunakan useEffect
-                                                                                                                                                          * Implementasi Skeleton Loading
-                                                                                                                                                          * Optimasi data fetching dengan SWR
-                                                                                                                                                          * Caching dan revalidation otomatis
-
-                                                                                                                                                          Pendekatan CSR memberikan fleksibilitas tinggi dalam aplikasi interaktif, sementara SWR memberikan efisiensi dan optimasi dalam pengelolaan data pada sisi client.
-                                                                                                                                                          
+SSR sangat cocok digunakan untuk halaman yang membutuhkan SEO baik dan data yang selalu diperbarui. Dibanding CSR, SSR memberikan hasil HTML yang lebih lengkap sejak awal, meskipun proses render dilakukan di server pada setiap request.

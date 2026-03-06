@@ -156,7 +156,7 @@ export async function getStaticProps() {
 }
 ```
 
-![alt text](image.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image.png)
 
 Catatan penting:
 
@@ -190,7 +190,7 @@ src
  └ views
 ```
 
-![alt text](image-1.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-1.png)
 
 Langkah ini dilakukan agar Next.js dapat mengenali halaman dengan benar saat build.
 
@@ -246,7 +246,7 @@ Keterangan:
 | ●      | SSG     |
 | f      | Dynamic |
 
-![alt text](image-2.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-2.png)
 
 ---
 
@@ -264,7 +264,7 @@ Jika terjadi error:
 EADDRINUSE: address already in use
 ```
 
-![alt text](image-3.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-3.png)
 
 Maka:
 
@@ -275,7 +275,7 @@ Maka:
 npm run start
 ```
 
-![alt text](image-4.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-4.png)
 
 ---
 
@@ -289,7 +289,7 @@ http://localhost:3000/produk/static
 
 Halaman produk static akan tampil dengan data dari database.
 
-![alt text](image-5.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-5.png)
 
 ---
 
@@ -331,7 +331,7 @@ Hasil:
 
 Data **langsung bertambah**.
 
-![alt text](image-6.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-6.png)
 
 ---
 
@@ -345,7 +345,7 @@ Hasil:
 
 Data **langsung bertambah**.
 
-![alt text](image-7.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-7.png)
 
 ---
 
@@ -359,7 +359,7 @@ Hasil:
 
 Data **tidak berubah**.
 
-![alt text](image-8.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-8.png)
 
 Hal ini karena data SSG hanya diambil saat build.
 
@@ -391,7 +391,7 @@ npm run start
 
 Sekarang data baru akan muncul.
 
-![alt text](image-9.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-9.png)
 
 Ini membuktikan bahwa:
 
@@ -415,7 +415,7 @@ Buat halaman berikut:
 /products/static
 ```
 
-![alt text](image-10.png)
+![alt text](/jobsheet-10/my-app/public/img/laporan/image-10.png)
 
 Yang masing-masing menggunakan:
 
@@ -437,9 +437,9 @@ Lakukan pengujian berikut:
 
 | Halaman          | Tambah Data | Hapus Data | Hasil |
 | ---------------- | ----------- | ---------- |------ |
-| /products        | ![alt text](image-6.png) | ![alt text](image-12.png) | Data langsung berubah setelah ditambah atau dihapus karena halaman mengambil data di client (CSR). Saat halaman direfresh atau request ulang ke API, perubahan data langsung terlihat. |
-| /products/server | ![alt text](image-7.png) | ![alt text](image-11.png) | Perubahan data terlihat setelah halaman direload karena data diambil ulang dari server menggunakan SSR (getServerSideProps) setiap kali halaman diakses. |
-| /products/static | ![alt text](image-8.png) | ![alt text](image-13.png) | Perubahan data tidak langsung terlihat karena halaman dibuat secara statis saat proses build (getStaticProps). Data baru hanya muncul jika dilakukan rebuild atau revalidation. |
+| /products        | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-6.png) | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-12.png) | Data langsung berubah setelah ditambah atau dihapus karena halaman mengambil data di client (CSR). Saat halaman direfresh atau request ulang ke API, perubahan data langsung terlihat. |
+| /products/server | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-7.png) | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-11.png) | Perubahan data terlihat setelah halaman direload karena data diambil ulang dari server menggunakan SSR (getServerSideProps) setiap kali halaman diakses. |
+| /products/static | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-8.png) | ![alt text](/jobsheet-10/my-app/public/img/laporan/image-13.png) | Perubahan data tidak langsung terlihat karena halaman dibuat secara statis saat proses build (getStaticProps). Data baru hanya muncul jika dilakukan rebuild atau revalidation. |
 
 ---
 

@@ -368,6 +368,8 @@ http://localhost:3000/produk/{id_produk}
 
 Maka akan muncul **halaman detail produk**. 
 
+![alt text](image-6.png)
+
 ---
 
 # Bagian 4 – Implementasi SSR

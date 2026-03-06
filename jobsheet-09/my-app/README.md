@@ -248,11 +248,15 @@ Dengan refactor ini, tipe data produk menjadi lebih terpusat dan mudah digunakan
 * Refresh browser
 * Skeleton muncul terlebih dahulu
 
+![alt text](image-2.png)
+
 #### Pada halaman SSR
 
 * Buka halaman SSR
 * Refresh browser
 * Skeleton tidak muncul
+
+![alt text](image-3.png)
 
 ---
 
@@ -261,8 +265,13 @@ Dengan refactor ini, tipe data produk menjadi lebih terpusat dan mudah digunakan
 1. Buka DevTools → **Network** → **XHR**
 2. Refresh halaman CSR
    → Request API terlihat
+
+   ![alt text](image-5.png)
+
 3. Refresh halaman SSR
    → Request API tidak terlihat
+
+   ![alt text](image-4.png)
 
 ---
 
@@ -272,9 +281,13 @@ Dengan refactor ini, tipe data produk menjadi lebih terpusat dan mudah digunakan
 
 HTML awal kosong atau hanya berisi skeleton.
 
+![alt text](image-7.png)
+
 #### SSR
 
 HTML awal sudah berisi data produk lengkap.
+
+![alt text](image-6.png)
 
 ---
 

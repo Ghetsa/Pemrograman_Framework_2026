@@ -391,6 +391,8 @@ npm run start
 
 Sekarang data baru akan muncul.
 
+![alt text](image-9.png)
+
 Ini membuktikan bahwa:
 
 ```

@@ -1,4 +1,4 @@
-import ProdukDetailView from "@/views/produk/produk-detail";
+import ProdukDetailView from "../views/product/produk-detail";
 
 export default function ProdukDetailPage() {
   return <ProdukDetailView />;

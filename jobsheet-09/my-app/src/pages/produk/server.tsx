@@ -1,9 +1,11 @@
-import TampilProduk from "../views/product";
+import TampilProduk from "../views/product/server";
 import { ProductType } from "../types/Product.type";
 
-const halamanProdukServer = (props: { products: ProductType[] }) => {
-  const { products } = props;
+type HalamanProdukServerProps = {
+  products: ProductType[];
+};
 
+const HalamanProdukServer = ({ products }: HalamanProdukServerProps) => {
   return (
     <div>
       <h1>Halaman Produk Server</h1>
@@ -12,7 +14,7 @@ const halamanProdukServer = (props: { products: ProductType[] }) => {
   );
 };
 
-export default halamanProdukServer;
+export default HalamanProdukServer;
 
 export async function getServerSideProps() {
   const res = await fetch("http://localhost:3000/api/produk");
@@ -20,7 +22,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      products: response.data,
+      products: response.data || [],
     },
   };
 }

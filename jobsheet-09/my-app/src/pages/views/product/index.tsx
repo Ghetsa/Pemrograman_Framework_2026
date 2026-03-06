@@ -1,4 +1,6 @@
 import styles from "../../produk/produk.module.scss";
+import Link from "next/link";
+
 type ProductType = {
   id: string;
   name: string;
@@ -11,24 +13,30 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
   return (
     <div className={styles.produk}>
       <h1 className={styles.produk__title}>Daftar Produk</h1>
+
       <div className={styles.produk__content}>
         {products.length > 0 ? (
           <>
-            {products.map((products: ProductType) => (
-              <div key={products.id} className={styles.produk__content__item}>
-                <div className={styles.produk__content__item__image}>
-                  <img src={products.image} alt={products.name} width={200} />
+            {products.map((product: ProductType) => (
+              <Link href={`/products/${product.id}`} key={product.id}>
+                <div className={styles.produk__content__item}>
+                  <div className={styles.produk__content__item__image}>
+                    <img src={product.image} alt={product.name} width={200} />
+                  </div>
+
+                  <h4 className={styles.produk__content__item__name}>
+                    {product.name}
+                  </h4>
+
+                  <p className={styles.produk__content__item__category}>
+                    {product.category}
+                  </p>
+
+                  <p className={styles.produk__content__item__price}>
+                    Rp {product.price.toLocaleString("id-ID")}
+                  </p>
                 </div>
-                <h4 className={styles.produk__content__item__name}>
-                  {products.name}
-                </h4>
-                <p className={styles.produk__content__item__category}>
-                  {products.category}
-                </p>
-                <p className={styles.produk__content__item__price}>
-                  Rp {products.price.toLocaleString("id-ID")}
-                </p>
-              </div>
+              </Link>
             ))}
           </>
         ) : (
@@ -43,4 +51,5 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
     </div>
   );
 };
+
 export default TampilanProduk;

@@ -15,15 +15,17 @@ const ProdukDetailView = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const productId = Array.isArray(id) ? id[0] : id;
+
   const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!productId) return;
 
     const getDetailProduct = async () => {
       try {
-        const res = await fetch(`/api/produk/${id}`);
+        const res = await fetch(`/api/produk/${productId}`);
         const response = await res.json();
         setProduct(response.data);
       } catch (error) {
@@ -34,12 +36,13 @@ const ProdukDetailView = () => {
     };
 
     getDetailProduct();
-  }, [id]);
+  }, [productId]);
 
   if (loading) {
     return (
       <div className={styles.produk}>
-        <h1 className={styles.produk__title}>Detail Produk</h1>
+        <h1 className={styles.produk__title}>Halaman Produk</h1>
+        <p>Produk: {productId}</p>
         <p>Loading...</p>
       </div>
     );
@@ -48,7 +51,8 @@ const ProdukDetailView = () => {
   if (!product) {
     return (
       <div className={styles.produk}>
-        <h1 className={styles.produk__title}>Detail Produk</h1>
+        <h1 className={styles.produk__title}>Halaman Produk</h1>
+        <p>Produk: {productId}</p>
         <p>Produk tidak ditemukan.</p>
       </div>
     );
@@ -56,7 +60,8 @@ const ProdukDetailView = () => {
 
   return (
     <div className={styles.produk}>
-      <h1 className={styles.produk__title}>Detail Produk</h1>
+      <h1 className={styles.produk__title}>Halaman Produk</h1>
+      <p>Produk: {productId}</p>
 
       <div className={styles.produk__content}>
         <div className={styles.produk__content__item}>
@@ -76,9 +81,7 @@ const ProdukDetailView = () => {
             Rp {product.price.toLocaleString("id-ID")}
           </p>
 
-          <p>
-            {product.description || "Tidak ada deskripsi produk."}
-          </p>
+          <p>{product.description || "Tidak ada deskripsi produk."}</p>
         </div>
       </div>
     </div>

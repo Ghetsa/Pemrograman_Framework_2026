@@ -18,7 +18,7 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
         {products.length > 0 ? (
           <>
             {products.map((product: ProductType) => (
-              <Link href={`/products/${product.id}`} key={product.id}>
+              <Link href={`/produk/${product.id}`} key={product.id}  className={styles.produk__content__item}>
                 <div className={styles.produk__content__item}>
                   <div className={styles.produk__content__item__image}>
                     <img src={product.image} alt={product.name} width={200} />

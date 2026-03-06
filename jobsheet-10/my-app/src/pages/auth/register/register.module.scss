@@ -1,0 +1,111 @@
+@import "@/styles/colors.scss";
+
+// Helper biar map-get lebih ringkas
+$primary: map-get($schema, color-primary);
+$secondary: map-get($schema, color-secondary);
+$accent: map-get($schema, color-accent);
+$bg: map-get($schema, color-background);
+$text: map-get($schema, color-text);
+
+.register {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  margin: 50px auto; // biar aman di layar kecil
+  font-family: Arial, sans-serif;
+  background-color: $bg;
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 1.875rem;      
+  line-height: 2.25rem;     
+  font-weight: 700;        
+  color: $accent;       
+  text-align: center;     
+  margin-bottom: 20px; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.input {
+  padding: 10px 12px;
+  font-size: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  outline: none;
+
+  background-color: rgba(255, 255, 255, 0.95);
+  color: $text;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+  }
+}
+
+.button {
+  margin-top: 8px;
+  padding: 12px;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  color: #fff;
+  background-color: $accent;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: transform 0.08s ease, opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.text {
+  text-align: center;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.link {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 800;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

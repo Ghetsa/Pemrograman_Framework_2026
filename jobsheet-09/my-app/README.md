@@ -63,390 +63,391 @@ Contoh pola dasar CSR:
 ```tsx
 useEffect(() => {
   fetch('/api/products')
-    .then(res => res.json())
-    .then(data => setProducts(data))
-}, [])
-```
+      .then(res => res.json())
+          .then(data => setProducts(data))
+          }, [])
+          ```
 
-Karakteristik:
+          Karakteristik:
 
-* Data diambil di sisi client
-* Memerlukan loading state
-* Menggunakan conditional rendering
+          * Data diambil di sisi client
+          * Memerlukan loading state
+          * Menggunakan conditional rendering
 
----
+          ---
 
-## 3️⃣ Skeleton Loading
+          ## 3️⃣ Skeleton Loading
 
-Skeleton digunakan untuk:
+          Skeleton digunakan untuk:
 
-* Menghindari tampilan kosong
-* Memberikan feedback visual
-* Meningkatkan pengalaman pengguna
+          * Menghindari tampilan kosong
+          * Memberikan feedback visual
+          * Meningkatkan pengalaman pengguna
 
-Contoh konsep:
+          Contoh konsep:
 
-```tsx
-{products.length > 0 ? (
-  products.map(...)
-) : (
-  <Skeleton />
-)}
-```
+          ```tsx
+          {products.length > 0 ? (
+            products.map(...)
+            ) : (
+              <Skeleton />
+              )}
+              ```
 
----
+              ---
 
-## 4️⃣ SWR (Stale While Revalidate)
+              ## 4️⃣ SWR (Stale While Revalidate)
 
-SWR adalah React Hook untuk data fetching dengan caching otomatis.
+              SWR adalah React Hook untuk data fetching dengan caching otomatis.
 
-Instalasi:
+              Instalasi:
 
-```bash
-npm install swr
-```
+              ```bash
+              npm install swr
+              ```
 
-Contoh penggunaan:
+              Contoh penggunaan:
 
-```tsx
-import useSWR from 'swr'
+              ```tsx
+              import useSWR from 'swr'
 
-const fetcher = (url: string) => fetch(url).then(res => res.json())
-const { data, error, isLoading } = useSWR('/api/products', fetcher)
-```
+              const fetcher = (url: string) => fetch(url).then(res => res.json())
+              const { data, error, isLoading } = useSWR('/api/products', fetcher)
+              ```
 
-Keunggulan:
+              Keunggulan:
 
-* Caching otomatis
-* Revalidation
-* Handling loading & error lebih sederhana
-* Kode lebih clean dibanding useEffect manual
+              * Caching otomatis
+              * Revalidation
+              * Handling loading & error lebih sederhana
+              * Kode lebih clean dibanding useEffect manual
 
----
+              ---
 
-# C. Langkah Kerja Praktikum
+              # C. Langkah Kerja Praktikum
 
----
+              ---
 
-## Bagian 1 – Setup Data Produk
+              ## Bagian 1 – Setup Data Produk
 
-### 1️⃣ Modifikasi Data di Firebase
+              ### 1️⃣ Modifikasi Data di Firebase
 
-* Tambahkan field baru:
+              * Tambahkan field baru:
 
-  * id
-  * name
-  * category
-  * price
-  * image
-* Gunakan URL image dari toko sepatu (copy image address)
-* Tambahkan minimal 2 document pada collection `products`
+                * id
+                  * name
+                    * category
+                      * price
+                        * image
+                        * Gunakan URL image dari toko sepatu (copy image address)
+                        * Tambahkan minimal 2 document pada collection `products`
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-2.png)
+                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-2.png)
 
 
-### 2️⃣ Buat Endpoint API
+                        ### 2️⃣ Buat Endpoint API
 
-Pastikan endpoint tersedia:
+                        Pastikan endpoint tersedia:
 
-```
-/api/produk
-```
+                        ```
+                        /api/produk
+                        ```
 
-### 3️⃣ Uji Endpoint
+                        ### 3️⃣ Uji Endpoint
 
-```
-http://localhost:3000/api/produk
-```
+                        ```
+                        http://localhost:3000/api/produk
+                        ```
 
-Data JSON akan menampilkan produk lengkap dengan image dan category.
+                        Data JSON akan menampilkan produk lengkap dengan image dan category.
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-1.png)
+                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-1.png)
 
----
+                        ---
 
-## Bagian 2 – Implementasi CSR dengan useEffect
+                        ## Bagian 2 – Implementasi CSR dengan useEffect
 
-### Langkah 1 – Buat File View
+                        ### Langkah 1 – Buat File View
 
-Buat file:
+                        Buat file:
 
-```
-src/views/products/index.tsx
-```
+                        ```
+                        src/views/products/index.tsx
+                        ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-3.png)
+                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-3.png)
 
----
+                        ---
 
-### Langkah 2 – Modifikasi index.tsx (View Produk)
+                        ### Langkah 2 – Modifikasi index.tsx (View Produk)
 
-Tambahkan tipe data:
+                        Tambahkan tipe data:
 
-```tsx
-type ProductType = {
-  id: string
-  name: string
-  price: number
-  image: string
-  category: string
-}
-```
+                        ```tsx
+                        type ProductType = {
+                          id: string
+                            name: string
+                              price: number
+                                image: string
+                                  category: string
+                                  }
+                                  ```
 
-Buat komponen tampil produk:
+                                  Buat komponen tampil produk:
 
-```tsx
-const TampilProduk = ({ products }: { products: ProductType[] }) => {
-  return (
-    <div>
-      <h1>Daftar Produk</h1>
-      {products.map((products) => (
-        <div key={products.id}>
-          <h3>{products.name}</h3>
-          <img src={products.image} width={200} />
-          <p>Harga: {products.price}</p>
-          <p>Kategori: {products.category}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
-```
+                                  ```tsx
+                                  const TampilProduk = ({ products }: { products: ProductType[] }) => {
+                                    return (
+                                        <div>
+                                              <h1>Daftar Produk</h1>
+                                                    {products.map((products) => (
+                                                            <div key={products.id}>
+                                                                      <h3>{products.name}</h3>
+                                                                                <img src={products.image} width={200} />
+                                                                                          <p>Harga: {products.price}</p>
+                                                                                                    <p>Kategori: {products.category}</p>
+                                                                                                            </div>
+                                                                                                                  ))}
+                                                                                                                      </div>
+                                                                                                                        )
+                                                                                                                        }
+                                                                                                                        ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-4.png)
+                                                                                                                        ![alt text](/jobsheet-08/my-app/public/img/js08/image-4.png)
 
----
+                                                                                                                        ---
 
-### Langkah 3 – Modifikasi pages/produk/index.tsx
+                                                                                                                        ### Langkah 3 – Modifikasi pages/produk/index.tsx
 
-Tambahkan `useEffect`:
+                                                                                                                        Tambahkan `useEffect`:
 
-```tsx
-useEffect(() => {
-  fetch('/api/produk')
-    .then((res) => res.json())
-    .then((respondata) => {
-      setProducts(respondata.data)
-    })
-}, [])
-```
+                                                                                                                        ```tsx
+                                                                                                                        useEffect(() => {
+                                                                                                                          fetch('/api/produk')
+                                                                                                                              .then((res) => res.json())
+                                                                                                                                  .then((respondata) => {
+                                                                                                                                        setProducts(respondata.data)
+                                                                                                                                            })
+                                                                                                                                            }, [])
+                                                                                                                                            ```
 
-Jalankan:
+                                                                                                                                            Jalankan:
 
-```
-http://localhost:3000/produk
-```
+                                                                                                                                            ```
+                                                                                                                                            http://localhost:3000/produk
+                                                                                                                                            ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-5.png)
+                                                                                                                                            ![alt text](/jobsheet-08/my-app/public/img/js08/image-5.png)
 
----
+                                                                                                                                            ---
 
-## Bagian 3 – Styling Produk
+                                                                                                                                            ## Bagian 3 – Styling Produk
 
-### 1️⃣ Buat file:
+                                                                                                                                            ### 1️⃣ Buat file:
 
-```
-produk.module.scss
-```
+                                                                                                                                            ```
+                                                                                                                                            produk.module.scss
+                                                                                                                                            ```
 
-### 2️⃣ Tambahkan styling produk (grid, card, image, dll)
+                                                                                                                                            ### 2️⃣ Tambahkan styling produk (grid, card, image, dll)
 
-### 3️⃣ Import styling pada view produk
+                                                                                                                                            ### 3️⃣ Import styling pada view produk
 
-```tsx
-import styles from "./produk.module.scss"
-```
+                                                                                                                                            ```tsx
+                                                                                                                                            import styles from "./produk.module.scss"
+                                                                                                                                            ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-6.png)
+                                                                                                                                            ![alt text](/jobsheet-08/my-app/public/img/js08/image-6.png)
 
----
+                                                                                                                                            ---
 
-## Bagian 4 – Implementasi Skeleton Loading
+                                                                                                                                            ## Bagian 4 – Implementasi Skeleton Loading
 
-### 1️⃣ Modifikasi index.tsx pada views/products
+                                                                                                                                            ### 1️⃣ Modifikasi index.tsx pada views/products
 
-Tambahkan conditional rendering:
+                                                                                                                                            Tambahkan conditional rendering:
 
-```tsx
-{products.length > 0 ? (
-  products.map(...)
-) : (
-  <div className={styles.skeleton}></div>
-)}
-```
+                                                                                                                                            ```tsx
+                                                                                                                                            {products.length > 0 ? (
+                                                                                                                                              products.map(...)
+                                                                                                                                              ) : (
+                                                                                                                                                <div className={styles.skeleton}></div>
+                                                                                                                                                )}
+                                                                                                                                                ```
 
----
+                                                                                                                                                ---
 
-### 2️⃣ Tambahkan animasi skeleton di produk.module.scss
+                                                                                                                                                ### 2️⃣ Tambahkan animasi skeleton di produk.module.scss
 
-```scss
-@keyframes skeletonAnimation {
-  0% { opacity: 0.6; }
-  50% { opacity: 0.3; }
-  100% { opacity: 0.6; }
-}
+                                                                                                                                                ```scss
+                                                                                                                                                @keyframes skeletonAnimation {
+                                                                                                                                                  0% { opacity: 0.6; }
+                                                                                                                                                    50% { opacity: 0.3; }
+                                                                                                                                                      100% { opacity: 0.6; }
+                                                                                                                                                      }
 
-.skeleton {
-  background-color: #ddd;
-  animation: skeletonAnimation 1.5s infinite;
-}
-```
+                                                                                                                                                      .skeleton {
+                                                                                                                                                        background-color: #ddd;
+                                                                                                                                                          animation: skeletonAnimation 1.5s infinite;
+                                                                                                                                                          }
+                                                                                                                                                          ```
 
----
+                                                                                                                                                          ---
 
-### 3️⃣ Jalankan Browser
+                                                                                                                                                          ### 3️⃣ Jalankan Browser
 
-Saat halaman dimuat:
+                                                                                                                                                          Saat halaman dimuat:
 
-* Skeleton tampil terlebih dahulu
-* Setelah data masuk → produk tampil
+                                                                                                                                                          * Skeleton tampil terlebih dahulu
+                                                                                                                                                          * Setelah data masuk → produk tampil
 
----
+                                                                                                                                                          ---
 
-![alt text](/jobsheet-08/my-app/public/img/js08/load.gif)
+                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/load.gif)
 
-## Bagian 5 – Implementasi SWR
+                                                                                                                                                          ## Bagian 5 – Implementasi SWR
 
-### 1️⃣ Install SWR
+                                                                                                                                                          ### 1️⃣ Install SWR
 
-```bash
-npm install swr
-```
+                                                                                                                                                          ```bash
+                                                                                                                                                          npm install swr
+                                                                                                                                                          ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-7.png)
+                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/image-7.png)
 
----
+                                                                                                                                                          ---
 
-### 2️⃣ Buat folder utils/swr
+                                                                                                                                                          ### 2️⃣ Buat folder utils/swr
 
-Buat file:
+                                                                                                                                                          Buat file:
 
-```
-src/utils/swr/fetcher.ts
-```
+                                                                                                                                                          ```
+                                                                                                                                                          src/utils/swr/fetcher.ts
+                                                                                                                                                          ```
 
-Isi:
+                                                                                                                                                          Isi:
 
-```tsx
-const fetcher = (url: string) => fetch(url).then(res => res.json())
-export default fetcher
-```
+                                                                                                                                                          ```tsx
+                                                                                                                                                          const fetcher = (url: string) => fetch(url).then(res => res.json())
+                                                                                                                                                          export default fetcher
+                                                                                                                                                          ```
 
----
+                                                                                                                                                          ---
 
-### 3️⃣ Modifikasi pages/produk/index.tsx
+                                                                                                                                                          ### 3️⃣ Modifikasi pages/produk/index.tsx
 
-```tsx
-import useSWR from "swr"
-import fetcher from "@/utils/swr/fetcher"
+                                                                                                                                                          ```tsx
+                                                                                                                                                          import useSWR from "swr"
+                                                                                                                                                          import fetcher from "@/utils/swr/fetcher"
 
-const { data, error, isLoading } = useSWR('/api/produk', fetcher)
-```
+                                                                                                                                                          const { data, error, isLoading } = useSWR('/api/produk', fetcher)
+                                                                                                                                                          ```
 
-Tampilkan data:
+                                                                                                                                                          Tampilkan data:
 
-```tsx
-<TampilProduk products={isLoading ? [] : data.data} />
-```
+                                                                                                                                                          ```tsx
+                                                                                                                                                          <TampilProduk products={isLoading ? [] : data.data} />
+                                                                                                                                                          ```
 
-![alt text](/jobsheet-08/my-app/public/img/js08/<load swr.gif>)
+                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/<load swr.gif>)
 
----
+                                                                                                                                                          ---
 
-## Perbandingan
+                                                                                                                                                          ## Perbandingan
 
-| useEffect Manual      | SWR             |
-| --------------------- | --------------- |
-| Perlu state manual    | Otomatis        |
-| Tidak ada caching     | Ada caching     |
-| Lebih panjang         | Lebih ringkas   |
-| Handling error manual | Lebih sederhana |
+                                                                                                                                                          | useEffect Manual      | SWR             |
+                                                                                                                                                          | --------------------- | --------------- |
+                                                                                                                                                          | Perlu state manual    | Otomatis        |
+                                                                                                                                                          | Tidak ada caching     | Ada caching     |
+                                                                                                                                                          | Lebih panjang         | Lebih ringkas   |
+                                                                                                                                                          | Handling error manual | Lebih sederhana |
 
----
+                                                                                                                                                          ---
 
-# D. Tugas Praktikum
+                                                                                                                                                          # D. Tugas Praktikum
 
-## Tugas Individu
+                                                                                                                                                          ## Tugas Individu
 
-### 1️⃣ Jelaskan Perbedaan
+                                                                                                                                                          ### 1️⃣ Jelaskan Perbedaan
 
-* Client Side Rendering
-* Server Side Rendering
-* Static Site Generation
+                                                                                                                                                          * Client Side Rendering
+                                                                                                                                                          * Server Side Rendering
+                                                                                                                                                          * Static Site Generation
 
-JAWABAN:
+                                                                                                                                                          JAWABAN:
 
-1. Client Side Rendering (CSR)
+                                                                                                                                                          1. Client Side Rendering (CSR)
 
-Rendering dilakukan di browser setelah halaman dimuat. Data diambil menggunakan JavaScript.
-Kelebihan: Cocok untuk aplikasi interaktif seperti dashboard.
-Kekurangan: Kurang baik untuk SEO dan loading awal lebih lambat.
+                                                                                                                                                          Rendering dilakukan di browser setelah halaman dimuat. Data diambil menggunakan JavaScript.
+                                                                                                                                                          Kelebihan: Cocok untuk aplikasi interaktif seperti dashboard.
+                                                                                                                                                          Kekurangan: Kurang baik untuk SEO dan loading awal lebih lambat.
 
-2. Server Side Rendering (SSR)
+                                                                                                                                                          2. Server Side Rendering (SSR)
 
-Rendering dilakukan di server setiap ada permintaan dari user. Server mengirim HTML yang sudah berisi data.
-Kelebihan: SEO baik dan data selalu terbaru.
-Kekurangan: Beban server lebih besar karena render dilakukan setiap request.
+                                                                                                                                                          Rendering dilakukan di server setiap ada permintaan dari user. Server mengirim HTML yang sudah berisi data.
+                                                                                                                                                          Kelebihan: SEO baik dan data selalu terbaru.
+                                                                                                                                                          Kekurangan: Beban server lebih besar karena render dilakukan setiap request.
 
-3. Static Site Generation (SSG)
+                                                                                                                                                          3. Static Site Generation (SSG)
 
-Rendering dilakukan saat proses build sebelum website diakses. Halaman yang dihasilkan bersifat statis.
-Kelebihan: Sangat cepat dan SEO sangat baik.
-Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
+                                                                                                                                                          Rendering dilakukan saat proses build sebelum website diakses. Halaman yang dihasilkan bersifat statis.
+                                                                                                                                                          Kelebihan: Sangat cepat dan SEO sangat baik.
+                                                                                                                                                          Kekurangan: Data tidak real-time dan perlu build ulang jika ada perubahan.
 
-### 2️⃣ Buat Halaman Produk Dengan:
+                                                                                                                                                          ### 2️⃣ Buat Halaman Produk Dengan:
 
-* Skeleton loading
-* Animasi
+                                                                                                                                                          * Skeleton loading
+                                                                                                                                                          * Animasi
 
-![alt text](/jobsheet-08/my-app/public/img/js08/<LOAD 3.gif>)
+                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/<LOAD 3.gif>)
 
-### 3️⃣ Refactor dari useEffect menjadi SWR
+                                                                                                                                                          ### 3️⃣ Refactor dari useEffect menjadi SWR
 
-![alt text](/jobsheet-08/my-app/public/img/js08/image-8.png)
+                                                                                                                                                          ![alt text](/jobsheet-08/my-app/public/img/js08/image-8.png)
 
----
+                                                                                                                                                          ---
 
-# E. Penanganan Error
+                                                                                                                                                          # E. Penanganan Error
 
-Jika muncul error saat membuka:
+                                                                                                                                                          Jika muncul error saat membuka:
 
-```
-http://localhost:3000/produk/server
-```
+                                                                                                                                                          ```
+                                                                                                                                                          http://localhost:3000/produk/server
+                                                                                                                                                          ```
 
-Modifikasi:
+                                                                                                                                                          Modifikasi:
 
-```tsx
-<p>{products.price.toLocaleString("id-ID")}</p>
-```
+                                                                                                                                                          ```tsx
+                                                                                                                                                          <p>{products.price.toLocaleString("id-ID")}</p>
+                                                                                                                                                          ```
 
----
+                                                                                                                                                          ---
 
-# F. Pertanyaan Evaluasi
+                                                                                                                                                          # F. Pertanyaan Evaluasi
 
-### 1. Apa itu Client Side Rendering?
+                                                                                                                                                          ### 1. Apa itu Client Side Rendering?
 
-CSR adalah proses rendering halaman di sisi browser setelah data di-fetch dari API.
+                                                                                                                                                          CSR adalah proses rendering halaman di sisi browser setelah data di-fetch dari API.
 
-### 2. Mengapa perlu Skeleton Loading?
+                                                                                                                                                          ### 2. Mengapa perlu Skeleton Loading?
 
-Untuk meningkatkan UX dan menghindari tampilan kosong saat data belum tersedia.
+                                                                                                                                                          Untuk meningkatkan UX dan menghindari tampilan kosong saat data belum tersedia.
 
-### 3. Apa keunggulan SWR dibanding useEffect manual?
+                                                                                                                                                          ### 3. Apa keunggulan SWR dibanding useEffect manual?
 
-SWR menyediakan caching, revalidation, dan handling loading/error secara otomatis.
+                                                                                                                                                          SWR menyediakan caching, revalidation, dan handling loading/error secara otomatis.
 
----
+                                                                                                                                                          ---
 
-# G. Kesimpulan
+                                                                                                                                                          # G. Kesimpulan
 
-Pada praktikum ini telah dipelajari:
+                                                                                                                                                          Pada praktikum ini telah dipelajari:
 
-* Konsep Client Side Rendering
-* Data fetching menggunakan useEffect
-* Implementasi Skeleton Loading
-* Optimasi data fetching dengan SWR
-* Caching dan revalidation otomatis
+                                                                                                                                                          * Konsep Client Side Rendering
+                                                                                                                                                          * Data fetching menggunakan useEffect
+                                                                                                                                                          * Implementasi Skeleton Loading
+                                                                                                                                                          * Optimasi data fetching dengan SWR
+                                                                                                                                                          * Caching dan revalidation otomatis
 
-Pendekatan CSR memberikan fleksibilitas tinggi dalam aplikasi interaktif, sementara SWR memberikan efisiensi dan optimasi dalam pengelolaan data pada sisi client.
+                                                                                                                                                          Pendekatan CSR memberikan fleksibilitas tinggi dalam aplikasi interaktif, sementara SWR memberikan efisiensi dan optimasi dalam pengelolaan data pada sisi client.
+                                                                                                                                                          

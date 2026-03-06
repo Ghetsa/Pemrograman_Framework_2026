@@ -10,8 +10,7 @@
 
 * **Nama:** Ghetsa Ramadhani Riska A.
 * **Kelas:** TI-3D
-* **No. Absen:** 11
-* **NIM:** 2341720004
+* **No. Absen:** 10
 * **Program Studi:** Teknik Informatika
 * **Jurusan:** Teknologi Informasi
 * **Politeknik Negeri Malang**

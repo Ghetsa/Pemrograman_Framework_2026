@@ -210,6 +210,8 @@ menjadi:
 
 Tujuannya agar API dapat menerima **parameter ID produk secara dinamis**.
 
+![alt text](image-3.png)
+
 ---
 
 ## Langkah 3 – Modifikasi service Firebase
@@ -221,6 +223,8 @@ utils/db/servicefirebase.ts
 ```
 
 Tambahkan fungsi untuk mengambil detail produk berdasarkan ID.
+
+![alt text](image-4.png)
 
 ---
 
@@ -259,6 +263,8 @@ export default async function handler(req, res) {
 }
 ```
 
+![alt text](image-5.png)
+
 ---
 
 ## Langkah 5 – Uji endpoint API
@@ -270,6 +276,8 @@ http://localhost:3000/api/produk/{id}
 ```
 
 Jika berhasil maka akan menampilkan data detail produk dalam bentuk JSON. 
+
+![alt text](image-2.png)
 
 ---
 

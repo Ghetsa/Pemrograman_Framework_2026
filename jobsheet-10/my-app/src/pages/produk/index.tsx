@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import TampilanProduk from "../views/product";
+import TampilanProduk from "../../views/product";
 import fetcher from "../../utils/swr/fetcher";
 
 const Kategori = () => {

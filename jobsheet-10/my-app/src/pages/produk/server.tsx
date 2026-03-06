@@ -1,5 +1,5 @@
-import TampilProduk from "../views/product/server";
-import { ProductType } from "../types/Product.type";
+import TampilProduk from "../../views/product/server";
+import { ProductType } from "../../types/Product.type";
 
 type HalamanProdukServerProps = {
   products: ProductType[];

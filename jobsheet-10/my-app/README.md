@@ -190,6 +190,8 @@ src
  └ views
 ```
 
+![alt text](image-1.png)
+
 Langkah ini dilakukan agar Next.js dapat mengenali halaman dengan benar saat build.
 
 ---
@@ -244,6 +246,8 @@ Keterangan:
 | ●      | SSG     |
 | f      | Dynamic |
 
+![alt text](image-2.png)
+
 ---
 
 ### 4️⃣ Menjalankan Production Mode
@@ -260,6 +264,8 @@ Jika terjadi error:
 EADDRINUSE: address already in use
 ```
 
+![alt text](image-3.png)
+
 Maka:
 
 1. Stop `npm run dev`
@@ -269,6 +275,8 @@ Maka:
 npm run start
 ```
 
+![alt text](image-4.png)
+
 ---
 
 ### 5️⃣ Akses halaman static
@@ -276,10 +284,12 @@ npm run start
 Buka browser:
 
 ```
-http://localhost:3000/products/static
+http://localhost:3000/produk/static
 ```
 
 Halaman produk static akan tampil dengan data dari database.
+
+![alt text](image-5.png)
 
 ---
 

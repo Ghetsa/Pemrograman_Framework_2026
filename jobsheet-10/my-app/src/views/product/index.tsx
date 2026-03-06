@@ -1,4 +1,4 @@
-import styles from "../../produk/produk.module.scss";
+import styles from "../../pages/produk/produk.module.scss";
 import Link from "next/link";
 
 type ProductType = {

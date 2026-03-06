@@ -1,4 +1,4 @@
-import ProfileEditView from "@/views/profile/edit";
+import ProfileEditView from "../../../views/profile/edit";
 
 const ProfileEditPage = () => {
   return <ProfileEditView />;

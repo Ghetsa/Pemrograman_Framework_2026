@@ -1,4 +1,4 @@
-import UserProfileView from "@/views/profile";
+import UserProfileView from "../../views/profile";
 
 const UserProfilePage = () => {
   return <UserProfileView />;

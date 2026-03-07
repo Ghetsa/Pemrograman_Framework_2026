@@ -368,7 +368,7 @@ http://localhost:3000/produk/{id_produk}
 
 Maka akan muncul **halaman detail produk**. 
 
-![alt text](image-6.png)
+![alt text](image-7.png)
 
 ---
 
@@ -405,6 +405,8 @@ export async function getServerSideProps(context) {
 ```
 http://localhost:3000/produk/server
 ```
+
+![alt text](image-9.png) ![alt text](image-10.png)
 
 Perbedaan SSR:
 

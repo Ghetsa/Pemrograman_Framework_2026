@@ -1,3 +1,11 @@
+@import "@/styles/colors.scss";
+
+$primary: map-get($schema, color-primary);
+$secondary: map-get($schema, color-secondary);
+$accent: map-get($schema, color-accent);
+$bg: map-get($schema, color-background);
+$text: map-get($schema, color-text);
+
 .produkdetail {
   max-width: 900px;
   margin: 40px auto;
@@ -5,9 +13,9 @@
   display: flex;
   gap: 32px;
 
-  background-color: #fff;
+  background-color: rgba($primary, 0.2);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba($text, 0.08);
   align-items: center;
 
   &_image {
@@ -15,12 +23,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f3f4f6;
+    background: rgba($accent, 0.4);
     border-radius: 10px;
     padding: 16px;
 
     img {
       width: 100%;
+      border-radius: 10px;
       max-width: 220px;
       object-fit: contain;
     }
@@ -36,18 +45,18 @@
   &_name {
     font-size: 22px;
     font-weight: 700;
-    color: #222;
+    color: $text;
   }
 
   &_category {
     font-size: 14px;
-    color: #777;
+    color: rgba($text, 0.7);
   }
 
   &_price {
     font-size: 18px;
     font-weight: 600;
-    color: #e5533d;
+    color: $accent;
     margin-top: 4px;
   }
 }
@@ -72,5 +81,5 @@
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 40px;
-  color: #f59e0b;
+  color: $accent;
 }

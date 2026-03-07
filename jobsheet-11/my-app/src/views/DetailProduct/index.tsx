@@ -15,7 +15,7 @@ const DetailProduk = ({ products }: { products: ProductType }) => {
           <h2 className={styles.produkdetail_name}>{products.name}</h2>
           <p className={styles.produkdetail_category}>{products.category}</p>
           <p className={styles.produkdetail_price}>
-            Rp {products.price.toLocaleString("id-ID")}
+            Rp {products.price && products.price.toLocaleString("id-ID")}
           </p>
         </div>
       </div>

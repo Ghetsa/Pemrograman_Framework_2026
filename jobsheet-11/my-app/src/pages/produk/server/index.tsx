@@ -9,7 +9,7 @@ const HalamanProdukServer = ({ products }: HalamanProdukServerProps) => {
   return (
     <div>
       <h1>Halaman Produk Server</h1>
-      <TampilProduk products={products} />
+      <TampilProduk products={products} basePath="/produk/server" />
     </div>
   );
 };

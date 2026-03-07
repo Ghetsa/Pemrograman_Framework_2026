@@ -120,7 +120,7 @@ pages/products/[product].tsx
 Modifikasi pada bagian link produk agar dapat menuju halaman detail:
 
 ```tsx
-<Link href={`/produk/${products.id}`}>
+<Link href={`/products/${products.id}`} key={products.id}  className={styles.produk__content__item}>
 ```
 
 Tujuannya agar setiap produk dapat menuju halaman detail berdasarkan ID.
@@ -135,6 +135,8 @@ Buka browser:
 http://localhost:3000/produk
 ```
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-1.png)
+
 Jika salah satu produk diklik maka akan diarahkan ke halaman:
 
 ```
@@ -142,6 +144,8 @@ http://localhost:3000/produk/{id_produk}
 ```
 
 Hal ini membuktikan bahwa **dynamic routing berhasil dibuat**. 
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image.png)
 
 ---
 
@@ -206,6 +210,8 @@ menjadi:
 
 Tujuannya agar API dapat menerima **parameter ID produk secara dinamis**.
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-3.png)
+
 ---
 
 ## Langkah 3 – Modifikasi service Firebase
@@ -217,6 +223,8 @@ utils/db/servicefirebase.ts
 ```
 
 Tambahkan fungsi untuk mengambil detail produk berdasarkan ID.
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-4.png)
 
 ---
 
@@ -255,6 +263,8 @@ export default async function handler(req, res) {
 }
 ```
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-5.png)
+
 ---
 
 ## Langkah 5 – Uji endpoint API
@@ -266,6 +276,8 @@ http://localhost:3000/api/produk/{id}
 ```
 
 Jika berhasil maka akan menampilkan data detail produk dalam bentuk JSON. 
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-2.png)
 
 ---
 
@@ -356,6 +368,8 @@ http://localhost:3000/produk/{id_produk}
 
 Maka akan muncul **halaman detail produk**. 
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-7.png)
+
 ---
 
 # Bagian 4 – Implementasi SSR
@@ -391,6 +405,8 @@ export async function getServerSideProps(context) {
 ```
 http://localhost:3000/produk/server
 ```
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-9.png) ![alt text](/jobsheet-11/my-app/public/img/laporan/image-10.png)
 
 Perbedaan SSR:
 
@@ -456,6 +472,8 @@ Klik salah satu produk.
 
 Halaman detail produk akan terbuka dengan metode **Static Site Generation**. 
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-11.png) ![alt text](/jobsheet-11/my-app/public/img/laporan/image-12.png)
+
 ---
 
 # D. Pengujian
@@ -472,10 +490,13 @@ Langkah:
 
 Hasil:
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-29.png)
+
 * Ada request API di Network tab
 * Halaman memerlukan loading state.
 
 ---
+
 
 ## Uji 2 – SSR
 
@@ -485,6 +506,8 @@ Langkah:
 2. Periksa Network tab
 
 Hasil:
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-31.png)
 
 * Tidak ada request API dari client
 * Data sudah dirender dari server.
@@ -502,10 +525,17 @@ npm run build
 npm run start
 ```
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-15.png)
+
 2. Tambahkan produk baru di database.
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-17.png)
+
 3. Buka halaman detail produk baru.
 
 Hasil:
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-18.png)
 
 * Produk tidak muncul.
 
@@ -518,13 +548,15 @@ npm run start
 
 Baru produk akan muncul.
 
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-19.png)
+
 ---
 
 # E. Tugas Praktikum
 
 ## Tugas Individu
 
-### 1️⃣ Implementasikan halaman detail produk dengan:
+### Implementasikan halaman detail produk dengan:
 
 * CSR
 * SSR
@@ -532,24 +564,80 @@ Baru produk akan muncul.
 
 ---
 
-### 2️⃣ Buat tabel perbandingan
+## HASIL TUGAS INDIVIDU
 
-| Aspek          | CSR       | SSR       | SSG               |
-| -------------- | --------- | --------- | ----------------- |
-| Loading        | Ada       | Tidak     | Tidak             |
-| Build Required | Tidak     | Tidak     | Ya                |
-| SEO            | Kurang    | Baik      | Sangat Baik       |
-| Perubahan Data | Real-time | Real-time | Perlu build ulang |
+### Tabel Perbandingan Rendering
+
+| Aspek          | CSR (Client Side Rendering) | SSR (Server Side Rendering) | SSG (Static Site Generation) |
+| -------------- | --------------------------- | --------------------------- | ---------------------------- |
+| Loading        | Ada proses loading data     | Tidak ada loading tambahan  | Tidak ada loading tambahan   |
+| Build Required | Tidak                       | Tidak                       | Ya                           |
+| SEO            | Kurang optimal              | Baik                        | Sangat baik                  |
+| Perubahan Data | Real-time                   | Real-time                   | Perlu build ulang            |
+
+
+#### CSR (Client Side Rendering)
+
+Pada metode CSR, data produk diambil di sisi client menggunakan fetch / SWR setelah halaman dimuat. Oleh karena itu pada **Network Tab** terlihat request API ke endpoint produk.
+
+URL contoh:
+
+```
+http://localhost:3000/produk/DkSMRkvPhWSBdEe5zbZM
+```
+
+**Screenshot Halaman**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-27.png)
+
+**Screenshot Network (terlihat request API)**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-29.png)
 
 ---
 
-### 3️⃣ Dokumentasi
+#### SSR (Server Side Rendering)
 
-Tambahkan pada laporan:
+Pada metode SSR, data produk diambil di server menggunakan `getServerSideProps` setiap kali halaman diakses. Browser menerima halaman yang sudah berisi data sehingga **tidak ada request API pada Network Tab**.
 
-* Screenshot hasil halaman
-* Screenshot Network tab
-* Screenshot hasil build
+URL contoh:
+
+```
+http://localhost:3000/produk/server/IrpyjWEI805TUYkozew5
+```
+
+**Screenshot Halaman**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-30.png)
+
+**Screenshot Network (tidak ada request API)**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-31.png)
+
+---
+
+#### SSG (Static Site Generation)
+
+Pada metode SSG, halaman detail produk dibuat saat proses build menggunakan `getStaticPaths` dan `getStaticProps`. Halaman yang dikirim ke browser sudah berupa HTML statis sehingga **tidak ada request API pada Network Tab**.
+
+URL contoh:
+
+```
+http://localhost:3000/produk/static/[id]
+```
+
+**Screenshot Halaman**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-24.png)
+
+**Screenshot Network (tidak ada request API)**
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-25.png)
+
+
+#### Hasil `npm run build`
+
+![alt text](/jobsheet-11/my-app/public/img/laporan/image-32.png)
 
 ---
 
@@ -557,35 +645,31 @@ Tambahkan pada laporan:
 
 ### 1. Mengapa `getStaticPaths` wajib pada dynamic SSG?
 
-Karena Next.js perlu mengetahui daftar halaman yang harus dibuat saat proses build.
+Karena pada halaman dynamic, Next.js tidak mengetahui secara otomatis parameter URL yang tersedia. `getStaticPaths` digunakan untuk memberikan daftar path yang harus dibuat menjadi halaman statis saat proses build. Tanpa fungsi ini, Next.js tidak dapat menghasilkan halaman statis untuk setiap data yang tersedia.
 
 ---
 
 ### 2. Mengapa CSR membutuhkan loading state?
 
-Karena data diambil setelah halaman dirender di browser.
+Pada metode CSR, data diambil setelah halaman selesai dirender di browser melalui request API. Selama proses pengambilan data tersebut berlangsung, konten belum tersedia sehingga diperlukan **loading state** untuk memberi indikasi kepada pengguna bahwa data sedang dimuat. Hal ini juga membantu meningkatkan pengalaman pengguna agar halaman tidak terlihat kosong.
 
 ---
 
 ### 3. Mengapa SSG tidak menampilkan produk baru tanpa build ulang?
 
-Karena halaman sudah dibuat secara statis saat build.
+SSG menghasilkan halaman statis saat proses build berlangsung berdasarkan data yang tersedia pada saat itu. Jika ada produk baru yang ditambahkan setelah proses build selesai, halaman statis tersebut tidak akan otomatis diperbarui. Oleh karena itu diperlukan proses **build ulang** agar halaman dapat dibuat kembali dengan data terbaru.
 
 ---
 
 ### 4. Mana metode terbaik untuk halaman detail e-commerce?
 
-SSR lebih cocok karena:
-
-* SEO baik
-* Data selalu terbaru
-* Tidak perlu build ulang.
+SSR lebih cocok digunakan pada halaman detail produk karena data yang ditampilkan selalu diambil secara langsung dari server saat halaman diminta. Hal ini memastikan informasi produk seperti harga atau stok selalu terbaru. Selain itu, SSR juga tetap memberikan keuntungan SEO yang baik karena konten sudah tersedia saat halaman dikirim ke browser.
 
 ---
 
 ### 5. Apa risiko menggunakan SSG untuk produk yang sering berubah?
 
-Data produk bisa menjadi **tidak sinkron dengan database** sampai dilakukan build ulang.
+Jika menggunakan SSG untuk produk yang sering berubah, data yang ditampilkan pada halaman bisa menjadi tidak sesuai dengan kondisi terbaru di database. Hal ini terjadi karena halaman statis tidak diperbarui secara otomatis setelah proses build selesai. Akibatnya pengguna bisa melihat informasi produk yang sudah tidak relevan, seperti harga lama atau stok yang sudah habis.
 
 ---
 

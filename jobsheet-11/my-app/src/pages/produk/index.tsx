@@ -9,7 +9,11 @@ const Kategori = () => {
 
   return (
     <div>
-      <TampilanProduk products={isLoading ? [] : (data?.data ?? [])} />
+      <h1>Halaman Produk CSR</h1>
+      <TampilanProduk
+        products={isLoading ? [] : (data?.data ?? [])}
+        basePath="/produk"
+      />
     </div>
   );
 };

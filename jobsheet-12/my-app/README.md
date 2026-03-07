@@ -137,18 +137,15 @@ npm run start
 
 Jika build berhasil, route halaman static akan memiliki informasi `revalidate` pada hasil build. 
 
+![alt text](image.png)
+
 ---
 
 ### Langkah 2 – Tambahkan data baru di Firebase
 
 Buka Firebase Firestore, lalu tambahkan produk baru pada collection `products`.
 
-Contoh data:
-
-* `name`: sepatu handball spesial
-* `price`: 1700000
-* `image`: URL gambar produk
-* `category`: Men's Shoes
+![alt text](image-1.png)
 
 ---
 
@@ -162,6 +159,7 @@ http://localhost:3000/produk/static
 
 Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
 
+![alt text](image-2.png)
 ---
 
 ### Langkah 4 – Refresh halaman setelah 10 detik
@@ -169,6 +167,8 @@ Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
 Setelah melewati 10 detik, refresh kembali halaman static.
 
 Hasilnya:
+
+![alt text](image-3.png)
 
 * Data baru akan muncul
 * Cache static telah diperbarui otomatis

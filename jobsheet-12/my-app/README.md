@@ -137,7 +137,7 @@ npm run start
 
 Jika build berhasil, route halaman static akan memiliki informasi `revalidate` pada hasil build. 
 
-![alt text](image.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image.png)
 
 ---
 
@@ -145,7 +145,7 @@ Jika build berhasil, route halaman static akan memiliki informasi `revalidate` p
 
 Buka Firebase Firestore, lalu tambahkan produk baru pada collection `products`.
 
-![alt text](image-1.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
 
 ---
 
@@ -159,7 +159,7 @@ http://localhost:3000/produk/static
 
 Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
 
-![alt text](image-2.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-2.png)
 ---
 
 ### Langkah 4 – Refresh halaman setelah 10 detik
@@ -168,7 +168,7 @@ Setelah melewati 10 detik, refresh kembali halaman static.
 
 Hasilnya:
 
-![alt text](image-3.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-3.png)
 
 * Data baru akan muncul
 * Cache static telah diperbarui otomatis
@@ -273,7 +273,7 @@ Hasil:
 }
 ```
 
-![alt text](image-4.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-4.png)
 
 Jika parameter salah atau kosong, hasil yang muncul adalah:
 
@@ -290,7 +290,7 @@ Response:
 }
 ```
 
-![alt text](image-5.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-5.png)
 
 ---
 
@@ -368,7 +368,7 @@ Jika token benar, hasilnya:
 }
 ```
 
-![alt text](image-6.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-6.png)
 
 Jika token salah:
 
@@ -385,21 +385,21 @@ Hasil:
 }
 ```
 
-![alt text](image-7.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-7.png)
 
 Lakukan juga pengujian:
 
 * Token benar
 
-![alt text](image-8.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-8.png)
 
 * Token salah
 
-![alt text](image-9.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-9.png)
 
 * Tanpa token
 
-![alt text](image-10.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-10.png)
 
 ---
 
@@ -420,28 +420,28 @@ Tabel ini menunjukkan bahwa ISR lebih fleksibel dibandingkan SSG murni karena da
 ## Tugas Individu
 
 1. Tambahkan lagi produk pada Firebase.
-![alt text](image-1.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
 
 2. Implementasikan ISR dengan `revalidate: 10`.
-![alt text](image-11.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-11.png)
 
 3. Tambahkan endpoint On-Demand Revalidation.
-![alt text](image-12.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-12.png)
 
 4. Tambahkan validasi token.
-![alt text](image-13.png)
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-13.png)
 
 5. Uji dengan:
 
    * Token benar
-  ![alt text](image-14.png)
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-14.png)
 
    * Token salah
-  ![alt text](image-15.png)
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
 
    * Tanpa token
-  ![alt text](image-15.png)
-  
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
+
 ---
 
 # H. Pertanyaan Analisis

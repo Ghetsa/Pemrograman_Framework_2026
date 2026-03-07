@@ -81,7 +81,7 @@ ISR menjadi solusi ketika ingin mempertahankan performa halaman static, tetapi t
 Buka file:
 
 ```tsx
-src/pages/produk/static.tsx
+src/pages/produk/static/index.tsx
 ```
 
 Modifikasi `getStaticProps` dengan menambahkan `revalidate`:
@@ -137,18 +137,15 @@ npm run start
 
 Jika build berhasil, route halaman static akan memiliki informasi `revalidate` pada hasil build. 
 
+![alt text](/jobsheet-12/my-app/public/img/laporan/image.png)
+
 ---
 
 ### Langkah 2 – Tambahkan data baru di Firebase
 
 Buka Firebase Firestore, lalu tambahkan produk baru pada collection `products`.
 
-Contoh data:
-
-* `name`: sepatu handball spesial
-* `price`: 1700000
-* `image`: URL gambar produk
-* `category`: Men's Shoes
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
 
 ---
 
@@ -162,6 +159,7 @@ http://localhost:3000/produk/static
 
 Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
 
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-2.png)
 ---
 
 ### Langkah 4 – Refresh halaman setelah 10 detik
@@ -169,6 +167,8 @@ Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
 Setelah melewati 10 detik, refresh kembali halaman static.
 
 Hasilnya:
+
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-3.png)
 
 * Data baru akan muncul
 * Cache static telah diperbarui otomatis
@@ -273,6 +273,8 @@ Hasil:
 }
 ```
 
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-4.png)
+
 Jika parameter salah atau kosong, hasil yang muncul adalah:
 
 ```text
@@ -287,6 +289,8 @@ Response:
   "message": "Invalid query parameter. Expected 'data=produk'."
 }
 ```
+
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-5.png)
 
 ---
 
@@ -364,6 +368,8 @@ Jika token benar, hasilnya:
 }
 ```
 
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-6.png)
+
 Jika token salah:
 
 ```text
@@ -379,11 +385,21 @@ Hasil:
 }
 ```
 
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-7.png)
+
 Lakukan juga pengujian:
 
 * Token benar
+
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-8.png)
+
 * Token salah
+
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-9.png)
+
 * Tanpa token
+
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-10.png)
 
 ---
 
@@ -404,14 +420,27 @@ Tabel ini menunjukkan bahwa ISR lebih fleksibel dibandingkan SSG murni karena da
 ## Tugas Individu
 
 1. Tambahkan lagi produk pada Firebase.
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
+
 2. Implementasikan ISR dengan `revalidate: 10`.
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-11.png)
+
 3. Tambahkan endpoint On-Demand Revalidation.
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-12.png)
+
 4. Tambahkan validasi token.
+![alt text](/jobsheet-12/my-app/public/img/laporan/image-13.png)
+
 5. Uji dengan:
 
    * Token benar
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-14.png)
+
    * Token salah
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
+
    * Tanpa token
+  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
 
 ---
 

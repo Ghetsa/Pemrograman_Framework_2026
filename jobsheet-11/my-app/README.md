@@ -472,6 +472,8 @@ Klik salah satu produk.
 
 Halaman detail produk akan terbuka dengan metode **Static Site Generation**. 
 
+![alt text](image-11.png) ![alt text](image-12.png)
+
 ---
 
 # D. Pengujian

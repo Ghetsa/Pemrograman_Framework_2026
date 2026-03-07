@@ -8,7 +8,7 @@ const DetailProduk = ({ products }: { products: ProductType }) => {
 
       <div className={styles.produkdetail}>
         <div className={styles.produkdetail_image}>
-          <img src={products.image} alt={products.name} />
+          <img src={products.image && products.image} alt={products.name} />
         </div>
 
         <div className={styles.produkdetail_info}>

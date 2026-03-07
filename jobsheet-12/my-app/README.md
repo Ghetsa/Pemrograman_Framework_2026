@@ -273,6 +273,8 @@ Hasil:
 }
 ```
 
+![alt text](image-4.png)
+
 Jika parameter salah atau kosong, hasil yang muncul adalah:
 
 ```text
@@ -287,6 +289,8 @@ Response:
   "message": "Invalid query parameter. Expected 'data=produk'."
 }
 ```
+
+![alt text](image-5.png)
 
 ---
 

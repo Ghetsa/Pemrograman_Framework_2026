@@ -490,10 +490,13 @@ Langkah:
 
 Hasil:
 
+![alt text](image-13.png)
+
 * Ada request API di Network tab
 * Halaman memerlukan loading state.
 
 ---
+
 
 ## Uji 2 – SSR
 
@@ -503,6 +506,8 @@ Langkah:
 2. Periksa Network tab
 
 Hasil:
+
+![alt text](image-14.png)
 
 * Tidak ada request API dari client
 * Data sudah dirender dari server.
@@ -520,10 +525,17 @@ npm run build
 npm run start
 ```
 
+![alt text](image-15.png)
+
 2. Tambahkan produk baru di database.
+
+![alt text](image-17.png)
+
 3. Buka halaman detail produk baru.
 
 Hasil:
+
+![alt text](image-18.png)
 
 * Produk tidak muncul.
 
@@ -535,6 +547,8 @@ npm run start
 ```
 
 Baru produk akan muncul.
+
+![alt text](image-19.png)
 
 ---
 

@@ -623,12 +623,12 @@ Pada metode SSG, halaman detail produk dibuat saat proses build menggunakan `get
 URL contoh:
 
 ```
-http://localhost:3000/produk/static/[id]
+http://localhost:3000/produk/static/Iy9LAQmzU3vo6r9FRBdU
 ```
 
 **Screenshot Halaman**
 
-![alt text](/jobsheet-11/my-app/public/img/laporan/image-24.png)
+![alt text](image.png)
 
 **Screenshot Network (tidak ada request API)**
 

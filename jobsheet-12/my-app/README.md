@@ -420,15 +420,28 @@ Tabel ini menunjukkan bahwa ISR lebih fleksibel dibandingkan SSG murni karena da
 ## Tugas Individu
 
 1. Tambahkan lagi produk pada Firebase.
+![alt text](image-1.png)
+
 2. Implementasikan ISR dengan `revalidate: 10`.
+![alt text](image-11.png)
+
 3. Tambahkan endpoint On-Demand Revalidation.
+![alt text](image-12.png)
+
 4. Tambahkan validasi token.
+![alt text](image-13.png)
+
 5. Uji dengan:
 
    * Token benar
-   * Token salah
-   * Tanpa token
+  ![alt text](image-14.png)
 
+   * Token salah
+  ![alt text](image-15.png)
+
+   * Tanpa token
+  ![alt text](image-15.png)
+  
 ---
 
 # H. Pertanyaan Analisis

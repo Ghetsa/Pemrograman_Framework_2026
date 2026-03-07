@@ -368,6 +368,8 @@ Jika token benar, hasilnya:
 }
 ```
 
+![alt text](image-6.png)
+
 Jika token salah:
 
 ```text
@@ -383,11 +385,21 @@ Hasil:
 }
 ```
 
+![alt text](image-7.png)
+
 Lakukan juga pengujian:
 
 * Token benar
+
+![alt text](image-8.png)
+
 * Token salah
+
+![alt text](image-9.png)
+
 * Tanpa token
+
+![alt text](image-10.png)
 
 ---
 

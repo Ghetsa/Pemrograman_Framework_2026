@@ -150,6 +150,8 @@ Penjelasan:
 * `NextResponse.next()` berarti request akan diteruskan tanpa redirect.
 * Halaman seperti `/produk` masih dapat diakses secara normal. 
 
+<img width="1183" height="895" alt="image" src="https://github.com/user-attachments/assets/609f43dd-d07b-439f-ac40-c2b1d4be9741" />
+
 ---
 
 # Bagian 3 – Redirect Sederhana
@@ -171,6 +173,9 @@ Akibatnya:
 
 * Semua halaman mengalami redirect terus menerus
 * Halaman akan error karena terjadi redirect berulang.
+
+<img width="1182" height="1219" alt="image" src="https://github.com/user-attachments/assets/a7d2a2e8-f5d3-4d5e-ba31-4a37a094c7db" />
+
 
 ---
 
@@ -260,6 +265,9 @@ User akan diarahkan ke halaman login.
 /login
 ```
 
+<img width="1393" height="1694" alt="image" src="https://github.com/user-attachments/assets/53a6dc33-6900-4aa4-b929-f4e5a969124e" />
+
+
 ---
 
 ## Uji 2 – isLogin = true
@@ -278,6 +286,9 @@ User dapat mengakses halaman:
 /products
 ```
 
+<img width="1385" height="915" alt="image" src="https://github.com/user-attachments/assets/62be4b92-b4c9-4af5-bebd-a53572a68239" />
+
+
 ---
 
 ## Uji 3 – Multiple Route Protection
@@ -295,6 +306,9 @@ Sekarang:
 * `/products` membutuhkan login
 * `/about` membutuhkan login
 * Halaman lain tetap dapat diakses tanpa login. 
+
+<img width="1338" height="1502" alt="image" src="https://github.com/user-attachments/assets/6076ad10-0760-4724-88f0-9dbff7ed65a3" />
+
 
 ---
 
@@ -322,19 +336,46 @@ Middleware lebih efisien karena proteksi route dapat dilakukan secara global tan
 /about
 /login
 ```
+  <img width="1393" height="1694" alt="image" src="https://github.com/user-attachments/assets/53a6dc33-6900-4aa4-b929-f4e5a969124e" />
+
+<img width="1338" height="1502" alt="image" src="https://github.com/user-attachments/assets/6076ad10-0760-4724-88f0-9dbff7ed65a3" />
+
+<img width="1385" height="915" alt="image" src="https://github.com/user-attachments/assets/62be4b92-b4c9-4af5-bebd-a53572a68239" />
 
 2. Mengimplementasikan Middleware:
 
 * Redirect ke `/login` jika user belum login.
 * Izinkan akses jika `isLogin = true`.
 
+<img width="1393" height="1694" alt="image" src="https://github.com/user-attachments/assets/53a6dc33-6900-4aa4-b929-f4e5a969124e" />
+
+<img width="1039" height="674" alt="image" src="https://github.com/user-attachments/assets/8123f2d1-3a56-4d0d-b7de-43db8867b453" />
+
+
 3. Menambahkan proteksi hanya untuk route tertentu.
 
-4. Mendokumentasikan hasil:
+Proteksi hanya untuk halaman produk dan about
+
+<img width="450" height="143" alt="image" src="https://github.com/user-attachments/assets/cfc57288-1499-445d-9211-5d7b61f1319e" />
+
+
+5. Mendokumentasikan hasil:
 
 * Screenshot sebelum redirect
+
+  <img width="1393" height="1694" alt="image" src="https://github.com/user-attachments/assets/53a6dc33-6900-4aa4-b929-f4e5a969124e" />
+  
 * Screenshot setelah redirect
+
+  <img width="1385" height="915" alt="image" src="https://github.com/user-attachments/assets/62be4b92-b4c9-4af5-bebd-a53572a68239" />
+  
 * Perbandingan penggunaan middleware dengan `useEffect`. 
+
+Middleware digunakan untuk melakukan pengecekan atau logika sebelum halaman diakses oleh pengguna. Middleware berjalan di server atau edge sehingga dapat melakukan proteksi route seperti autentikasi sebelum halaman dirender.
+
+Sedangkan useEffect berjalan di sisi client setelah halaman berhasil dimuat di browser. Biasanya digunakan untuk menjalankan efek samping seperti mengambil data, memeriksa localStorage, atau melakukan redirect setelah komponen dirender.
+
+Secara umum, middleware lebih cocok untuk proteksi halaman sejak awal, sementara useEffect digunakan untuk logika yang dijalankan di sisi client setelah halaman tampil.
 
 ---
 

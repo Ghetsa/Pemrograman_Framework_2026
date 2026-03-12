@@ -7,14 +7,16 @@ const HalamanLogin = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handlerLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // contoh validasi sederhana
-    if (email && password) {
-      localStorage.setItem("isLogin", "true"); // ✅ harus true
+    if (email.trim() === "admin@example.com" && password.trim() === "admin") {
+      document.cookie = "isLogin=true; path=/";
       router.push("/produk");
+    } else {
+      setError("Email atau password salah");
     }
   };
 
@@ -29,7 +31,7 @@ const HalamanLogin = () => {
               Email
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -53,6 +55,8 @@ const HalamanLogin = () => {
               required
             />
           </div>
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
           <button type="submit" className={styles.button}>
             Login

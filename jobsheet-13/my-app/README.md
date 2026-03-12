@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 12
+## JOBSHEET 13
 
-### Incremental Static Regeneration (ISR) pada Next.js
+### Middleware & Route Protection pada Next.js
 
 ---
 
@@ -22,51 +22,57 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Menjelaskan konsep Incremental Static Regeneration (ISR).
-2. Mengimplementasikan `revalidate` pada `getStaticProps`.
-3. Menguji pembaruan halaman tanpa build ulang.
-4. Membuat endpoint On-Demand Revalidation.
-5. Mengamankan endpoint revalidation dengan token. 
+1. Menjelaskan konsep Middleware pada Next.js.
+2. Membedakan redirect menggunakan `useEffect` dan Middleware.
+3. Membuat file `middleware.ts`.
+4. Mengatur proteksi route tertentu.
+5. Mengimplementasikan sistem login sederhana menggunakan Middleware. 
 
 ---
 
 # B. Dasar Teori Singkat
 
-## 1️⃣ Masalah Static Site Generation (SSG)
+## 1️⃣ Apa itu Middleware?
 
-Pada SSG:
+Middleware adalah kode yang dijalankan sebelum request halaman diproses.
 
-* Data hanya diambil saat build
-* Perubahan database tidak langsung tampil
-* Harus melakukan `npm run build` ulang
+Alur kerja middleware:
+
+```
+User mengakses halaman
+↓
+Middleware dijalankan
+↓
+Melakukan pengecekan kondisi (login / role / dll)
+↓
+Request diteruskan atau diarahkan (redirect)
+```
+
+Middleware berjalan pada server atau edge layer sebelum halaman dirender sehingga dapat digunakan untuk melakukan validasi atau proteksi halaman tertentu. 
 
 ---
 
-## 2️⃣ Incremental Static Regeneration (ISR)
+## 2️⃣ Mengapa Tidak Menggunakan useEffect?
 
-ISR memungkinkan:
+Redirect menggunakan `useEffect` memiliki beberapa kekurangan.
 
-* Halaman tetap static
-* Namun dapat diperbarui setelah waktu tertentu
-* Tanpa perlu rebuild aplikasi
+Contoh redirect menggunakan `useEffect`:
 
-Alur ISR:
-
-```text
-User request
-↓
-Serve cached static page
-↓
-Setelah waktu revalidate habis
-↓
-Next.js fetch ulang data di background
-↓
-Cache diperbarui
-↓
-Halaman kembali static
+```tsx
+useEffect(() => {
+  if (!isLogin) {
+    router.push("/login")
+  }
+}, [])
 ```
 
-ISR menjadi solusi ketika ingin mempertahankan performa halaman static, tetapi tetap membutuhkan pembaruan data secara berkala. 
+Masalah dari pendekatan tersebut:
+
+* Halaman sempat terbuka terlebih dahulu
+* Terjadi glitch atau tampilan berkedip
+* Keamanan kurang baik
+
+Middleware memberikan solusi yang lebih baik karena redirect dilakukan sebelum halaman dirender sehingga lebih aman dan tidak menimbulkan glitch. 
 
 ---
 
@@ -74,408 +80,304 @@ ISR menjadi solusi ketika ingin mempertahankan performa halaman static, tetapi t
 
 ---
 
-## Bagian 1 – Implementasi ISR Otomatis
+## Bagian 1 – Membuat Middleware
 
-### Langkah 1 – Tambahkan `revalidate`
+### 1️⃣ Modifikasi file halaman produk
 
-Buka file:
+Buka file berikut:
 
-```tsx
-src/pages/produk/static/index.tsx
+```
+src/pages/produk/index.tsx
 ```
 
-Modifikasi `getStaticProps` dengan menambahkan `revalidate`:
+Contoh modifikasi:
 
 ```tsx
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import TampilProduk from "../../views/product";
-import { ProductType } from "../../types/Product.type";
+import useSWR from "swr";
+import fetcher from "../../utils/swr/fetcher";
 
-const halamanProdukStatic = (props: { products: ProductType[] }) => {
-  const { products } = props;
+const kategori = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
+
+  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
+
   return (
     <div>
-      <h1>Halaman Produk Static</h1>
-      <TampilProduk products={products} />
+      <TampilProduk products={isLoading ? [] : data.data} />
     </div>
   );
 };
 
-export default halamanProdukStatic;
+export default kategori;
+```
 
-export async function getStaticProps() {
-  const res = await fetch("http://127.0.0.1:3000/api/produk");
-  const response: { data: ProductType[] } = await res.json();
+Pada tahap ini halaman produk masih dapat diakses tanpa proteksi.
 
-  return {
-    props: {
-      products: response.data,
-    },
-    revalidate: 10,
-  };
+---
+
+### 2️⃣ Membuat file middleware
+
+Buat file baru:
+
+```
+src/middleware.ts
+```
+
+File ini diletakkan sejajar dengan folder `pages`.
+
+---
+
+# Bagian 2 – Struktur Dasar Middleware
+
+Tambahkan kode berikut pada file `middleware.ts`.
+
+```tsx
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  return NextResponse.next();
 }
 ```
 
-Arti dari konfigurasi tersebut:
+Penjelasan:
 
-* Setiap 10 detik halaman akan dicek ulang
-* Jika ada perubahan data, cache akan diperbarui
-
----
-
-## Bagian 2 – Pengujian ISR
-
-### Langkah 1 – Jalankan build dan start
-
-Lakukan proses seperti pada jobsheet SSG sebelumnya.
-
-Jalankan:
-
-```bash
-npm run build
-npm run start
-```
-
-Jika build berhasil, route halaman static akan memiliki informasi `revalidate` pada hasil build. 
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image.png)
+* `NextResponse.next()` berarti request akan diteruskan tanpa redirect.
+* Halaman seperti `/produk` masih dapat diakses secara normal. 
 
 ---
 
-### Langkah 2 – Tambahkan data baru di Firebase
+# Bagian 3 – Redirect Sederhana
 
-Buka Firebase Firestore, lalu tambahkan produk baru pada collection `products`.
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
-
----
-
-### Langkah 3 – Refresh halaman sebelum 10 detik
-
-Buka halaman static:
-
-```text
-http://localhost:3000/produk/static
-```
-
-Jika halaman direfresh sebelum 10 detik, maka yang tampil masih **data lama**.
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-2.png)
----
-
-### Langkah 4 – Refresh halaman setelah 10 detik
-
-Setelah melewati 10 detik, refresh kembali halaman static.
-
-Hasilnya:
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-3.png)
-
-* Data baru akan muncul
-* Cache static telah diperbarui otomatis
-
-Hal ini membuktikan bahwa ISR dapat memperbarui halaman tanpa perlu build ulang. 
-
----
-
-# D. On-Demand Revalidation
-
-Jika tidak ingin menunggu waktu `revalidate`, dapat digunakan endpoint khusus untuk memicu revalidation secara manual.
-
----
-
-## Bagian 1 – Buat API Revalidate
-
-### Langkah 1 – Buat file baru
-
-Buat file:
+Modifikasi file `middleware.ts`.
 
 ```tsx
-pages/api/revalidate.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL("/", request.url));
+}
 ```
 
-### Langkah 2 – Modifikasi file `revalidate.ts`
+Jika kode ini dijalankan maka semua halaman akan diarahkan ke halaman home.
+
+Akibatnya:
+
+* Semua halaman mengalami redirect terus menerus
+* Halaman akan error karena terjadi redirect berulang.
+
+---
+
+# Bagian 4 – Batasi Route Tertentu
+
+Untuk mengatasi redirect ke semua halaman, perlu dilakukan pembatasan route.
+
+Modifikasi file `middleware.ts`.
 
 ```tsx
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-type Data = {
-  revalidated: boolean;
+export function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL("/", request.url));
+}
+
+export const config = {
+  matcher: ["/produk", "/about"],
 };
+```
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  try {
-    await res.revalidate("/produk/static");
-    return res.status(200).json({ revalidated: true });
-  } catch (error) {
-    console.error("Error in API route:", error);
-    res.status(500).end({ revalidated: false } as any);
+Penjelasan:
+
+* Middleware hanya berjalan pada route `/produk` dan `/about`.
+* Halaman lain tetap dapat diakses tanpa redirect.
+
+Dengan konfigurasi ini:
+
+* Jika user membuka `/produk` atau `/about` akan diarahkan ke halaman home.
+* Halaman lain tetap berjalan normal. 
+
+---
+
+# Bagian 5 – Simulasi Sistem Login
+
+Pada tahap ini middleware digunakan untuk membuat sistem login sederhana.
+
+Modifikasi file `middleware.ts`.
+
+```tsx
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const isLogin = false;
+
+  if (isLogin) {
+    return NextResponse.next();
+  } else {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 }
-```
 
-Endpoint ini digunakan untuk memicu revalidation halaman static secara manual. 
-
----
-
-## Bagian 2 – Tambahkan Parameter Data
-
-Pada implementasi awal masih ada kekurangan, yaitu ketika salah satu data dihapus maka halaman tidak langsung terupdate secara tepat. Untuk mengatasinya, ditambahkan kondisi query parameter pada endpoint revalidate.
-
-### Langkah 1 – Modifikasi file `revalidate.ts`
-
-```tsx
-import type { NextApiRequest, NextApiResponse } from "next";
-
-type Data = {
-  revalidated: boolean;
-  message?: string;
+export const config = {
+  matcher: ["/produk", "/about"],
 };
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  if (req.query.data === "produk") {
-    try {
-      await res.revalidate("/produk/static");
-      return res.status(200).json({ revalidated: true });
-    } catch (error) {
-      console.error("Error in API route:", error);
-      res.status(500).end({ revalidated: false } as any);
-    }
-  }
-
-  return res.json({
-    revalidated: false,
-    message: "Invalid query parameter. Expected 'data=produk'.",
-  });
-}
 ```
+
+Penjelasan:
+
+* Jika `isLogin = false` maka user akan diarahkan ke halaman login.
+* Jika `isLogin = true` maka user dapat mengakses halaman yang diproteksi.
+
+Dengan implementasi ini:
+
+* Halaman `/produk` dan `/about` membutuhkan login.
+* Halaman lain dapat diakses tanpa login. 
 
 ---
 
-### Langkah 2 – Uji endpoint dengan parameter
+# D. Pengujian
 
-Akses URL berikut:
+## Uji 1 – isLogin = false
 
-```text
-http://localhost:3000/api/revalidate?data=produk
+Akses halaman:
+
+```
+/products
 ```
 
 Hasil:
 
-```json
-{
-  "revalidated": true
-}
+User akan diarahkan ke halaman login.
+
 ```
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-4.png)
-
-Jika parameter salah atau kosong, hasil yang muncul adalah:
-
-```text
-http://localhost:3000/api/revalidate?data=
-```
-
-Response:
-
-```json
-{
-  "revalidated": false,
-  "message": "Invalid query parameter. Expected 'data=produk'."
-}
-```
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-5.png)
-
----
-
-## Bagian 3 – Tambahkan Token Security
-
-Agar endpoint revalidation tidak dapat digunakan sembarang orang melalui URL, perlu ditambahkan validasi token.
-
-### Langkah 1 – Modifikasi file `.env`
-
-Tambahkan variabel baru:
-
-```env
-REVALIDATE_TOKEN=12345678
+/login
 ```
 
 ---
 
-### Langkah 2 – Modifikasi file `revalidate.ts`
+## Uji 2 – isLogin = true
 
-Tambahkan validasi token pada handler:
+Ubah nilai variabel:
 
 ```tsx
-import type { NextApiRequest, NextApiResponse } from "next";
-
-type Data = {
-  revalidated: boolean;
-  message?: string;
-};
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  if (req.query.token !== process.env.REVALIDATE_TOKEN) {
-    return res.status(401).json({
-      revalidated: false,
-      message: "Insert correct token",
-    });
-  }
-
-  if (req.query.data === "produk") {
-    try {
-      await res.revalidate("/produk/static");
-      return res.status(200).json({ revalidated: true });
-    } catch (error) {
-      console.error("Error in API route:", error);
-      res.status(500).end({ revalidated: false } as any);
-    }
-  }
-
-  return res.json({
-    revalidated: false,
-    message: "Invalid query parameter. Expected 'data=produk'.",
-  });
-}
-```
-
-Dengan validasi ini, endpoint revalidation menjadi lebih aman. 
-
----
-
-# E. Pengujian Manual Revalidation
-
-Akses endpoint berikut:
-
-```text
-http://localhost:3000/api/revalidate?data=produk&token=12345678
-```
-
-Jika token benar, hasilnya:
-
-```json
-{
-  "revalidated": true
-}
-```
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-6.png)
-
-Jika token salah:
-
-```text
-http://localhost:3000/api/revalidate?data=produk&token=123
+const isLogin = true;
 ```
 
 Hasil:
 
-```json
-{
-  "revalidated": false,
-  "message": "Insert correct token"
-}
+User dapat mengakses halaman:
+
+```
+/products
 ```
 
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-7.png)
+---
 
-Lakukan juga pengujian:
+## Uji 3 – Multiple Route Protection
 
-* Token benar
+Tambahkan konfigurasi berikut:
 
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-8.png)
+```tsx
+export const config = {
+  matcher: ["/products", "/about"],
+};
+```
 
-* Token salah
+Sekarang:
 
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-9.png)
-
-* Tanpa token
-
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-10.png)
+* `/products` membutuhkan login
+* `/about` membutuhkan login
+* Halaman lain tetap dapat diakses tanpa login. 
 
 ---
 
-# F. Perbandingan SSG vs ISR
+# E. Perbandingan Middleware vs useEffect
 
-| Aspek       | SSG               | ISR                 |
-| ----------- | ----------------- | ------------------- |
-| Update Data | Harus build ulang | Otomatis / Trigger  |
-| Cache       | Static permanen   | Static + Refresh    |
-| Cocok untuk | Konten tetap      | Konten semi-dinamis |
+| Aspek           | useEffect               | Middleware                 |
+| --------------- | ----------------------- | -------------------------- |
+| Redirect timing | Setelah render          | Sebelum render             |
+| Glitch          | Ada                     | Tidak                      |
+| Security        | Lemah                   | Lebih aman                 |
+| Skalabilitas    | Harus di setiap halaman | Cukup sekali di middleware |
 
-Tabel ini menunjukkan bahwa ISR lebih fleksibel dibandingkan SSG murni karena dapat memperbarui data tanpa rebuild penuh. 
+Middleware lebih efisien karena proteksi route dapat dilakukan secara global tanpa perlu menambahkan logic redirect pada setiap halaman. 
 
 ---
 
-# G. Tugas Praktikum
+# F. Tugas Praktikum
 
 ## Tugas Individu
 
-1. Tambahkan lagi produk pada Firebase.
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-1.png)
+1. Membuat halaman berikut:
 
-2. Implementasikan ISR dengan `revalidate: 10`.
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-11.png)
+```
+/products
+/about
+/login
+```
 
-3. Tambahkan endpoint On-Demand Revalidation.
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-12.png)
+2. Mengimplementasikan Middleware:
 
-4. Tambahkan validasi token.
-![alt text](/jobsheet-12/my-app/public/img/laporan/image-13.png)
+* Redirect ke `/login` jika user belum login.
+* Izinkan akses jika `isLogin = true`.
 
-5. Uji dengan:
+3. Menambahkan proteksi hanya untuk route tertentu.
 
-   * Token benar
-  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-14.png)
+4. Mendokumentasikan hasil:
 
-   * Token salah
-  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
-
-   * Tanpa token
-  ![alt text](/jobsheet-12/my-app/public/img/laporan/image-15.png)
+* Screenshot sebelum redirect
+* Screenshot setelah redirect
+* Perbandingan penggunaan middleware dengan `useEffect`. 
 
 ---
 
-# H. Pertanyaan Analisis
+# G. Pertanyaan Analisis
 
-### 1. Mengapa ISR lebih fleksibel dibanding SSG?
+### 1. Mengapa middleware lebih aman dibanding useEffect?
 
-Karena ISR tetap menggunakan halaman static, tetapi dapat memperbarui data secara otomatis atau melalui trigger tanpa perlu build ulang aplikasi.
-
-### 2. Apa perbedaan revalidate waktu dan on-demand?
-
-`revalidate` waktu akan memperbarui cache setelah interval tertentu, sedangkan on-demand revalidation dijalankan secara manual melalui endpoint khusus saat dibutuhkan.
-
-### 3. Mengapa endpoint revalidation harus diamankan?
-
-Karena jika tidak diamankan, siapa pun dapat mengakses URL revalidation dan memicu pembaruan cache secara sembarangan.
-
-### 4. Apa risiko jika token tidak digunakan?
-
-Risikonya adalah endpoint bisa disalahgunakan oleh pihak lain, sehingga cache dapat di-refresh tanpa kontrol dan berpotensi mengganggu aplikasi.
-
-### 5. Kapan ISR lebih cocok dibanding SSR?
-
-ISR lebih cocok ketika halaman tetap ingin cepat seperti static page, tetapi data masih perlu diperbarui secara berkala tanpa harus merender ulang di setiap request seperti SSR.
+Middleware dijalankan sebelum halaman dirender sehingga proses validasi dapat dilakukan lebih awal. Hal ini membuat halaman yang tidak memiliki akses tidak akan pernah ditampilkan kepada pengguna.
 
 ---
 
-# I. Kesimpulan
+### 2. Mengapa middleware tidak menimbulkan glitch?
+
+Karena redirect dilakukan sebelum halaman dikirim ke browser, sehingga pengguna tidak sempat melihat halaman yang tidak memiliki akses.
+
+---
+
+### 3. Apa risiko jika semua halaman diproteksi tanpa pengecualian?
+
+Jika semua halaman diproteksi tanpa pengecualian, maka user tidak dapat mengakses halaman publik seperti halaman login atau halaman utama.
+
+---
+
+### 4. Kapan middleware tidak diperlukan?
+
+Middleware tidak diperlukan pada aplikasi yang tidak memiliki sistem autentikasi atau halaman yang tidak membutuhkan proteksi akses.
+
+---
+
+### 5. Apa perbedaan middleware dan API route?
+
+Middleware digunakan untuk memproses request sebelum halaman dirender, sedangkan API route digunakan untuk membuat endpoint backend yang menangani request data.
+
+---
+
+# G. Kesimpulan
 
 Pada praktikum ini telah dipelajari:
 
-* Konsep Incremental Static Regeneration (ISR)
-* Implementasi `revalidate` pada `getStaticProps`
-* Pengujian pembaruan data tanpa build ulang
-* Pembuatan endpoint On-Demand Revalidation
-* Pengamanan endpoint dengan token
+* Konsep Middleware pada Next.js
+* Implementasi redirect sebelum halaman dirender
+* Proteksi route tertentu menggunakan middleware
+* Simulasi sistem login sederhana
+* Perbandingan middleware dengan redirect menggunakan `useEffect`
 
-ISR merupakan pengembangan dari SSG yang lebih fleksibel karena halaman static dapat diperbarui secara otomatis maupun manual tanpa harus melakukan build ulang aplikasi. Pendekatan ini sangat cocok untuk halaman yang bersifat semi-dinamis dan tetap membutuhkan performa tinggi.
+Middleware memberikan solusi yang lebih aman dan efisien dalam melakukan proteksi halaman karena proses validasi dilakukan sebelum halaman dirender. Dengan demikian pengguna tidak dapat mengakses halaman yang tidak memiliki izin akses.

@@ -371,6 +371,12 @@ Proteksi hanya untuk halaman produk dan about
   
 * Perbandingan penggunaan middleware dengan `useEffect`. 
 
+Middleware digunakan untuk melakukan pengecekan atau logika sebelum halaman diakses oleh pengguna. Middleware berjalan di server atau edge sehingga dapat melakukan proteksi route seperti autentikasi sebelum halaman dirender.
+
+Sedangkan useEffect berjalan di sisi client setelah halaman berhasil dimuat di browser. Biasanya digunakan untuk menjalankan efek samping seperti mengambil data, memeriksa localStorage, atau melakukan redirect setelah komponen dirender.
+
+Secara umum, middleware lebih cocok untuk proteksi halaman sejak awal, sementara useEffect digunakan untuk logika yang dijalankan di sisi client setelah halaman tampil.
+
 ---
 
 # G. Pertanyaan Analisis

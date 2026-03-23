@@ -1,3 +1,5 @@
+// jobsheet-14/my-app/src/views/DetailProduct/index.tsx
+
 import { ProductType } from "../../types/Product.type";
 import styles from "../DetailProduct/detailProduct.module.scss";
 

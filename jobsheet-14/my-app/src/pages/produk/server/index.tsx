@@ -1,4 +1,4 @@
-import TampilProduk from "../../../views/product";
+import TampilProduk from "../../../views/produk";
 import { ProductType } from "../../../types/Product.type";
 
 type HalamanProdukServerProps = {

@@ -1,10 +1,11 @@
+// jobsheet-14/my-app/src/middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const isLogin = request.cookies.get("isLogin")?.value;
+  const isLogin = request.cookies.get("isLogin")?.value === "true";
 
-  if (isLogin === "true") {
+  if (isLogin) {
     return NextResponse.next();
   }
 

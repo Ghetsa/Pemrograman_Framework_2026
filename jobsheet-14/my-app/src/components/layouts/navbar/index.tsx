@@ -1,29 +1,37 @@
-import Link from "next/link";
+// jobsheet-14/my-app/src/components/layouts/navbar/index.tsx
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styles from "./navbar.module.css";
-import { signIn, signOut, useSession } from "next-auth/react";
-
 
 const Navbar = () => {
-  const { data } = useSession();
+  const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("isLogin") === "true";
+    setIsLogin(loginStatus);
+  }, []);
+
+  const handleSignOut = () => {
+    document.cookie = "isLogin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    localStorage.removeItem("isLogin");
+    setIsLogin(false);
+    router.push("/auth/login");
+  };
+
+  const handleSignIn = () => {
+    router.push("/auth/login");
+  };
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logo}>
-        <h1>MyApp</h1>
-      </div>
-
-      <div className={styles.menu} >
-        <Link href="/">Home</Link>
-        <Link href="/produk">Produk</Link>
-        <Link href="/profile">Profile</Link>
-        {/* <Link href="/auth/login">Login</Link> */}
-
-        {data ? (
-          <button onClick={() => signOut()}>Sign Out</button>
-        ) : (
-          <button onClick={() => signIn()}>Sign In</button>
-        )}
-      </div>
-    </nav>
+    <div className={styles.navbar}>
+      <div className="big">navbar Component</div>
+      {isLogin ? (
+        <button onClick={handleSignOut}>Sign Out</button>
+      ) : (
+        <button onClick={handleSignIn}>Sign In</button>
+      )}
+    </div>
   );
 };
 

@@ -572,9 +572,8 @@ Lakukan registrasi, lalu buka Firebase. Jika berhasil maka data akan masuk ke co
 
 ![alt text](image-4.png)
 
----
 
-## Bagian 4 – Menampilkan Error dan Loading di UI
+### Menampilkan Error dan Loading di UI
 
 Jika user memasukkan email yang sama, sistem memang tidak memproses data, tetapi belum ada pemberitahuan di halaman. Untuk itu diperlukan modifikasi tambahan pada file register view.
 
@@ -613,6 +612,8 @@ Pada bagian tombol ubah isi tombol menjadi loading state:
   {isLoading ? "Loading..." : "Register"}
 </button>
 ```
+
+![alt text](image-9.png)
 
 Pada jobsheet juga disebutkan bahwa line 34 diubah menjadi `email`, sehingga penanganan error disesuaikan agar pesan error email tampil dengan benar. 
 
@@ -716,14 +717,29 @@ Field yang digunakan:
 2. Tambahkan validasi:
 
    * Email wajib
+   ![alt text](image-13.png)
+
    * Password minimal 6 karakter
+   ![alt text](image-14.png)
+
 3. Tambahkan role default `"member"`.
+![alt text](image-15.png)
+
 4. Tampilkan pesan error di UI.
+![alt text](image-16.png)
+
+![alt text](image-18.png)
+
 5. Screenshot hasil:
 
    * Register sukses
+   ![alt text](image-20.png)
+
    * Email sudah ada
+   ![alt text](image-16.png)
+
    * Database Firestore. 
+   ![alt text](image-21.png)
 
 ---
 

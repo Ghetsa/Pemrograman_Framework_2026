@@ -318,6 +318,8 @@ Jalankan browser:
 http://localhost:3000/auth/register
 ```
 
+![alt text](/jobsheet-15/my-app/public/img/laporan/image.png)
+
 Tampilan halaman register akan muncul sesuai desain yang dibuat. 
 
 ---
@@ -483,6 +485,8 @@ http://localhost:3000/auth/register
 
 Isikan data dan klik register. Jika berhasil maka user akan diarahkan ke halaman login. 
 
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-1.png)
+
 ---
 
 ## Bagian 3 – Install bcrypt
@@ -493,11 +497,15 @@ Isikan data dan klik register. Jika berhasil maka user akan diarahkan ke halaman
 npm install bcrypt --force
 ```
 
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-2.png)
+
 ### 2️⃣ Install type definition bcrypt
 
 ```bash
 npm install --save-dev @types/bcrypt --force
 ```
+
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-3.png)
 
 ---
 
@@ -519,6 +527,7 @@ export async function signUp(
     email: string;
     fullname: string;
     password: string;
+    role?: string;
   },
   callback: Function
 ) {
@@ -530,7 +539,7 @@ export async function signUp(
   const querySnapshot = await getDocs(q);
   const data = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data(),
+    ...doc.data(), 
   }));
 
   if (data.length === 0) {
@@ -559,9 +568,12 @@ http://localhost:3000/auth/register
 
 Lakukan registrasi, lalu buka Firebase. Jika berhasil maka data akan masuk ke collection `users` dan password sudah dalam bentuk hash. 
 
----
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-5.png)
 
-## Bagian 4 – Menampilkan Error dan Loading di UI
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-4.png)
+
+
+### Menampilkan Error dan Loading di UI
 
 Jika user memasukkan email yang sama, sistem memang tidak memproses data, tetapi belum ada pemberitahuan di halaman. Untuk itu diperlukan modifikasi tambahan pada file register view.
 
@@ -601,6 +613,8 @@ Pada bagian tombol ubah isi tombol menjadi loading state:
 </button>
 ```
 
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-9.png)
+
 Pada jobsheet juga disebutkan bahwa line 34 diubah menjadi `email`, sehingga penanganan error disesuaikan agar pesan error email tampil dengan benar. 
 
 ---
@@ -632,8 +646,13 @@ Input:
 Hasil:
 
 * Data tersimpan di Firestore
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-6.png)
+
 * Password telah di-hash
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-7.png)
+
 * User diarahkan ke login
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-8.png)
 
 ---
 
@@ -644,6 +663,8 @@ Input:
 * Email yang sama
 
 Hasil:
+
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-9.png)
 
 * API mengembalikan error 400
 * Muncul pesan `Email already exists`
@@ -659,6 +680,8 @@ Akses:
 ```
 
 Hasil:
+
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-10.png)
 
 * API mengembalikan status `405 Method Not Allowed` 
 
@@ -682,6 +705,10 @@ Field yang digunakan:
 | role      | string          |
 | createdAt | timestamp       |
 
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-11.png)
+
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-12.png)
+
 ---
 
 # F. Tugas Praktikum
@@ -690,14 +717,29 @@ Field yang digunakan:
 2. Tambahkan validasi:
 
    * Email wajib
+   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-13.png)
+
    * Password minimal 6 karakter
+   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-14.png)
+
 3. Tambahkan role default `"member"`.
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-15.png)
+
 4. Tampilkan pesan error di UI.
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-16.png)
+
+![alt text](/jobsheet-15/my-app/public/img/laporan/image-18.png)
+
 5. Screenshot hasil:
 
    * Register sukses
+   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-20.png)
+
    * Email sudah ada
+   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-16.png)
+
    * Database Firestore. 
+   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-21.png)
 
 ---
 

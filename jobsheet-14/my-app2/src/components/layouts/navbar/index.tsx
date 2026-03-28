@@ -17,7 +17,7 @@ return (
             Welcome, {data.user?.fullname}
           </div>
           <button
-            className={`${styles.navbar__button} ${styles["navbar_button--danger"]}`}
+            className={`${styles.navbar__button} ${styles["navbar__button--danger"]}`}
             onClick={() => signOut()}
           >
             Sign Out
@@ -25,7 +25,7 @@ return (
         </>
       ) : (
         <button
-          className={`${styles.navbar__button} ${styles["navbar_button--primary"]}`}
+          className={`${styles.navbar__button} ${styles["navbar__button--primary"]}`}
           onClick={() => signIn()}
         >
           Sign In

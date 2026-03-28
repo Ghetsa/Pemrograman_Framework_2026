@@ -71,6 +71,8 @@ npm install next-auth --force
 
 Setelah instalasi selesai, NextAuth siap digunakan untuk sistem autentikasi pada aplikasi.
 
+![alt text](image.png)
+
 ---
 
 # Bagian 2 – Konfigurasi API Auth
@@ -80,6 +82,8 @@ Buat folder dan file berikut:
 ```
 pages/api/auth/[...nextauth].ts
 ```
+
+![alt text](image-1.png)
 
 File ini digunakan sebagai endpoint autentikasi NextAuth.
 
@@ -198,6 +202,8 @@ Buka file berikut:
 src/components/layouts/navbar/index.tsx
 ```
 
+![alt text](image-2.png)
+
 Modifikasi kode:
 
 ```tsx
@@ -250,6 +256,10 @@ http://localhost:3000
 ```
 
 Klik tombol **Sign In** untuk melakukan login.
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
 
 ---
 
@@ -326,6 +336,13 @@ callbacks: {
 
 Dengan modifikasi ini data fullname akan tersimpan di session.
 
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+
 ---
 
 # E. Proteksi Halaman Profile
@@ -362,6 +379,8 @@ Jalankan browser:
 ```
 http://localhost:3000/profile
 ```
+
+![alt text](image-8.png)
 
 Jika login berhasil maka halaman profile dapat diakses.
 

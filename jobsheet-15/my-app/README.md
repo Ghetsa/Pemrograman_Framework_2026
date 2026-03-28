@@ -318,6 +318,8 @@ Jalankan browser:
 http://localhost:3000/auth/register
 ```
 
+![alt text](image.png)
+
 Tampilan halaman register akan muncul sesuai desain yang dibuat. 
 
 ---

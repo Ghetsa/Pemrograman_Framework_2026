@@ -71,6 +71,8 @@ npm install next-auth --force
 
 Setelah instalasi selesai, NextAuth siap digunakan untuk sistem autentikasi pada aplikasi.
 
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image.png)
+
 ---
 
 # Bagian 2 – Konfigurasi API Auth
@@ -80,6 +82,8 @@ Buat folder dan file berikut:
 ```
 pages/api/auth/[...nextauth].ts
 ```
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-1.png)
 
 File ini digunakan sebagai endpoint autentikasi NextAuth.
 
@@ -198,6 +202,8 @@ Buka file berikut:
 src/components/layouts/navbar/index.tsx
 ```
 
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-2.png)
+
 Modifikasi kode:
 
 ```tsx
@@ -250,6 +256,10 @@ http://localhost:3000
 ```
 
 Klik tombol **Sign In** untuk melakukan login.
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-3.png)
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-4.png)
 
 ---
 
@@ -326,6 +336,13 @@ callbacks: {
 
 Dengan modifikasi ini data fullname akan tersimpan di session.
 
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-5.png)
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-6.png)
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-7.png)
+
+
 ---
 
 # E. Proteksi Halaman Profile
@@ -363,13 +380,13 @@ Jalankan browser:
 http://localhost:3000/profile
 ```
 
-Jika login berhasil maka halaman profile dapat diakses.
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-8.png)
 
 ---
 
-# F. Middleware Authorization
+## Middleware Authorization
 
-## Membuat File Middleware
+### Membuat File Middleware
 
 Buat folder:
 
@@ -402,7 +419,7 @@ export async function withAuth(req) {
 
 ---
 
-## Modifikasi middleware.ts
+### Modifikasi middleware.ts
 
 ```tsx
 import { NextResponse } from "next/server";
@@ -431,6 +448,8 @@ Akses halaman:
 
 Hasil:
 
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-9.png)
+
 User akan diarahkan ke halaman home.
 
 ---
@@ -445,6 +464,10 @@ Login terlebih dahulu kemudian akses:
 
 Hasil:
 
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-10.png)
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-11.png)
+
 User dapat mengakses halaman profile.
 
 ---
@@ -458,6 +481,8 @@ Klik tombol **Sign Out** kemudian akses kembali:
 ```
 
 Hasil:
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-12.png)
 
 User tidak dapat mengakses halaman profile.
 
@@ -493,8 +518,18 @@ Frontend mengakses session menggunakan useSession()
 6. Dokumentasikan:
 
 * Screenshot login
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-13.png)
+
 * Screenshot session
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-14.png)
+
 * Screenshot redirect middleware. 
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-16.png)
+
+![alt text](/jobsheet-14/my-app2/public/img/laporan/image-17.png)
 
 ---
 

@@ -645,8 +645,13 @@ Input:
 Hasil:
 
 * Data tersimpan di Firestore
+![alt text](image-6.png)
+
 * Password telah di-hash
+![alt text](image-7.png)
+
 * User diarahkan ke login
+![alt text](image-8.png)
 
 ---
 
@@ -657,6 +662,8 @@ Input:
 * Email yang sama
 
 Hasil:
+
+![alt text](image-9.png)
 
 * API mengembalikan error 400
 * Muncul pesan `Email already exists`
@@ -672,6 +679,8 @@ Akses:
 ```
 
 Hasil:
+
+![alt text](image-10.png)
 
 * API mengembalikan status `405 Method Not Allowed` 
 

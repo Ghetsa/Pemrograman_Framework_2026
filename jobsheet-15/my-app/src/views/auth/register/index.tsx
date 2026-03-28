@@ -40,15 +40,11 @@ const TampilanRegister = () => {
 
     return (
         <div className={style.register}>
-            {error && <p className={style.register__error}>{error}</p>}
             <h1 className={style.register__title}>Halaman Register</h1>
             <div className={style.register__form}>
                 <form onSubmit={handleSubmit}>
                     <div className={style.register__form__item}>
-                        <label
-                            htmlFor="email"
-                            className={style.register__form__item__label}
-                        >
+                        <label htmlFor="email" className={style.register__form__item__label}>
                             Email
                         </label>
                         <input
@@ -57,7 +53,15 @@ const TampilanRegister = () => {
                             name="email"
                             placeholder="Email"
                             className={style.register__form__item__input}
+                            style={error === "Email already exists" ? { borderColor: 'red' } : {}}
                         />
+
+                        {/* Ganti class ini agar sesuai dengan SCSS */}
+                        {error === "Email already exists" && (
+                            <span className={style.register__form__item__error_message}>
+                                {error}
+                            </span>
+                        )}
                     </div>
 
                     <div className={style.register__form__item}>
@@ -97,9 +101,9 @@ const TampilanRegister = () => {
                             {isLoading ? "Loading..." : "Register"}
                         </button>
                     </div>
-                <p className={style.register__form__text}>
-                    Sudah punya akun? <Link href="/auth/login">Ke Halaman Login</Link>
-                </p>
+                    <p className={style.register__form__text}>
+                        Sudah punya akun? <Link href="/auth/login">Ke Halaman Login</Link>
+                    </p>
                 </form>
 
             </div>

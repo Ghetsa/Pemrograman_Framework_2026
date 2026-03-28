@@ -485,6 +485,8 @@ http://localhost:3000/auth/register
 
 Isikan data dan klik register. Jika berhasil maka user akan diarahkan ke halaman login. 
 
+![alt text](image-1.png)
+
 ---
 
 ## Bagian 3 – Install bcrypt
@@ -495,11 +497,15 @@ Isikan data dan klik register. Jika berhasil maka user akan diarahkan ke halaman
 npm install bcrypt --force
 ```
 
+![alt text](image-2.png)
+
 ### 2️⃣ Install type definition bcrypt
 
 ```bash
 npm install --save-dev @types/bcrypt --force
 ```
+
+![alt text](image-3.png)
 
 ---
 
@@ -521,6 +527,7 @@ export async function signUp(
     email: string;
     fullname: string;
     password: string;
+    role?: string;
   },
   callback: Function
 ) {
@@ -532,7 +539,7 @@ export async function signUp(
   const querySnapshot = await getDocs(q);
   const data = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data(),
+    ...doc.data(), 
   }));
 
   if (data.length === 0) {
@@ -560,6 +567,10 @@ http://localhost:3000/auth/register
 ```
 
 Lakukan registrasi, lalu buka Firebase. Jika berhasil maka data akan masuk ke collection `users` dan password sudah dalam bentuk hash. 
+
+![alt text](image-5.png)
+
+![alt text](image-4.png)
 
 ---
 

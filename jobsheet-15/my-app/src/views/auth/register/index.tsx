@@ -1,22 +1,21 @@
 import Link from "next/link";
 import style from "../../auth/register/register.module.scss";
-import { useRouter } from "next/router";
 import { useState } from "react";
-
+import { useRouter } from "next/router";
 
 const TampilanRegister = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { push } = useRouter();
     const [error, setError] = useState("");
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setError("");
+        setIsLoading(true);
         event.preventDefault();
         const form = event.currentTarget;
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email") as string;
         const fullname = formData.get("Fullname") as string;
         const password = formData.get("Password") as string;
-
         const response = await fetch("/api/register", {
             method: "POST",
             headers: {
@@ -24,10 +23,8 @@ const TampilanRegister = () => {
             },
             body: JSON.stringify({ email, fullname, password }),
         });
-
         // const result = await response.json();
         // console.log(result);
-
         if (response.status === 200) {
             form.reset();
             // event.currentTarget.reset();
@@ -36,19 +33,22 @@ const TampilanRegister = () => {
         } else {
             setIsLoading(false);
             setError(
-                response.status === 400 ? "User already exists" : "An error occurred"
+                response.status === 400 ? "Email already exists" : "An error occurred",
             );
         }
     };
+
     return (
         <div className={style.register}>
+            {error && <p className={style.register__error}>{error}</p>}
             <h1 className={style.register__title}>Halaman Register</h1>
-
             <div className={style.register__form}>
                 <form onSubmit={handleSubmit}>
-                    {/* Email Item */}
                     <div className={style.register__form__item}>
-                        <label htmlFor="email" className={style.register__form__item__label}>
+                        <label
+                            htmlFor="email"
+                            className={style.register__form__item__label}
+                        >
                             Email
                         </label>
                         <input
@@ -60,9 +60,11 @@ const TampilanRegister = () => {
                         />
                     </div>
 
-                    {/* Fullname Item */}
                     <div className={style.register__form__item}>
-                        <label htmlFor="Fullname" className={style.register__form__item__label}>
+                        <label
+                            htmlFor="Fullname"
+                            className={style.register__form__item__label}
+                        >
                             Fullname
                         </label>
                         <input
@@ -74,9 +76,11 @@ const TampilanRegister = () => {
                         />
                     </div>
 
-                    {/* Password Item */}
                     <div className={style.register__form__item}>
-                        <label htmlFor="Password" className={style.register__form__item__label}>
+                        <label
+                            htmlFor="Password"
+                            className={style.register__form__item__label}
+                        >
                             Password
                         </label>
                         <input
@@ -85,19 +89,19 @@ const TampilanRegister = () => {
                             name="Password"
                             placeholder="Password"
                             className={style.register__form__item__input}
-                        />
+                        /><button
+                            type="submit"
+                            className={style.register__form__item__button}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Loading..." : "Register"}
+                        </button>
                     </div>
-
-                    {/* Perhatikan: Class Button disesuaikan dengan SCSS yang diperbaiki */}
-                    <button type="submit" className={style.register__form__button}>
-                        Register
-                    </button>
+                <p className={style.register__form__text}>
+                    Sudah punya akun? <Link href="/auth/login">Ke Halaman Login</Link>
+                </p>
                 </form>
 
-                <p className={style.register__form__text}>
-                    Sudah punya akun?
-                    <Link href="/auth/login"> Ke Halaman Login</Link>
-                </p>
             </div>
         </div>
     );

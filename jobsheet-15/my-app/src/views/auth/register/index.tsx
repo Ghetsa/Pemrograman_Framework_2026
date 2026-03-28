@@ -16,12 +16,19 @@ const TampilanRegister = () => {
         const email = formData.get("email") as string;
         const fullname = formData.get("Fullname") as string;
         const password = formData.get("Password") as string;
+
         const response = await fetch("/api/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, fullname, password }),
+            // Tambahkan createdAt di sini
+            body: JSON.stringify({
+                email,
+                fullname,
+                password,
+                createdAt: new Date()
+            }),
         });
         // const result = await response.json();
         // console.log(result);

@@ -375,6 +375,10 @@ Input:
 
 Hasil:
 
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
 * Login berhasil
 * Redirect sesuai callback URL
 
@@ -388,6 +392,8 @@ Input:
 * Password salah
 
 Hasil:
+
+![alt text](image-7.png)
 
 * Error message tampil
 * Tidak login
@@ -404,6 +410,10 @@ Akses:
 
 Hasil:
 
+![alt text](image-9.png)
+
+![alt text](image-8.png)
+
 * Redirect ke home
 
 ---
@@ -417,6 +427,10 @@ Akses:
 ```
 
 Hasil:
+
+![alt text](image-10.png)
+
+![alt text](image-11.png)
 
 * Bisa masuk halaman admin
 
@@ -438,6 +452,9 @@ Field yang digunakan:
 | password | string (hashed) |
 | role     | string          |
 | fullName | string          |
+| createdAt | string          |
+
+![alt text](image-12.png)
 
 ---
 

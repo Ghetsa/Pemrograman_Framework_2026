@@ -44,19 +44,25 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, profile, user }: any) {
       if (account?.provider === "credentials" && user) {
-        token.email = user.email
-        token.fullname = user.fullname
+        token.email = user.email;
+        token.fullname = user.fullname;
+        token.role = user.role;
       }
-      return token
+      //  console.log("jwt callback", { token, account, profile, user })
+      return token;
     },
     async session({ session, token }: any) {
       if (token.email) {
-        session.user.email = token.email
+        session.user.email = token.email;
       }
       if (token.fullname) {
-        session.user.fullname = token.fullname
+        session.user.fullname = token.fullname;
       }
-      return session
+      if (token.role) {
+        session.user.role = token.role;
+      }
+      // console.log("session callback", { session, token })
+      return session;
     },
   },
 
@@ -64,4 +70,4 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
 };
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

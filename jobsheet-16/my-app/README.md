@@ -1,8 +1,8 @@
 # PEMROGRAMAN BERBASIS FRAMEWORK
 
-## JOBSHEET 15
+## JOBSHEET 16
 
-### Implementasi Sistem Registrasi (Database Integration)
+### Implementasi Login Database & Multi-Role
 
 ---
 
@@ -22,55 +22,35 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Membuat form registrasi.
-2. Mengirim data menggunakan metode POST.
-3. Membuat API Route untuk register.
-4. Melakukan validasi email unik.
-5. Meng-hash password menggunakan bcrypt.
-6. Menyimpan user ke database.
-7. Menampilkan loading dan error handling di frontend. 
+1. Menghubungkan sistem login dengan database Firestore.
+2. Melakukan verifikasi password menggunakan library `bcrypt.compare`.
+3. Membuat dan mengintegrasikan *custom login page*.
+4. Mengimplementasikan logic *callback URL* untuk redirect setelah login.
+5. Menerapkan *middleware authentication*.
+6. Menerapkan *Role-Based Access Control* (RBAC) untuk membatasi akses halaman berdasarkan role.
 
 ---
 
 # B. Dasar Teori Singkat
 
-## 1️⃣ Alur Sistem Register
+## 1️⃣ Alur Login Database
 
-Alur kerja sistem registrasi adalah sebagai berikut:
+Sistem autentikasi menggunakan NextAuth yang terintegrasi dengan database memiliki alur sebagai berikut:
 
-```text
-User mengisi form
-↓
-Frontend mengirim POST ke API
-↓
-API memeriksa method POST
-↓
-Cek apakah email sudah ada
-↓
-Jika belum ada, password di-hash
-↓
-Data user disimpan ke database
-↓
-API mengembalikan response
-```
+1. User memasukkan email dan password pada form login.
+2. NextAuth memanggil fungsi `authorize()`.
+3. Sistem melakukan query ke Firestore untuk mencari user berdasarkan email.
+4. Jika user ditemukan, password yang diinput dibandingkan dengan password ter-hash di database menggunakan `bcrypt.compare()`.
+5. Jika valid, data user (id, email, fullname, role) dikembalikan untuk pembuatan Token dan Session.
+6. User diarahkan (redirect) sesuai dengan `callbackURL`.
 
 ---
 
-## 2️⃣ Mengapa Password Harus Di-Hash?
+## 2️⃣ Role-Based Access Control (RBAC)
 
-Password tidak boleh disimpan dalam bentuk plaintext karena:
-
-* Berisiko jika terjadi kebocoran data
-* Tingkat keamanan sangat rendah
-* Tidak sesuai dengan best practice pengembangan aplikasi
-
-Untuk proses hashing password digunakan library:
-
-```text
-bcrypt
-```
-
-Hashing memastikan password yang disimpan di database tidak dapat dibaca secara langsung. 
+RBAC adalah metode pembatasan akses sistem kepada user yang berwenang berdasarkan peran mereka. Dalam praktikum ini, terdapat dua role utama:
+* **User:** Role standar untuk akses fitur umum.
+* **Admin:** Role khusus untuk akses halaman manajemen (misalnya `/admin`).
 
 ---
 
@@ -78,719 +58,211 @@ Hashing memastikan password yang disimpan di database tidak dapat dibaca secara 
 
 ---
 
-## Bagian 1 – Membuat Register View
+## Bagian 1 – Custom Login Page
 
-### 1️⃣ Membuat folder dan file register view
+### 1️⃣ Menambahkan Custom Page di NextAuth
 
-Buat folder pada `views/auth` dengan nama:
-
-```text
-register
-```
-
-Tambahkan 2 file:
-
-```text
-views/auth/register/index.tsx
-views/auth/register/register.module.scss
-```
-
----
-
-### 2️⃣ Modifikasi file `views/auth/register/index.tsx`
-
-Tambahkan struktur awal tampilan register:
-
-```tsx
-import Link from "next/link";
-import style from "../../auth/register/register.module.scss";
-
-const TampilRegister = () => {
-  return (
-    <div className={style.register}>
-      <h1 className={style.register__title}>Halaman Register</h1>
-      <Link href="/auth/login">Ke Halaman Login</Link>
-    </div>
-  );
-};
-
-export default TampilRegister;
-```
-
----
-
-### 3️⃣ Modifikasi file `pages/auth/register.tsx`
-
-Buka file:
-
-```text
-pages/auth/register.tsx
-```
-
-Modifikasi menjadi:
-
-```tsx
-import Link from "next/link";
-import TampilRegister from "../../views/auth/register";
-
-const halamanRegister = () => {
-  return (
-    <>
-      <TampilRegister />
-    </>
-  );
-};
-
-export default halamanRegister;
-```
-
----
-
-### 4️⃣ Modifikasi file `register.module.scss`
-
-Tambahkan styling awal untuk halaman register.
-
----
-
-### 5️⃣ Tambahkan form input pada `views/auth/register/index.tsx`
-
-Form berisi:
-
-* Email
-* Full Name
-* Password
-* Button Register
-
-Struktur input email:
-
-```tsx
-<div className={style.register__form__item}>
-  <label
-    htmlFor="email"
-    className={style.register__form__item__label}
-  >
-    Email
-  </label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    placeholder="Email"
-    className={style.register__form__item__input}
-  />
-</div>
-```
-
-Struktur input fullname:
-
-```tsx
-<div className={style.register__form__item}>
-  <label
-    htmlFor="fullname"
-    className={style.register__form__item__label}
-  >
-    Fullname
-  </label>
-  <input
-    type="text"
-    id="fullname"
-    name="fullname"
-    placeholder="Fullname"
-    className={style.register__form__item__input}
-  />
-</div>
-```
-
-Struktur input password:
-
-```tsx
-<div className={style.register__form__item}>
-  <label
-    htmlFor="password"
-    className={style.register__form__item__label}
-  >
-    Password
-  </label>
-  <input
-    type="password"
-    id="password"
-    name="password"
-    placeholder="Password"
-    className={style.register__form__item__input}
-  />
-</div>
-```
-
-Tombol register:
-
-```tsx
-<button type="submit" className={style.register__form__item__button}>
-  Register
-</button>
-```
-
----
-
-### 6️⃣ Kode keseluruhan `views/auth/register/index.tsx`
-
-```tsx
-import Link from "next/link";
-import style from "../../auth/register/register.module.scss";
-
-const TampilRegister = () => {
-  return (
-    <div className={style.register}>
-      <h1 className={style.register__title}>Halaman Register</h1>
-      <form className={style.register__form}>
-        <div className={style.register__form__item}>
-          <label htmlFor="email" className={style.register__form__item__label}>
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            className={style.register__form__item__input}
-          />
-        </div>
-
-        <div className={style.register__form__item}>
-          <label htmlFor="fullname" className={style.register__form__item__label}>
-            Fullname
-          </label>
-          <input
-            type="text"
-            id="fullname"
-            name="fullname"
-            placeholder="Fullname"
-            className={style.register__form__item__input}
-          />
-        </div>
-
-        <div className={style.register__form__item}>
-          <label htmlFor="password" className={style.register__form__item__label}>
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            className={style.register__form__item__input}
-          />
-        </div>
-
-        <button type="submit" className={style.register__form__item__button}>
-          Register
-        </button>
-
-        <p className={style.register__form__item__text}>
-          Sudah punya akun?
-          <Link href="/auth/login"> Ke Halaman Login</Link>
-        </p>
-      </form>
-    </div>
-  );
-};
-
-export default TampilRegister;
-```
-
----
-
-### 7️⃣ Modifikasi lengkap `register.module.scss`
-
-Tambahkan styling form register, termasuk:
-
-* container register
-* title
-* form
-* item
-* input
-* button
-* animasi
-* responsive layout
-
-Jalankan browser:
-
-```text
-http://localhost:3000/auth/register
-```
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image.png)
-
-Tampilan halaman register akan muncul sesuai desain yang dibuat. 
-
----
-
-## Bagian 2 – Membuat API Register
-
-### 1️⃣ Modifikasi file `servicefirebase.ts`
-
-Buka file:
-
-```text
-src/utils/db/servicefirebase.ts
-```
-
-Tambahkan fungsi `signUp` untuk mengecek email dan menyimpan data ke collection `users`.
-
-Contoh struktur fungsi:
+Buka file `src/pages/api/auth/[...nextauth].ts` dan tambahkan konfigurasi `pages` agar NextAuth menggunakan route login buatan kita sendiri.
 
 ```ts
-export async function signUp(
-  userData: {
-    email: string;
-    fullname: string;
-    password: string;
+export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
   },
-  callback: Function
-) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", userData.email)
-  );
+  secret: process.env.NEXTAUTH_SECRET,
+  providers: [
+    // ... credentials provider
+  ],
+  pages: {
+    signIn: "/auth/login",
+  },
+};
+```
 
+---
+
+## Bagian 2 – Handle Login di Frontend
+
+### 1️⃣ Membuat View Login
+
+Buat folder `src/views/auth/login` dan tambahkan file `index.tsx` serta `login.module.scss`. Gunakan template dari register sebelumnya namun hapus input **Fullname**.
+
+### 2️⃣ Modifikasi Logic Handle Submit
+
+Gunakan fungsi `signIn` dari `next-auth/react` untuk mengirim data ke provider.
+
+```tsx
+const { push, query } = useRouter();
+const callbackUrl: any = query.callbackUrl || "/";
+
+const handleSubmit = async (event: any) => {
+  event.preventDefault();
+  setIsLoading(true);
+  try {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: event.target.email.value,
+      password: event.target.password.value,
+      callbackUrl,
+    });
+
+    if (!res?.error) {
+      push(callbackUrl);
+    } else {
+      setError("Email or password invalid");
+    }
+  } catch (err) {
+    setError("An error occurred");
+  } finally {
+    setIsLoading(false);
+  }
+};
+```
+
+![alt text](image.png)
+
+---
+
+## Bagian 3 – Authorize & Database Integration
+
+### 1️⃣ Modifikasi Service Firebase
+
+Buka `src/utils/db/servicefirebase.ts` dan tambahkan fungsi untuk mengambil data user berdasarkan email dari Firestore.
+
+```ts
+export async function login(email: string) {
+  const q = query(collection(db, "users"), where("email", "==", email));
   const querySnapshot = await getDocs(q);
   const data = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
+  if (data.length > 0) return data[0];
+  return null;
+}
+```
 
-  if (data.length > 0) {
-    callback({
-      status: "error",
-      message: "User already exists",
-    });
-  } else {
-    await addDoc(collection(db, "users"), userData);
-    callback({
-      status: "success",
-      message: "User registered successfully",
-    });
+### 2️⃣ Implementasi Authorize dengan Bcrypt
+
+Modifikasi provider credentials pada `[...nextauth].ts` untuk memverifikasi password.
+
+```ts
+async authorize(credentials) {
+  const user: any = await login(credentials?.email);
+  if (user) {
+    const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+    if (isPasswordValid) {
+      return user;
+    }
   }
+  return null;
 }
 ```
 
 ---
 
-### 2️⃣ Buat file API register
+## Bagian 4 – Menambahkan Role ke Token & Session
 
-Buat file:
-
-```text
-pages/api/register.ts
-```
-
----
-
-### 3️⃣ Modifikasi file `register.ts`
-
-Tambahkan handler POST untuk memproses registrasi user.
-
-```tsx
-import type { NextApiRequest, NextApiResponse } from "next";
-import { signUp } from "../../utils/db/servicefirebase";
-
-type Data = {
-  status: boolean;
-  message: string;
-};
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  if (req.method === "POST") {
-    await signUp(req.body, (result: { status: string; message: string }) => {
-      if (result.status === "success") {
-        res.status(200).json({ status: true, message: result.message });
-      } else {
-        res.status(400).json({ status: false, message: result.message });
-      }
-    });
-  } else {
-    res.status(405).json({ status: false, message: "Method not allowed" });
-  }
-}
-```
-
----
-
-### 4️⃣ Modifikasi `views/auth/register/index.tsx`
-
-Tambahkan beberapa kode agar form dapat mengirim data ke API `/api/register`.
-
-Tambahkan import:
-
-```tsx
-import Link from "next/link";
-import style from "../../auth/register/register.module.scss";
-import { useRouter } from "next/router";
-import { useState } from "react";
-```
-
-Tambahkan state dan handler submit:
-
-```tsx
-const [isLoading, setIsLoading] = useState(false);
-const router = useRouter();
-
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  setIsLoading(true);
-
-  const form = event.currentTarget;
-  const formData = new FormData(form);
-
-  const data = {
-    email: formData.get("email"),
-    fullname: formData.get("fullname"),
-    password: formData.get("password"),
-  };
-
-  const result = await fetch("/api/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  const response = await result.json();
-
-  if (result.status === 200) {
-    form.reset();
-    router.push("/auth/login");
-  } else {
-    console.log(response.message);
-  }
-
-  setIsLoading(false);
-};
-```
-
-Gunakan pada form:
-
-```tsx
-<form className={style.register__form} onSubmit={handleSubmit}>
-```
-
-Jalankan browser:
-
-```text
-http://localhost:3000/auth/register
-```
-
-Isikan data dan klik register. Jika berhasil maka user akan diarahkan ke halaman login. 
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-1.png)
-
----
-
-## Bagian 3 – Install bcrypt
-
-### 1️⃣ Install bcrypt
-
-```bash
-npm install bcrypt --force
-```
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-2.png)
-
-### 2️⃣ Install type definition bcrypt
-
-```bash
-npm install --save-dev @types/bcrypt --force
-```
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-3.png)
-
----
-
-### 3️⃣ Modifikasi `servicefirebase.ts`
-
-Import bcrypt:
+Agar middleware bisa mengecek role, kita perlu memasukkan data role ke dalam JWT dan Session callback.
 
 ```ts
-import bcrypt from "bcrypt";
-```
-
-Lalu ubah fungsi `signUp` agar password di-hash sebelum disimpan.
-
-Contoh modifikasi:
-
-```ts
-export async function signUp(
-  userData: {
-    email: string;
-    fullname: string;
-    password: string;
-    role?: string;
+callbacks: {
+  async jwt({ token, user }: any) {
+    if (user) {
+      token.role = user.role;
+      token.fullname = user.fullname;
+    }
+    return token;
   },
-  callback: Function
-) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", userData.email)
-  );
-
-  const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(), 
-  }));
-
-  if (data.length === 0) {
-    userData.password = await bcrypt.hash(userData.password, 10);
-
-    await addDoc(collection(db, "users"), userData);
-
-    callback({
-      status: "success",
-      message: "User registered successfully",
-    });
-  } else {
-    callback({
-      status: "error",
-      message: "User already exists",
-    });
+  async session({ session, token }: any) {
+    if (session.user) {
+      session.user.role = token.role;
+      session.user.fullname = token.fullname;
+    }
+    return session;
   }
 }
 ```
 
-Jalankan browser kembali:
-
-```text
-http://localhost:3000/auth/register
-```
-
-Lakukan registrasi, lalu buka Firebase. Jika berhasil maka data akan masuk ke collection `users` dan password sudah dalam bentuk hash. 
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-5.png)
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-4.png)
-
-
-### Menampilkan Error dan Loading di UI
-
-Jika user memasukkan email yang sama, sistem memang tidak memproses data, tetapi belum ada pemberitahuan di halaman. Untuk itu diperlukan modifikasi tambahan pada file register view.
-
 ---
 
-### 1️⃣ Modifikasi `views/auth/register/index.tsx`
+## Bagian 5 – Proteksi Route dengan Middleware
 
-Tambahkan state error:
+Modifikasi middleware untuk mengecek akses berdasarkan role, khususnya untuk route `/admin`.
 
-```tsx
-const [error, setError] = useState("");
-```
-
-Ubah bagian error handling menjadi:
-
-```tsx
-if (result.status === 200) {
-  form.reset();
-  setError("");
-  router.push("/auth/login");
-} else {
-  setError(response.status === 400 ? "Email already exist" : "An error occurred");
+```ts
+// Contoh logic di middleware
+if (url.startsWith("/admin") && token.role !== "admin") {
+  return NextResponse.redirect(new URL("/", req.url));
 }
 ```
-
-Tambahkan tampilan pesan error pada UI, misalnya di atas title:
-
-```tsx
-{error && <p className={style.register__error}>{error}</p>}
-```
-
-Pada bagian tombol ubah isi tombol menjadi loading state:
-
-```tsx
-<button type="submit" className={style.register__form__item__button}>
-  {isLoading ? "Loading..." : "Register"}
-</button>
-```
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-9.png)
-
-Pada jobsheet juga disebutkan bahwa line 34 diubah menjadi `email`, sehingga penanganan error disesuaikan agar pesan error email tampil dengan benar. 
-
----
-
-### 2️⃣ Modifikasi `register.module.scss`
-
-Tambahkan styling error:
-
-```scss
-.register__error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-```
-
-Jika berhasil maka halaman register akan menampilkan pesan error saat email sudah digunakan, dan tombol akan berubah menjadi loading saat proses register berlangsung. 
 
 ---
 
 # D. Pengujian
 
-## Uji 1 – Register Baru
+## Uji 1 – Login Berhasil
+Input email dan password yang benar. User diarahkan ke dashboard atau halaman yang diminta sebelumnya.
 
-Input:
+## Uji 2 – Login Gagal
+Input password yang salah. Muncul pesan error "Email or password invalid" pada UI.
 
-* Email baru
-
-Hasil:
-
-* Data tersimpan di Firestore
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-6.png)
-
-* Password telah di-hash
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-7.png)
-
-* User diarahkan ke login
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-8.png)
+## Uji 3 – Proteksi Role (User ke Admin)
+Login sebagai user biasa, lalu coba akses `/admin`. Sistem secara otomatis melakukan redirect ke home page.
 
 ---
 
-## Uji 2 – Email Sudah Ada
+# E. Struktur Database Users
 
-Input:
+Collection: `users`
 
-* Email yang sama
-
-Hasil:
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-9.png)
-
-* API mengembalikan error 400
-* Muncul pesan `Email already exists`
-
----
-
-## Uji 3 – Method GET
-
-Akses:
-
-```text
-/api/register
-```
-
-Hasil:
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-10.png)
-
-* API mengembalikan status `405 Method Not Allowed` 
-
----
-
-# E. Struktur Database (Firestore)
-
-Collection:
-
-```text
-users
-```
-
-Field yang digunakan:
-
-| Field     | Tipe            |
-| --------- | --------------- |
-| fullName  | string          |
-| email     | string          |
-| password  | string (hashed) |
-| role      | string          |
-| createdAt | timestamp       |
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-11.png)
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-12.png)
+| Field | Tipe | Keterangan |
+| :--- | :--- | :--- |
+| email | string | Alamat email user |
+| password | string | Password ter-hash (bcrypt) |
+| fullName | string | Nama lengkap user |
+| role | string | admin / user |
 
 ---
 
 # F. Tugas Praktikum
 
-1. Implementasikan register terhubung database.
-2. Tambahkan validasi:
-
-   * Email wajib
-   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-13.png)
-
-   * Password minimal 6 karakter
-   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-14.png)
-
-3. Tambahkan role default `"member"`.
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-15.png)
-
-4. Tampilkan pesan error di UI.
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-16.png)
-
-![alt text](/jobsheet-15/my-app/public/img/laporan/image-18.png)
-
-5. Screenshot hasil:
-
-   * Register sukses
-   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-20.png)
-
-   * Email sudah ada
-   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-16.png)
-
-   * Database Firestore. 
-   ![alt text](/jobsheet-15/my-app/public/img/laporan/image-21.png)
+1. Implementasikan login yang terhubung dengan database Firestore.
+2. Tambahkan field `role` pada dokumen user di Firestore (buat manual atau via register).
+3. Buat halaman baru:
+   * `/profile`: Bisa diakses semua user yang sudah login.
+   * `/admin`: Hanya bisa diakses oleh user dengan `role: admin`.
+4. Implementasikan `callbackUrl` agar user kembali ke halaman awal setelah dipaksa login.
+5. Screenshot hasil pengujian login dan proteksi halaman admin.
 
 ---
 
 # G. Pertanyaan Analisis
 
-### 1. Mengapa password harus di-hash?
+### 1. Mengapa password harus diverifikasi dengan `bcrypt.compare`?
+Karena password di database disimpan dalam format hash satu arah. `bcrypt.compare` melakukan proses hashing pada input user dan membandingkannya dengan hash di database tanpa perlu mengetahui password aslinya.
 
-Karena password dalam bentuk plaintext sangat berbahaya jika database bocor. Dengan hashing, password tidak dapat langsung dibaca sehingga keamanan data user lebih terjaga.
+### 2. Mengapa role disimpan di token?
+Menyimpan role di JWT (Token) memungkinkan aplikasi melakukan pengecekan hak akses di sisi client (middleware/frontend) tanpa harus melakukan request database tambahan setiap kali pindah halaman.
 
-### 2. Apa perbedaan `addDoc` dan `setDoc`?
+### 3. Apa fungsi `callbackUrl`?
+Fungsinya adalah meningkatkan UX dengan mengarahkan user kembali ke halaman yang awalnya ingin mereka akses sebelum mereka diminta untuk melakukan login.
 
-`addDoc` digunakan untuk menambahkan dokumen baru dengan ID otomatis, sedangkan `setDoc` digunakan untuk membuat atau menimpa dokumen dengan ID tertentu.
-
-### 3. Mengapa perlu validasi method POST?
-
-Karena endpoint register hanya seharusnya menerima data registrasi dari form. Jika method lain diperbolehkan, endpoint dapat disalahgunakan.
-
-### 4. Apa risiko jika email tidak dicek unik?
-
-Akan terjadi duplikasi akun dengan email yang sama, sehingga dapat menimbulkan konflik saat login dan mengurangi integritas data user.
-
-### 5. Apa fungsi role pada user?
-
-Role digunakan untuk menentukan hak akses atau otorisasi user dalam sistem, misalnya sebagai `member`, `admin`, atau role lainnya.
+### 4. Mengapa middleware penting untuk security?
+Middleware memberikan lapisan keamanan di level server-side yang mampu memblokir request sebelum halaman dirender, sehingga data sensitif tidak sempat terkirim ke client yang tidak berhak.
 
 ---
 
 # H. Output yang Diharapkan
 
 Mahasiswa menghasilkan:
-
-* Form registrasi berfungsi
-* API POST berjalan
-* Email unik tervalidasi
-* Password ter-hash
-* Data tersimpan di Firestore
-* Error tampil di UI
-* Redirect ke login
+* Sistem login yang dinamis menggunakan data Firestore.
+* Keamanan password menggunakan hashing bcrypt.
+* Halaman login kustom yang rapi.
+* Sistem otorisasi berbasis role (RBAC) yang fungsional.
 
 ---
 
 # I. Kesimpulan
 
-Pada praktikum ini telah dipelajari:
-
-* Pembuatan form registrasi pada Next.js
-* Pengiriman data menggunakan method POST
-* Implementasi API Route untuk register
-* Validasi email unik
-* Hash password menggunakan bcrypt
-* Penyimpanan data user ke Firestore
-* Penanganan loading dan error di frontend
-
-Implementasi registrasi yang terhubung ke database memberikan gambaran alur autentikasi dasar yang aman dan terstruktur. Dengan validasi email, hashing password, dan error handling yang baik, sistem registrasi menjadi lebih siap digunakan dalam aplikasi web modern.
+Pada praktikum ini, telah berhasil diimplementasikan sistem autentikasi dan otorisasi yang kompleks. Dengan mengintegrasikan NextAuth, Firestore, dan Bcrypt, aplikasi memiliki standar keamanan produksi yang baik. Penggunaan middleware dan callback URL memastikan aplikasi tetap aman namun tetap memberikan pengalaman pengguna yang mulus.

@@ -120,7 +120,7 @@ const TampilanRegister = () => {
 
                         <button
                             type="submit"
-                            className={style.register__form__item__button}
+                            className={style.register__form__button}
                             disabled={isLoading}
                         >
                             {isLoading ? "Loading..." : "Register"}

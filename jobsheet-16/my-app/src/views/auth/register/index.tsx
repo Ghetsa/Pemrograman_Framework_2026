@@ -15,8 +15,8 @@ const TampilanRegister = () => {
         const form = event.currentTarget;
         const formData = new FormData(form);
         const email = formData.get("email") as string;
-        const fullname = formData.get("Fullname") as string;
-        const password = formData.get("Password") as string;
+        const fullname = formData.get("fullname") as string;
+        const password = formData.get("password") as string;
 
         // Validasi Client-side
         if (!email) {
@@ -25,7 +25,7 @@ const TampilanRegister = () => {
         }
 
         if (password.length < 6) {
-            setError("Password minimal harus 6 karakter");
+            setError("password minimal harus 6 karakter");
             return;
         }
 
@@ -72,26 +72,26 @@ const TampilanRegister = () => {
                             name="email"
                             placeholder="Email"
                             className={style.register__form__item__input}
-                            style={error.includes("Email") ? { borderColor: 'red' } : {}}
+                            style={error.toLowerCase().includes("email") ? { borderColor: 'red' } : {}}
                         />
                         {/* Error khusus Email */}
-                        {error.includes("Email") && (
+                        {error.toLowerCase().includes("email") && (
                             <span className={style.register__form__item__error_message}>
                                 {error}
                             </span>
                         )}
                     </div>
 
-                    {/* INPUT FULLNAME */}
+                    {/* INPUT fULLNAME */}
                     <div className={style.register__form__item}>
-                        <label htmlFor="Fullname" className={style.register__form__item__label}>
-                            Fullname
+                        <label htmlFor="fullname" className={style.register__form__item__label}>
+                            Nama Lengkap
                         </label>
                         <input
                             type="text"
-                            id="Fullname"
-                            name="Fullname"
-                            placeholder="Fullname"
+                            id="fullname"
+                            name="fullname"
+                            placeholder="fullname"
                             className={style.register__form__item__input}
                             required
                         />
@@ -99,20 +99,20 @@ const TampilanRegister = () => {
 
                     {/* INPUT PASSWORD */}
                     <div className={style.register__form__item}>
-                        <label htmlFor="Password" className={style.register__form__item__label}>
+                        <label htmlFor="password" className={style.register__form__item__label}>
                             Password
                         </label>
                         <input
                             type="password"
-                            id="Password"
-                            name="Password"
-                            placeholder="Password"
+                            id="password"
+                            name="password"
+                            placeholder="password"
                             className={style.register__form__item__input}
-                            style={error.includes("Password") ? { borderColor: 'red' } : {}}
+                            style={error.toLowerCase().includes("password") ? { borderColor: 'red' } : {}}
                             required
                         />
-                        {/* Error khusus Password */}
-                        {error.includes("Password") && (
+                        {/* Error khusus password */}
+                        {error.toLowerCase().includes("password") && (
                             <span className={style.register__form__item__error_message}>
                                 {error}
                             </span>

@@ -64,6 +64,7 @@ const Tampilanlogin = () => {
     };
 
     return (
+        <>
         <div className={style.login}>
             <h1 className={style.login__title}>Halaman Login</h1>
             <div className={style.login__form}>
@@ -126,6 +127,7 @@ const Tampilanlogin = () => {
                 </form>
             </div>
         </div>
+        </>
     );
 };
 

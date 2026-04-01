@@ -1,25 +1,37 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// jobsheet-16/my-app/src/pages/api/register.ts
+
 import { signUp } from '@/utils/db/servicefirebase'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
-  name: string
-  alamat: string
+type ResponseData = {
+  message: string
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<ResponseData>
 ) {
   if (req.method === "POST") {
-    await signUp(req.body, (result: { status: string; message: string }) => {
-      if (result.status === "success") {
-        res.status(200).json({ name: result.message, alamat: "" });
-      } else {
-        res.status(400).json({ name: result.message, alamat: "" });
-      }
-    });
+    try {
+      await signUp(req.body, (result: { status: string; message: string }) => {
+        if (result.status === "success") {
+          return res.status(200).json({
+            message: result.message
+          });
+        } else {
+          return res.status(400).json({
+            message: result.message
+          });
+        }
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Internal server error"
+      });
+    }
   } else {
-    res.status(405).json({ name: "Method not allowed", alamat: "" });
+    return res.status(405).json({
+      message: "Method not allowed"
+    });
   }
 }

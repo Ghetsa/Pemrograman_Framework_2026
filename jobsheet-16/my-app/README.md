@@ -202,7 +202,7 @@ export async function login(
 }
 ```
 
-![alt text](image-2.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-2.png)
 
 ---
 
@@ -295,9 +295,9 @@ Bungkus return dengan fragment:
 </>
 ```
 
-![alt text](image-3.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-3.png)
 
-![alt text](image-4.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-4.png)
 
 ---
 
@@ -375,9 +375,9 @@ Input:
 
 Hasil:
 
-![alt text](image-5.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-5.png)
 
-![alt text](image-6.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-6.png)
 
 * Login berhasil
 * Redirect sesuai callback URL
@@ -393,7 +393,7 @@ Input:
 
 Hasil:
 
-![alt text](image-7.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-7.png)
 
 * Error message tampil
 * Tidak login
@@ -410,9 +410,9 @@ Akses:
 
 Hasil:
 
-![alt text](image-9.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-9.png)
 
-![alt text](image-8.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-8.png)
 
 * Redirect ke home
 
@@ -428,9 +428,9 @@ Akses:
 
 Hasil:
 
-![alt text](image-10.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-10.png)
 
-![alt text](image-11.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-11.png)
 
 * Bisa masuk halaman admin
 
@@ -454,7 +454,7 @@ Field yang digunakan:
 | fullName | string          |
 | createdAt | string          |
 
-![alt text](image-12.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-12.png)
 
 ---
 
@@ -467,21 +467,21 @@ Field yang digunakan:
 3. Buat halaman:
 
    * `/profile`
-  ![alt text](image-13.png)
+  ![alt text](/jobsheet-16/my-app/public/img/laporan/image-13.png)
 
    * `/admin`
-  ![alt text](image-15.png)
+  ![alt text](/jobsheet-16/my-app/public/img/laporan/image-15.png)
 
 
 4. Proteksi `/admin` hanya untuk admin.
 
-![alt text](image-16.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-16.png)
 
-![alt text](image-17.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-17.png)
 
 5. Implementasikan callback URL.
 
-![alt text](image-18.png)
+![alt text](/jobsheet-16/my-app/public/img/laporan/image-18.png)
 
 ---
 

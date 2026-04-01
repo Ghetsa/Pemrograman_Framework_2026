@@ -14,8 +14,9 @@ export default function withAuth(
         secret: process.env.NEXTAUTH_SECRET,
       })
       if (!token) {
-        const loginUrl = new URL("/", req.url)
-        return NextResponse.redirect(loginUrl)
+        const Url = new URL("/", req.url);
+        Url.searchParams.set("callbackUrl", encodeURI(req.url));
+        return NextResponse.redirect(Url);
       }
     }
     return middleware(req, next)

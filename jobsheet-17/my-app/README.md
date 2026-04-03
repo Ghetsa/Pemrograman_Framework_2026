@@ -483,10 +483,129 @@ Field yang digunakan:
 # F. Tugas Praktikum
 
 1. Tambahkan role `editor`.
+![alt text](image-26.png)
+
 2. Buat halaman `/editor`.
+![alt text](image-23.png)
+
+![alt text](image-25.png)
+
 3. Tambahkan provider GitHub.
+![alt text](image-27.png)
+
+![alt text](<Screenshot 2026-04-03 154221.png>)
+
+![alt text](image-28.png)
+
 4. Refactor service agar reusable.
+
+```tsx
+export async function oauthSignIn(
+  userData: any,
+  provider: "google" | "github",
+  callback: any
+) {
+  try {
+    const existingUser = await getUserByEmail(userData.email);
+
+    const dataToSave = {
+      email: userData.email,
+      fullname: userData.name || userData.fullname || "",
+      image: userData.image || "",
+      type: provider,
+      updatedAt: new Date(),
+    };
+
+    if (existingUser) {
+      const userRole = (existingUser as any).role || "member";
+
+      await updateDoc(doc(db, "users", existingUser.id), {
+        ...dataToSave,
+        role: userRole,
+      });
+
+      return callback({
+        status: true,
+        data: { ...dataToSave, id: existingUser.id, role: userRole },
+      });
+    } else {
+      const newUser = {
+        ...dataToSave,
+        role: "member",
+        createdAt: new Date(),
+      };
+
+      const docRef = await addDoc(collection(db, "users"), newUser);
+
+      return callback({
+        status: true,
+        data: { ...newUser, id: docRef.id },
+      });
+    }
+  } catch (error: any) {
+    console.error(`OAuth ${provider} error:`, error);
+
+    return callback({
+      status: false,
+      message: error.message,
+    });
+  }
+}
+
+```
+
+```tsx
+  callbacks: {
+    async jwt({ token, account, user }: any) {
+      // ✅ credentials
+      if (account?.provider === "credentials" && user) {
+        token.email = user.email;
+        token.fullname = user.fullname;
+        token.role = user.role;
+      }
+
+      // 🔥 OAUTH (Google & GitHub jadi satu logic)
+      if (account?.provider === "google" || account?.provider === "github") {
+        await oauthSignIn(
+          {
+            fullname: user.name,
+            email: user.email,
+            image: user.image,
+          },
+          account.provider,
+          (result: any) => {
+            if (result.status) {
+              token.fullname = result.data.fullname;
+              token.email = result.data.email;
+              token.image = result.data.image;
+              token.type = result.data.type;
+              token.role = result.data.role;
+            }
+          }
+        );
+      }
+
+      return token;
+    },
+```
+
 5. Gunakan `next/image` untuk avatar.
+```tsx
+<div className={styles.navbar__user}>
+  Welcome, {data.user?.fullname}
+
+  {data?.user?.image && (
+    <Image
+      src={data.user.image}
+      alt={data.user.fullname}
+      width={40}
+      height={40}
+      className={styles.navbar__user__image}
+    />
+  )}
+</div>
+```
+
 
 ---
 

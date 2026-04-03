@@ -2,7 +2,6 @@ import {
   getFirestore,
   collection,
   getDocs,
-  Firestore,
   getDoc,
   doc,
   query,
@@ -15,122 +14,98 @@ import bcrypt from "bcrypt";
 
 const db = getFirestore(app);
 
-export async function retrieveProducts(collectionName: string) {
+// 🔹 GENERIC GET ALL
+export async function getAll(collectionName: string) {
   const snapshot = await getDocs(collection(db, collectionName));
-  const data = snapshot.docs.map((doc) => ({
+  return snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
-  return data;
 }
 
-export async function retrieveDataByID(collectionName: string, id: string) {
+// 🔹 GENERIC GET BY ID
+export async function getById(collectionName: string, id: string) {
   const snapshot = await getDoc(doc(db, collectionName, id));
-  const data = snapshot.data();
-  return data;
+  return snapshot.data();
 }
-export async function signIn(email: string) {
+
+// 🔹 GET USER BY EMAIL (REUSABLE)
+export async function getUserByEmail(email: string) {
   const q = query(collection(db, "users"), where("email", "==", email));
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-  // console.log("Query result:", data);
-  if (data) {
-    // console.log("User found:", data[0]);
-    return data[0];
-  } else {
-    return null;
-  }
-}
-export async function signUp(
-  userData: {
-    email: string;
-    fullname: string;
-    password: string;
-    role?: string;
-  },
-  callback: Function,
-) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", userData.email),
-  );
-  const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-  // console.log("Query result:", data);
 
-  if (data.length > 0) {
-    // user belum ada → boleh daftar
-    // await addDoc(collection(db, "users"), userData);
-    // console.log("User registered:", data);
-    callback({
+  if (querySnapshot.docs.length === 0) return null;
+
+  const docSnap = querySnapshot.docs[0];
+  return {
+    id: docSnap.id,
+    ...docSnap.data(),
+  };
+}
+
+// 🔹 SIGN IN (CREDENTIALS)
+export async function signIn(email: string) {
+  return await getUserByEmail(email);
+}
+
+// 🔹 SIGN UP
+export async function signUp(userData: any, callback: Function) {
+  const existingUser = await getUserByEmail(userData.email);
+
+  if (existingUser) {
+    return callback({
       status: "error",
       message: "Email already exists",
     });
-  } else {
+  }
+
+  try {
     userData.password = await bcrypt.hash(userData.password, 10);
-    userData.role = "user";
-    await addDoc(collection(db, "users"), userData)
-      .then(() => {
-        callback({
-          status: "success",
-          message: "Email registered successfully",
-        });
-      })
-      .catch((error) => {
-        callback({
-          status: "error",
-          message: error.message,
-        });
-      });
+    userData.role = "member";
+
+    await addDoc(collection(db, "users"), userData);
+
+    callback({
+      status: "success",
+      message: "Register success",
+    });
+  } catch (error: any) {
+    callback({
+      status: "error",
+      message: error.message,
+    });
   }
 }
 
-export async function signInWithGoogle(userData: any, callback: any) {
+export async function oauthSignIn(
+  userData: any,
+  provider: "google" | "github",
+  callback: any
+) {
   try {
-    const q = query(
-      collection(db, "users"),
-      where("email", "==", userData.email),
-    );
+    const existingUser = await getUserByEmail(userData.email);
 
-    const querySnapshot = await getDocs(q);
-    
-    // Ambil data user jika ada
-    const existingUser = querySnapshot.docs.length > 0 
-      ? { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() as any } 
-      : null;
-
-    // Bersihkan userData agar tidak ada undefined yang bikin error Firestore
     const dataToSave = {
       email: userData.email,
       fullname: userData.name || userData.fullname || "",
       image: userData.image || "",
-      type: "google",
+      type: provider,
       updatedAt: new Date(),
     };
 
     if (existingUser) {
-      // USER SUDAH ADA -> UPDATE
-      const userRole = existingUser.role || "member";
-      
-      // Update dokumen menggunakan ID yang ditemukan
+      const userRole = (existingUser as any).role || "member";
+
       await updateDoc(doc(db, "users", existingUser.id), {
         ...dataToSave,
-        role: userRole // Tetap gunakan role lama
+        role: userRole,
       });
 
-      callback({
+      return callback({
         status: true,
-        message: "User updated and logged in with Google",
         data: { ...dataToSave, id: existingUser.id, role: userRole },
       });
     } else {
-      // USER BARU -> ADD
       const newUser = {
         ...dataToSave,
         role: "member",
@@ -138,18 +113,18 @@ export async function signInWithGoogle(userData: any, callback: any) {
       };
 
       const docRef = await addDoc(collection(db, "users"), newUser);
-      
-      callback({
+
+      return callback({
         status: true,
-        message: "New user registered with Google",
         data: { ...newUser, id: docRef.id },
       });
     }
   } catch (error: any) {
-    console.error("Error Firestore Google Login:", error); // Penting untuk debug
-    callback({
+    console.error(`OAuth ${provider} error:`, error);
+
+    return callback({
       status: false,
-      message: "Failed to register/update user with Google: " + error.message,
+      message: error.message,
     });
   }
 }

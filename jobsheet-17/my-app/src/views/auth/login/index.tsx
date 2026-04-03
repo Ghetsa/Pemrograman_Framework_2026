@@ -98,7 +98,6 @@ const Tampilanlogin = () => {
                         <span>atau</span>
                     </div>
 
-                    {/* BUTTON GOOGLE DENGAN CLASS KHUSUS */}
                     <button
                         type="button"
                         onClick={() => signIn("google", { callbackUrl, redirect: false })}
@@ -119,6 +118,28 @@ const Tampilanlogin = () => {
                             </>
                         )}
                     </button>
+
+                    <button
+                        type="button"
+                        onClick={() => signIn("github", { callbackUrl })}
+                        className={`${style.login__form__button} ${style.login__form__button__github}`}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            "Loading..."
+                        ) : (
+                            <>
+                                <img
+                                    src="https://authjs.dev/img/providers/github.svg"
+                                    alt="GitHub Icon"
+                                    width="18"
+                                    height="18"
+                                />
+                                <span>Sign In with GitHub</span>
+                            </>
+                        )}
+                    </button>
+
                     {/* LINK */}
                     <p className={style.login__form__text}>
                         Belum punya akun?{" "}

@@ -610,26 +610,34 @@ export async function oauthSignIn(
 ---
 
 # G. Pertanyaan Analisis
+## 1. Apa perbedaan login credential dan login Google?
 
-### 1. Apa perbedaan login credential dan login Google?
+Login credential menggunakan email dan password yang disimpan dan diverifikasi langsung oleh sistem aplikasi.
+Sedangkan login Google menggunakan autentikasi pihak ketiga (OAuth), di mana proses verifikasi dilakukan oleh Google sehingga aplikasi tidak perlu menyimpan password pengguna.
 
-Login credential menggunakan email dan password manual, sedangkan login Google menggunakan autentikasi dari pihak ketiga tanpa perlu password.
+## 2. Mengapa data Google tetap perlu disimpan ke database?
 
-### 2. Mengapa data Google tetap perlu disimpan ke database?
+Meskipun autentikasi dilakukan oleh Google, data pengguna tetap perlu disimpan di database agar aplikasi dapat mengelola informasi tambahan seperti role, preferensi pengguna, dan riwayat aktivitas yang tidak disediakan oleh Google.
 
-Agar aplikasi dapat mengelola data user seperti role dan riwayat aktivitas.
+## 3. Apa fungsi JWT callback?
 
-### 3. Apa fungsi JWT callback?
+JWT callback berfungsi untuk memproses data user saat login dan menyimpannya ke dalam token (JWT).
+Data ini kemudian digunakan untuk mempertahankan sesi pengguna serta membawa informasi penting seperti id dan role ke setiap request.
 
-Untuk memproses dan menyimpan data user ke dalam token saat login.
+## 4. Mengapa perlu multi-role?
 
-### 4. Mengapa perlu multi-role?
+Multi-role diperlukan untuk mengatur hak akses pengguna dalam sistem.
+Dengan adanya role seperti admin, editor, dan member, setiap pengguna hanya dapat mengakses fitur sesuai dengan izin yang dimiliki, sehingga keamanan dan kontrol sistem lebih terjaga.
 
-Untuk membedakan hak akses antar user dalam sistem.
+## 5. Apa risiko jika tidak menyimpan user ke database?
 
-### 5. Apa risiko jika tidak menyimpan user ke database?
+Jika data user tidak disimpan di database, aplikasi tidak dapat:
 
-Tidak dapat mengelola role dan data user sehingga fitur aplikasi terbatas.
+Mengelola role pengguna
+Menyimpan data tambahan pengguna
+Melacak aktivitas pengguna
+
+Akibatnya, fitur aplikasi menjadi terbatas dan tidak dapat menerapkan sistem otorisasi dengan baik.
 
 ---
 

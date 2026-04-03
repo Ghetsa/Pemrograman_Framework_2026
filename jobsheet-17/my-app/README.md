@@ -146,6 +146,8 @@ GOOGLE_CLIENT_ID=your_client_id
 GOOGLE_CLIENT_SECRET=your_client_secret
 ```
 
+![alt text](image-6.png)
+
 ---
 
 ## Bagian 3 – Konfigurasi Google Provider di NextAuth

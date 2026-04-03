@@ -276,22 +276,44 @@ Contoh:
 Tambahkan fungsi simpan user Google:
 
 ```ts
-export async function signInWithGoogle(userData: any) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", userData.email)
-  );
+export async function signInWithGoogle(userData: any, callback: any) {
+  try {
+    const q = query(
+      collection(db, "users"),
+      where("email", "==", userData.email),
+    );
 
-  const snapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
+    const data: any = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-  if (snapshot.empty) {
-    await addDoc(collection(db, "users"), {
-      ...userData,
-      role: "member",
+    if (data.length > 0) {
+      // User sudah ada, update data
+      userData.role = data[0].role;
+      await updateDoc(doc(db, "users", data[0].id), userData);
+      callback({
+        status: true,
+        message: "User registered and logged in with Google",
+        data: userData,
+      });
+    } else {
+      // User baru, tambah data
+      userData.role = "member";
+      await addDoc(collection(db, "users"), userData);
+      callback({
+        status: true,
+        message: "User registered and logged in with Google",
+        data: userData,
+      });
+    }
+  } catch (error: any) {
+    // Tangani error di sini
+    callback({
+      status: false,
+      message: "Failed to register user with Google",
     });
-  } else {
-    const docRef = snapshot.docs[0].ref;
-    await updateDoc(docRef, userData);
   }
 }
 ```
@@ -303,21 +325,25 @@ export async function signInWithGoogle(userData: any) {
 Modifikasi `[...nextauth].ts`:
 
 ```ts
-import { signInWithGoogle } from "@/utils/db/servicefirebase";
+// Jika login dengan Google, tambahkan informasi yang diperlukan ke token
+if (account?.provider === "google") {
+  const data = {
+    fullname: user.name,
+    email: user.email,
+    image: user.image,
+    type: account.provider,
+  };
 
-callbacks: {
-  async jwt({ token, account, profile }) {
-    if (account?.provider === "google") {
-      const userData = {
-        email: profile?.email,
-        fullname: profile?.name,
-        image: profile?.picture,
-      };
-
-      await signInWithGoogle(userData);
+  await signInWithGoogle(data, (result: any) => {
+    // Pastikan mengecek result.status sesuai dengan object yang dikirim
+    if (result.status) {
+      token.fullname = result.data.fullname;
+      token.email = result.data.email;
+      token.image = result.data.image;
+      token.type = result.data.type;
+      token.role = result.data.role;
     }
-    return token;
-  },
+  });
 }
 ```
 
@@ -327,6 +353,11 @@ callbacks: {
 
 Login menggunakan Google → data akan masuk ke Firestore.
 
+![alt text](image-13.png)
+
+![alt text](image-12.png)
+
+![alt text](image-14.png)
 ---
 
 ## Bagian 7 – Implementasi Multi-Role
@@ -344,6 +375,8 @@ Ubah manual di Firebase untuk admin:
 ```text
 admin
 ```
+
+![alt text](image-15.png)
 
 ---
 
@@ -370,14 +403,24 @@ Hasil:
 * Data tersimpan di Firestore
 * User berhasil login
 
+![alt text](image-13.png)
+
+![alt text](image-12.png)
+
 ---
 
 ## Uji 2 – Login Google Kedua Kali
 
 Hasil:
 
-* Data diupdate
+* Data diupdate (khususnya di updateedAt)
 * Tidak duplicate data
+
+![alt text](image-13.png)
+
+![alt text](image-12.png)
+
+![alt text](image-14.png)
 
 ---
 

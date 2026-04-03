@@ -1,0 +1,138 @@
+.register {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 20px;
+
+  /* Semua yang pakai '&' harus di dalam kurung kurawal .register */
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+    animation: fadeIn 0.8s ease;
+  }
+
+  &__form {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 1s ease;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      &__label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      &__input {
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        color: #000;
+        background-color: #fdfdfd;
+
+        &::placeholder {
+          color: #999;
+          opacity: 1;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #2a5298;
+          box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+        }
+      }
+
+      &__error_message {
+        color: #ff0000 !important; // Merah terang
+        font-size: 12px;
+        margin-top: 5px;
+        font-weight: 500;
+        text-align: left;
+        display: block;
+      }
+    }
+
+    /* Diubah dari 'button' menjadi '&__button' agar valid di CSS Modules */
+    &__button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #2a5298;
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 15px;
+
+      &:hover {
+        background: #1e3c72;
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Tambahan gaya untuk teks link di bawah form */
+    &__text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #000000 !important;
+
+      a {
+        color: #2a5298;
+        font-weight: 700;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+/* <--- Kurung penutup .register SEKARANG DI SINI (Paling bawah) */
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .register {
+    &__form {
+      padding: 30px 20px;
+    }
+
+    &__title {
+      font-size: 26px;
+    }
+  }
+}

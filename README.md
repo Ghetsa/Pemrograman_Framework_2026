@@ -62,14 +62,23 @@ konsep framework yang dipelajari selama perkuliahan.
 
 | Jobsheet   | Status        |
 |------------|--------------|
-| Jobsheet 1 | ✅ Selesai    |
-| Jobsheet 2 | ✅ Selesai     |
-| Jobsheet 3 | ✅ Selesai |
+<!--| Jobsheet 1 | ✅ Selesai   | -->
+| Jobsheet 2 | ✅ Selesai   |
+| Jobsheet 3 | ✅ Selesai   |
 | Jobsheet 4 | ✅ Selesai   |
 | Jobsheet 5 | ✅ Selesai   |
 | Jobsheet 6 | ✅ Selesai   |
-| Jobsheet 7 | ⏳ Proses   |
-| Jobsheet 8 | 🔜 Akan Datang   |
+| Jobsheet 7 | ✅ Selesai   |
+| Jobsheet 9 | ✅ Selesai   |
+| Jobsheet 10 | ✅ Selesai   |
+| Jobsheet 11 | ✅ Selesai   |
+| Jobsheet 12 | ✅ Selesai   |
+| Jobsheet 13 | ✅ Selesai   |
+| Jobsheet 14 | ✅ Selesai   |
+| Jobsheet 15 | ✅ Selesai   |
+| Jobsheet 16 | ✅ Selesai   |
+| Jobsheet 17 | ✅ Selesai   |
+| Jobsheet 18 | ⏳ Proses   |
 <!-- | Jobsheet 5 | ⏳ Proses |
 | Jobsheet 5 | 🔜 Akan Datang | -->
 

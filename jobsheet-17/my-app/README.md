@@ -81,7 +81,7 @@ Buka:
 https://console.cloud.google.com/apis/credentials
 ```
 
-![alt text](image.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image.png)
 
 ---
 
@@ -96,9 +96,9 @@ MyAppNext
 
 * Klik **Create**
 
-![alt text](image-1.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-1.png)
 
-![alt text](image-2.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-2.png)
 
 ---
 
@@ -111,9 +111,9 @@ Langkah:
 3. Isi data aplikasi
 4. Klik **Create**
 
-![alt text](image-3.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-3.png)
 
-![alt text](image-4.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-4.png)
 
 ---
 
@@ -131,7 +131,7 @@ Client ID
 Client Secret
 ```
 
-![alt text](image-5.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-5.png)
 
 ---
 
@@ -146,7 +146,7 @@ GOOGLE_CLIENT_ID=your_client_id
 GOOGLE_CLIENT_SECRET=your_client_secret
 ```
 
-![alt text](image-6.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-6.png)
 
 ---
 
@@ -167,7 +167,7 @@ providers: [
 ],
 ```
 
-![alt text](image-8.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-8.png)
 
 ---
 
@@ -193,7 +193,7 @@ callbacks: {
 }
 ```
 
-![alt text](image-9.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-9.png)
 
 ---
 
@@ -211,7 +211,7 @@ import { signIn } from "next-auth/react";
 </button>
 ```
 
-![alt text](image-10.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-10.png)
 
 ---
 
@@ -265,7 +265,7 @@ Contoh:
 ```
 
 
-![alt text](image-11.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-11.png)
 
 ---
 
@@ -353,11 +353,11 @@ if (account?.provider === "google") {
 
 Login menggunakan Google → data akan masuk ke Firestore.
 
-![alt text](image-13.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-13.png)
 
-![alt text](image-12.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-12.png)
 
-![alt text](image-14.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-14.png)
 ---
 
 ## Bagian 7 – Implementasi Multi-Role
@@ -376,7 +376,7 @@ Ubah manual di Firebase untuk admin:
 admin
 ```
 
-![alt text](image-15.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-15.png)
 
 ---
 
@@ -403,9 +403,9 @@ Hasil:
 * Data tersimpan di Firestore
 * User berhasil login
 
-![alt text](image-13.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-13.png)
 
-![alt text](image-12.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-12.png)
 
 ---
 
@@ -416,11 +416,11 @@ Hasil:
 * Data diupdate (khususnya di updateedAt)
 * Tidak duplicate data
 
-![alt text](image-13.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-13.png)
 
-![alt text](image-12.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-12.png)
 
-![alt text](image-14.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-14.png)
 
 ---
 
@@ -430,9 +430,9 @@ Hasil:
 
 * Redirect ke home
 
-![alt text](image-17.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-17.png)
 
-![alt text](image-18.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-18.png)
 
 
 ---
@@ -443,9 +443,9 @@ Hasil:
 
 * Bisa masuk halaman admin
 
-![alt text](image-20.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-20.png)
 
-![alt text](image-19.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-19.png)
 
 ---
 
@@ -455,7 +455,7 @@ Hasil:
 
 * Foto profil tampil di UI
 
-![alt text](image-21.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-21.png)
 
 ---
 
@@ -476,26 +476,26 @@ Field yang digunakan:
 | image    | string |
 | role     | string |
 
-![alt text](image-22.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-22.png)
 
 ---
 
 # F. Tugas Praktikum
 
 1. Tambahkan role `editor`.
-![alt text](image-26.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-26.png)
 
 2. Buat halaman `/editor`.
-![alt text](image-23.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-23.png)
 
-![alt text](image-25.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-25.png)
 
 3. Tambahkan provider GitHub.
-![alt text](image-27.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-27.png)
 
-![alt text](<Screenshot 2026-04-03 154221.png>)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-29.png)
 
-![alt text](image-28.png)
+![alt text](/jobsheet-17/my-app/public/img/laporan/image-28.png)
 
 4. Refactor service agar reusable.
 

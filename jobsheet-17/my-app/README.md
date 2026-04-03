@@ -167,6 +167,8 @@ providers: [
 ],
 ```
 
+![alt text](image-8.png)
+
 ---
 
 ### 2️⃣ Tambahkan JWT dan Session Callback
@@ -191,6 +193,8 @@ callbacks: {
 }
 ```
 
+![alt text](image-9.png)
+
 ---
 
 ## Bagian 4 – Menambahkan Button Login Google
@@ -206,6 +210,8 @@ import { signIn } from "next-auth/react";
   Sign in with Google
 </button>
 ```
+
+![alt text](image-10.png)
 
 ---
 
@@ -238,6 +244,7 @@ const { data: session } = useSession();
 )}
 ```
 
+
 ---
 
 ### 2️⃣ Modifikasi CSS
@@ -256,6 +263,9 @@ Contoh:
   border-radius: 50%;
 }
 ```
+
+
+![alt text](image-11.png)
 
 ---
 

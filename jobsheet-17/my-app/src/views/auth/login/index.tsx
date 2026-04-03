@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 
+
 const Tampilanlogin = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -83,8 +84,8 @@ const Tampilanlogin = () => {
                             {error}
                         </span>
                     )}
-                    
-                    {/* BUTTON */}
+
+                    {/* BUTTON LOGIN UTAMA */}
                     <button
                         type="submit"
                         className={style.login__form__button}
@@ -93,6 +94,31 @@ const Tampilanlogin = () => {
                         {isLoading ? "Loading..." : "Login"}
                     </button>
 
+                    <div className={style.login__form__divider}>
+                        <span>atau</span>
+                    </div>
+
+                    {/* BUTTON GOOGLE DENGAN CLASS KHUSUS */}
+                    <button
+                        type="button"
+                        onClick={() => signIn("google", { callbackUrl, redirect: false })}
+                        className={`${style.login__form__button} ${style.login__form__button__google}`}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            "Loading..."
+                        ) : (
+                            <>
+                                <img
+                                    src="https://authjs.dev/img/providers/google.svg"
+                                    alt="Google Icon"
+                                    width="18"
+                                    height="18"
+                                />
+                                <span>Sign In with Google</span>
+                            </>
+                        )}
+                    </button>
                     {/* LINK */}
                     <p className={style.login__form__text}>
                         Belum punya akun?{" "}

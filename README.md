@@ -62,7 +62,6 @@ konsep framework yang dipelajari selama perkuliahan.
 
 | Jobsheet   | Status        |
 |------------|--------------|
-<!--| Jobsheet 1 | ✅ Selesai   | -->
 | Jobsheet 2 | ✅ Selesai   |
 | Jobsheet 3 | ✅ Selesai   |
 | Jobsheet 4 | ✅ Selesai   |

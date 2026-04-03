@@ -81,6 +81,8 @@ Buka:
 https://console.cloud.google.com/apis/credentials
 ```
 
+![alt text](image.png)
+
 ---
 
 ### 2️⃣ Buat Project Baru
@@ -94,6 +96,10 @@ MyAppNext
 
 * Klik **Create**
 
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
 ---
 
 ### 3️⃣ Konfigurasi OAuth Consent Screen
@@ -104,6 +110,10 @@ Langkah:
 2. Klik **Get Started**
 3. Isi data aplikasi
 4. Klik **Create**
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
 
 ---
 
@@ -120,6 +130,8 @@ Langkah:
 Client ID
 Client Secret
 ```
+
+![alt text](image-5.png)
 
 ---
 

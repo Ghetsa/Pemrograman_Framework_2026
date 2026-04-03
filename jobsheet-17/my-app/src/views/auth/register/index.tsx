@@ -73,6 +73,7 @@ const TampilanRegister = () => {
                             placeholder="Email"
                             className={style.register__form__item__input}
                             style={error.toLowerCase().includes("email") ? { borderColor: 'red' } : {}}
+                            required
                         />
                         {/* Error khusus Email */}
                         {error.toLowerCase().includes("email") && (

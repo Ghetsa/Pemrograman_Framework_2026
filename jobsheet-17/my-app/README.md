@@ -430,6 +430,11 @@ Hasil:
 
 * Redirect ke home
 
+![alt text](image-17.png)
+
+![alt text](image-18.png)
+
+
 ---
 
 ## Uji 4 – Role Admin Akses Admin
@@ -438,6 +443,10 @@ Hasil:
 
 * Bisa masuk halaman admin
 
+![alt text](image-20.png)
+
+![alt text](image-19.png)
+
 ---
 
 ## Uji 5 – Avatar User
@@ -445,6 +454,8 @@ Hasil:
 Hasil:
 
 * Foto profil tampil di UI
+
+![alt text](image-21.png)
 
 ---
 
@@ -464,6 +475,8 @@ Field yang digunakan:
 | fullname | string |
 | image    | string |
 | role     | string |
+
+![alt text](image-22.png)
 
 ---
 

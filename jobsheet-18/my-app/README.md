@@ -230,6 +230,8 @@ http://localhost:3000/produk
 
 ### 5️⃣ Hasil optimasi
 
+![alt text](image-2.png)
+
 * Tidak perlu CDN
 * Tidak blocking render
 * Tidak terjadi FOUT

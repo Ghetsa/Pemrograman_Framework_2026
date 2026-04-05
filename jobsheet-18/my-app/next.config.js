@@ -10,7 +10,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "avatars.githubusercontent.com", // GitHub 🔥
+        hostname: "avatars.githubusercontent.com", // GitHub
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.nike.com", // Nike (Product)
         pathname: "/**",
       },
     ],

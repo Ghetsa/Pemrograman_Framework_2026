@@ -141,8 +141,9 @@ import Image from "next/image";
 <Image
   src={product.image}
   alt={product.name}
-  width={300}
-  height={300}
+  width={300} 
+  height={300} 
+  className={styles.product__image}
 />
 ```
 
@@ -155,8 +156,15 @@ Tambahkan konfigurasi remote image:
 ```js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
-    domains: ["fakestoreapi.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "static.nike.com", // Nike (Product)
+        pathname: "/**",
+      },
+    ],
   },
 };
 
@@ -166,6 +174,8 @@ module.exports = nextConfig;
 ---
 
 ### 4️⃣ Hasil optimasi
+
+![alt text](image-1.png)
 
 * Gambar di-proxy melalui `/\_next/image`
 * Kompresi otomatis

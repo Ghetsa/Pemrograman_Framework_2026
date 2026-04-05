@@ -258,11 +258,11 @@ components/layouts/Navbar/index.tsx
 ```tsx
 import Script from "next/script";
 
-<Script id="my-script" strategy="lazyOnload">
-  {`
-    document.getElementById('title').innerHTML = 'MyApp';
-  `}
-</Script>
+<div className={styles.navbar}>
+  <div className={styles.navbar__brand} id="title"></div>
+  <Script id="my-script" strategy="lazyOnload">
+    {`document.getElementById('title').innerHTML = 'MyApp';`}
+  </Script>
 ```
 
 ---

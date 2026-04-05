@@ -338,12 +338,7 @@ components/layouts/Navbar/index.tsx
 Gunakan next/image:
 
 ```tsx
-<Image
-  src={session.user.image}
-  alt="avatar"
-  width={40}
-  height={40}
-/>
+![alt text](image-3.png)
 ```
 
 ---

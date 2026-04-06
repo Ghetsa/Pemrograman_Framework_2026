@@ -150,6 +150,8 @@ src
     └── components
 ```
 
+![alt text](image-2.png)
+
 ---
 
 ## Praktikum 3 – Testing Halaman About

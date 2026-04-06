@@ -167,13 +167,35 @@ src/__test__/pages/about.spec.tsx
 ### 2️⃣ Menambahkan Testing Snapshot
 
 ```tsx
-import { render } from "@testing-library/react";
-import About from "@/pages/about";
+import { render } from "@testing-library/react"
+import AboutPage from "@/pages/about"
 
-test("renders about page correctly", () => {
-  const { container } = render(<About />);
-  expect(container).toMatchSnapshot();
-});
+describe("About Page", () => {
+  it("renders about page correctly", () => {
+    const page = render(<AboutPage />)
+    expect(page).toMatchSnapshot()
+  })
+})
+```
+---
+
+#### Jika terjadi error
+
+1. Instal Type Definitions 
+```tsx
+npm install --save-dev @types/jest
+```
+
+![alt text](image-3.png)
+
+
+2. Update Konfigurasi tsconfig.json
+```tsx
+{
+  "compilerOptions": {
+    "types": ["node", "jest"] 
+  }
+}
 ```
 
 ---
@@ -189,6 +211,8 @@ Hasil:
 ```text
 PASS about.spec.tsx
 ```
+
+![alt text](image-4.png)
 
 ---
 

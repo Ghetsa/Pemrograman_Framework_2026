@@ -175,7 +175,7 @@ module.exports = nextConfig;
 
 ### 4️⃣ Hasil optimasi
 
-![alt text](image-1.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-1.png)
 
 * Gambar di-proxy melalui `/\_next/image`
 * Kompresi otomatis
@@ -230,7 +230,7 @@ http://localhost:3000/produk
 
 ### 5️⃣ Hasil optimasi
 
-![alt text](image-2.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-2.png)
 
 * Tidak perlu CDN
 * Tidak blocking render
@@ -338,7 +338,7 @@ components/layouts/Navbar/index.tsx
 Gunakan next/image:
 
 ```tsx
-![alt text](image-3.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-3.png)
 ```
 
 ---
@@ -414,9 +414,9 @@ Hasil:
 
 Hasil:
 
-![alt text](image-4.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-4.png)
 
-![alt text](image-5.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-5.png)
 
 * Font berubah ke Roboto
 * Tidak ada flicker
@@ -427,7 +427,7 @@ Hasil:
 
 Hasil:
 
-![alt text](image-6.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-6.png)
 
 * Script tidak blocking
 * Teks muncul setelah load
@@ -438,7 +438,7 @@ Hasil:
 
 Hasil:
 
-![alt text](image-7.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-7.png)
 
 * Komponen load saat dibutuhkan
 * Halaman lebih ringan
@@ -448,11 +448,11 @@ Hasil:
 ## Uji 5 – Avatar Optimization
 
 Hasil:
-![alt text](image-8.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-8.png)
 
-![alt text](image-9.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-9.png)
 
-![alt text](image-10.png)
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-10.png)
 
 * Avatar tampil dengan baik
 * Loading lebih cepat
@@ -473,43 +473,43 @@ Hasil:
 
    * Ganti semua `<img>` menjadi `<Image />`
    * Ambil screenshot sebelum
-  ![alt text](image-12.png)
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-12.png)
 
    * Ambil screenshot sesudah
-  ![alt text](image-11.png)
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-11.png)
 
 2. **Menggunakan Font (next/font)**
 
    * Import font dari `next/font/google`
    * Terapkan ke layout/AppShell
-  ![alt text](image-13.png)
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-13.png)
 
    * Screenshot hasil tampilan font
-  ![alt text](image-14.png)
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-14.png)
 
 3. **Google Analytics**
 
    * Tambahkan script `next/script` di `_app.tsx`
-   ![alt text](image-16.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-16.png)
 
    * Jalankan project
    * Screenshot halaman Realtime di GA
-   ![alt text](image-15.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-15.png)
 
 4. **Dynamic Import**
 
    * Gunakan `dynamic()` pada minimal 1 komponen
    * Screenshot kode & hasil di browser
-   ![alt text](image-18.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-18.png)
 
-   ![alt text](image-19.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-19.png)
 
 5. **Lighthouse Performance**
 
    * Buka DevTools → Lighthouse
    * Jalankan audit (Performance)
    * Screenshot hasil skor Lighthouse
-   ![alt text](image-20.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-20.png)
 
 
 

@@ -84,7 +84,7 @@ Jalankan perintah berikut:
 npm install jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom --save-dev --force
 ```
 
-![alt text](image.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image.png)
 
 ---
 
@@ -124,7 +124,7 @@ export default createJestConfig(config);
 }
 ```
 
-![alt text](image-1.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-1.png)
 
 ---
 
@@ -150,7 +150,7 @@ src
     └── components
 ```
 
-![alt text](image-2.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-2.png)
 
 ---
 
@@ -186,7 +186,7 @@ describe("About Page", () => {
 npm install --save-dev @types/jest
 ```
 
-![alt text](image-3.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-3.png)
 
 
 2. Update Konfigurasi tsconfig.json
@@ -212,7 +212,7 @@ Hasil:
 PASS about.spec.tsx
 ```
 
-![alt text](image-4.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-4.png)
 
 ---
 
@@ -224,7 +224,7 @@ PASS about.spec.tsx
 npm run test:coverage
 ```
 
-![alt text](image-5.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-5.png)
 
 ---
 
@@ -242,9 +242,9 @@ Buka:
 coverage/lcov-report/index.html
 ```
 
-![alt text](image-6.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-6.png)
 
-![alt text](image-7.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-7.png)
 
 ---
 
@@ -290,9 +290,9 @@ export default createJestConfig(config)
 npm run test:coverage
 ```
 
-![alt text](image-8.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-8.png)
 
-![alt text](image-9.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-9.png)
 
 ---
 
@@ -306,7 +306,7 @@ Tambahkan:
 <h1 data-testid="title">About Page</h1>
 ```
 
-![alt text](image-10.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-10.png)
 
 ---
 
@@ -325,7 +325,7 @@ describe("About Page", () => {
 })
 ```
 
-![alt text](image-11.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-11.png)
 
 ---
 
@@ -345,9 +345,9 @@ Expected: "About"
 Received: "About Page"
 ```
 
-![alt text](image-12.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-12.png)
 
-![alt text](image-13.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-13.png)
 
 ---
 
@@ -378,7 +378,7 @@ describe("Product Page", () => {
 NextRouter was not mounted
 ```
 
-![alt text](image-14.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-14.png)
 
 ---
 
@@ -439,11 +439,11 @@ npm run test:coverage
 
 Hasil:
 
-![alt text](image-15.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-15.png)
 
-![alt text](image-16.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-16.png)
 
-![alt text](image-17.png)
+![alt text](/jobsheet-19/my-app/public/img/laporan/image-17.png)
 
 Catatan:
 
@@ -451,45 +451,7 @@ Catatan:
 
 ---
 
-# D. Pengujian
-
-## Uji 1 – Snapshot Test
-
-Hasil:
-
-* Testing berhasil (PASS)
-* Snapshot tersimpan
-
----
-
-## Uji 2 – getByTestId
-
-Hasil:
-
-* Data sesuai → PASS
-* Data salah → FAIL
-
----
-
-## Uji 3 – Mocking Router
-
-Hasil:
-
-* Error NextRouter berhasil diatasi
-* Testing berjalan normal
-
----
-
-## Uji 4 – Coverage
-
-Hasil:
-
-* Coverage berhasil ditampilkan
-* Masih perlu peningkatan jika < 80%
-
----
-
-# E. Struktur Testing
+# D. Struktur Testing
 
 Struktur final:
 
@@ -522,33 +484,105 @@ src/__test__/
 
 5. Dokumentasi hasil coverage
 
+
+## Hasil
+
+1. **Unit Test Halaman Product**
+
+   * Membuat unit test untuk halaman Product pada file `src/__test__/pages/product.spec.tsx`
+   * Test menggunakan snapshot, `toBe()`, dan `getByTestId()`
+
+   Screenshot kode unit test halaman Product
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-23.png)
+
+   Screenshot hasil test di terminal (Product Page PASS)
+    ![alt text](/jobsheet-19/my-app/public/img/laporan/image-19.png)
+
+2. **Unit Test Komponen**
+
+   * Membuat unit test untuk komponen `TampilanProduk` pada file `src/__test__/components/tampilanProduk.spec.tsx`
+   * Test memastikan komponen menampilkan title dan item produk menggunakan `getByTestId()` dan `toBe()`
+
+   Screenshot kode unit test komponen
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-24.png)
+
+   Screenshot hasil test komponen di terminal
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-25.png)
+
+3. **Penggunaan Snapshot Test**
+
+   * Snapshot test digunakan untuk memastikan tampilan komponen tidak berubah secara tidak sengaja
+   * Snapshot dibuat otomatis oleh Jest pada saat test dijalankan
+
+   Screenshot file snapshot yang dihasilkan
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-26.png)
+
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-27.png)
+
+
+4. **Penggunaan Assertion `toBe()` dan Query `getByTestId()`**
+
+   * `getByTestId()` digunakan untuk mengambil elemen berdasarkan atribut `data-testid`
+   * `toBe()` digunakan untuk memastikan nilai yang dihasilkan sesuai dengan yang diharapkan
+
+   Screenshot kode penggunaan `getByTestId()` dan `toBe()` pada unit test
+  ![alt text](/jobsheet-19/my-app/public/img/laporan/image-28.png)
+
+5. **Mocking Router**
+
+   * Router dari Next.js dimock menggunakan `jest.mock("next/router")`
+   * Digunakan agar halaman dapat diuji tanpa menjalankan router asli dari Next.js
+
+   Screenshot kode mocking router pada unit test
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-29.png)
+
+6. **Hasil Coverage Testing**
+
+   * Testing dijalankan menggunakan perintah `npm run test:coverage`
+   * Coverage yang dihasilkan telah melebihi syarat minimal 50%
+
+   Screenshot hasil coverage di terminal
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-30.png)
+
+   Screenshot halaman laporan coverage (`coverage/lcov-report/index.html`)
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-31.png)
+
 ---
 
-# G. Pertanyaan Analisis
+# F. Pertanyaan Analisis
 
 ### 1. Mengapa unit testing penting sebelum production?
 
-Karena dapat mendeteksi bug lebih awal dan memastikan aplikasi stabil sebelum digunakan oleh user.
-
-### 2. Mengapa branch coverage sulit mencapai 100%?
-
-Karena harus menguji semua kemungkinan kondisi (if/else) yang jumlahnya bisa sangat banyak.
-
-### 3. Apa itu mocking?
-
-Mocking adalah teknik untuk meniru fungsi atau modul tertentu agar testing tetap berjalan tanpa dependensi asli.
-
-### 4. Kapan snapshot test digunakan?
-
-Digunakan untuk memastikan tampilan UI tidak berubah secara tidak sengaja.
-
-### 5. Apakah semua file harus dites?
-
-Tidak semua, tetapi Praktikum penting (critical feature) wajib dites.
+Unit testing penting karena dapat mendeteksi bug lebih awal sebelum aplikasi digunakan oleh user. Dengan adanya unit test, developer dapat memastikan setiap fungsi dan komponen berjalan sesuai dengan yang diharapkan. Selain itu, unit testing membantu menjaga stabilitas aplikasi saat dilakukan perubahan atau pengembangan fitur baru.
 
 ---
 
-# H. Output yang Diharapkan
+### 2. Mengapa branch coverage sulit mencapai 100%?
+
+Branch coverage sulit mencapai 100% karena setiap kondisi percabangan seperti `if`, `else`, dan `switch` harus diuji semua kemungkinan hasilnya. Dalam aplikasi yang kompleks, jumlah kondisi bisa sangat banyak, termasuk edge case yang jarang terjadi, sehingga membutuhkan banyak skenario test untuk mencapainya.
+
+---
+
+### 3. Apa itu mocking?
+
+Mocking adalah teknik dalam testing untuk meniru fungsi atau modul tertentu agar tidak menggunakan dependensi asli. Dengan mocking, proses testing menjadi lebih cepat, stabil, dan tidak bergantung pada API, database, atau sistem eksternal lainnya.
+
+---
+
+### 4. Kapan snapshot test digunakan?
+
+Snapshot test digunakan untuk memastikan tampilan UI tetap konsisten dari waktu ke waktu. Jika terjadi perubahan pada tampilan, snapshot akan mendeteksi perbedaan tersebut sehingga developer dapat mengetahui apakah perubahan tersebut memang diinginkan atau tidak.
+
+---
+
+### 5. Apakah semua file harus dites?
+
+Tidak semua file harus dites, tetapi file yang berisi fitur utama atau logic penting (critical feature) wajib dites. Hal ini karena bagian tersebut memiliki pengaruh besar terhadap jalannya aplikasi, sehingga harus dipastikan berjalan dengan benar.
+
+
+---
+
+# G. Output yang Diharapkan
 
 Mahasiswa menghasilkan:
 
@@ -562,7 +596,7 @@ Mahasiswa menghasilkan:
 
 ---
 
-# I. Kesimpulan
+# H. Kesimpulan
 
 Pada praktikum ini telah dipelajari:
 
@@ -575,7 +609,3 @@ Pada praktikum ini telah dipelajari:
 * Penanganan error saat testing
 
 Unit testing sangat penting dalam pengembangan aplikasi modern karena membantu menjaga kualitas kode, mendeteksi bug lebih awal, dan memastikan aplikasi siap untuk production.
-
----
-
-Kalau mau, aku bisa lanjut bantu **buatkan isi kode real (About, Product, Component + test lengkap biar tinggal jalan)** atau **sesuaikan dengan project kamu sekarang**.

@@ -22,25 +22,38 @@
 
 Setelah menyelesaikan praktikum ini, mahasiswa mampu:
 
-1. Mengoptimasi gambar menggunakan `next/image`.
-2. Mengkonfigurasi remote image pada `next.config.js`.
-3. Mengoptimasi penggunaan font dengan `next/font`.
-4. Mengoptimasi script eksternal menggunakan `next/script`.
-5. Mengimplementasikan Dynamic Import untuk lazy loading komponen.
-6. Memahami dampak optimasi terhadap performa aplikasi.
+1. Mengoptimasi gambar menggunakan next/image
+2. Mengkonfigurasi remote image pada next.config.js
+3. Mengoptimasi penggunaan font dengan next/font
+4. Mengoptimasi script eksternal menggunakan next/script
+5. Mengimplementasikan Dynamic Import untuk lazy loading komponen
+6. Memahami dampak optimasi terhadap performa aplikasi
 
 ---
 
 # B. Dasar Teori Singkat
 
-## 1️⃣ Image Optimization (`next/image`)
-Fitur ini secara otomatis melakukan *resizing*, optimasi ukuran file, dan menyajikan gambar dalam format modern seperti WebP. Selain itu, gambar hanya akan dimuat saat masuk ke dalam *viewport* (lazy loading) untuk mempercepat load awal halaman.
+## 1️⃣ Apa itu Optimasi Performa?
 
-## 2️⃣ Font Optimization (`next/font`)
-`next/font` mengunduh font Google secara otomatis pada saat build dan menyimpannya secara lokal. Hal ini menghilangkan permintaan jaringan ke Google Fonts saat aplikasi dijalankan, sehingga mencegah masalah *Layout Shift* (CLS).
+Optimasi performa adalah proses meningkatkan kecepatan dan efisiensi aplikasi agar:
 
-## 3️⃣ Dynamic Import
-Metode ini memungkinkan pemuatan komponen JavaScript hanya saat dibutuhkan. Ini sangat berguna untuk komponen berat yang tidak terlihat langsung saat halaman pertama kali dimuat.
+* Loading lebih cepat
+* Mengurangi penggunaan bandwidth
+* Meningkatkan user experience
+* Mendukung SEO
+
+---
+
+## 2️⃣ Fitur Optimasi pada Next.js
+
+Next.js menyediakan beberapa fitur bawaan:
+
+| Fitur          | Fungsi                     |
+| -------------- | -------------------------- |
+| next/image     | Optimasi gambar otomatis   |
+| next/font      | Optimasi font tanpa CDN    |
+| next/script    | Load script tanpa blocking |
+| dynamic import | Lazy loading komponen      |
 
 ---
 
@@ -48,38 +61,97 @@ Metode ini memungkinkan pemuatan komponen JavaScript hanya saat dibutuhkan. Ini 
 
 ---
 
-## Bagian 1 – Optimasi Gambar Lokal (Public Folder)
+## PRAKTIKUM 1 – Image Optimization
 
-### 1️⃣ Modifikasi file `src/pages/404.tsx`
-Mengganti tag `<img>` standar dengan komponen `<Image />` dari Next.js untuk mendapatkan fitur optimasi otomatis.
+---
 
-```tsx
-import Image from "next/image";
-import styles from "@/styles/404.module.scss";
+## Bagian 1 – Optimasi Gambar Lokal
 
-const Custom404 = () => {
-  return (
-    <div className={styles.error}>
-      <Image 
-        src="/not_found.png" 
-        alt="404 Not Found" 
-        width={500} 
-        height={500} 
-      />
-      <h1 className={styles.error__title}>Halaman Tidak Ditemukan</h1>
-    </div>
-  );
-};
+### 1️⃣ Buka file halaman 404
 
-export default Custom404;
+Buka file:
+
+```text
+src/pages/404.tsx
 ```
 
 ---
 
-## Bagian 2 – Optimasi Gambar Remote (Google Avatar)
+### 2️⃣ Modifikasi penggunaan tag gambar
 
-### 1️⃣ Konfigurasi `next.config.js`
-Agar Next.js bisa mengoptimasi gambar dari domain luar (seperti Google User Content), kita harus mendaftarkan hostname tersebut.
+Sebelumnya menggunakan:
+
+```tsx
+<img src="/images/404.png" alt="404" />
+```
+
+Ubah menggunakan `next/image`:
+
+```tsx
+import Image from "next/image";
+
+<Image 
+  src="/no-results.png" 
+  alt="404"
+  width={500}
+  height={500}
+/>
+```
+
+---
+
+### 3️⃣ Hasil optimasi
+
+![alt text](image.png)
+
+* Warning pada console hilang
+* Gambar otomatis dioptimasi
+* Mendukung lazy loading
+* Mengurangi penggunaan bandwidth
+
+---
+
+## Bagian 2 – Optimasi Gambar Remote
+
+---
+
+### 1️⃣ Buka file product
+
+Buka file:
+
+```text
+views/product/index.tsx
+```
+
+---
+
+### 2️⃣ Modifikasi penggunaan image
+
+Sebelumnya:
+
+```tsx
+<img src={product.image} alt={product.name} />
+```
+
+Ubah menjadi:
+
+```tsx
+import Image from "next/image";
+
+<Image
+  src={product.image}
+  alt={product.name}
+  width={300} 
+  height={300} 
+  className={styles.product__image}
+/>
+```
+
+---
+
+### 3️⃣ Modifikasi file `next.config.js`
+
+Tambahkan konfigurasi remote image:
 
 ```js
 /** @type {import('next').NextConfig} */
@@ -89,12 +161,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "assets.adidas.com",
+        hostname: "static.nike.com", // Nike (Product)
         pathname: "/**",
       },
     ],
@@ -104,125 +171,403 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-### 2️⃣ Modifikasi Komponen Navbar
-Ganti elemen `<img>` pada avatar user dengan `<Image />`.
+---
 
-```tsx
-{data?.user?.image && (
-  <Image
-    src={data.user.image}
-    alt={data.user.fullname}
-    width={50}
-    height={50}
-    className={styles.navbar__user__image}
-  />
-)}
+### 4️⃣ Hasil optimasi
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-1.png)
+
+* Gambar di-proxy melalui `/\_next/image`
+* Kompresi otomatis
+* Performa loading meningkat
+
+---
+
+## PRAKTIKUM 2 – Font Optimization
+
+---
+
+## Bagian 1 – Menggunakan next/font
+
+### 1️⃣ Buka file Appshell
+
+```text
+components/AppShell/index.tsx
 ```
 
 ---
 
-## Bagian 3 – Optimasi Font (`next/font`)
-
-### 1️⃣ Menggunakan Google Font di `_app.tsx` atau Layout
-Gunakan font `Roboto` atau `Inter` langsung dari package `next/font/google`.
+### 2️⃣ Tambahkan import font
 
 ```tsx
-import { Inter } from 'next/font/google';
+import { Roboto } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
-
-export default function App({ Component, pageProps }) {
-  return (
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
-  );
-}
-```
-
----
-
-## Bagian 4 – Optimasi Script Eksternal
-
-### 1️⃣ Implementasi `next/script`
-Gunakan komponen `Script` untuk memuat library pihak ketiga (seperti Google Analytics) dengan strategi loading yang tepat.
-
-```tsx
-import Script from 'next/script';
-
-<Script
-  src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
-  strategy="afterInteractive"
-/>
-```
-
----
-
-## Bagian 5 – Dynamic Import (Lazy Loading)
-
-### 1️⃣ Modifikasi Impor Komponen
-Gunakan `dynamic` dari `next/dynamic` untuk komponen yang bersifat opsional atau berat.
-
-```tsx
-import dynamic from 'next/dynamic';
-
-const ModalComplex = dynamic(() => import('@/components/ModalComplex'), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 ```
 
 ---
 
+### 3️⃣ Gunakan font pada aplikasi
+
+```tsx
+<div className={roboto.className}>
+  {children}
+</div>
+```
+
+---
+
+### 4️⃣ Jalankan aplikasi
+
+```text
+http://localhost:3000/produk
+```
+
+---
+
+### 5️⃣ Hasil optimasi
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-2.png)
+
+* Tidak perlu CDN
+* Tidak blocking render
+* Tidak terjadi FOUT
+* Performa meningkat
+
+---
+
+## PRAKTIKUM 3 – Script Optimization
+
+---
+
+## Bagian 1 – Menggunakan next/script
+
+### 1️⃣ Buka file Navbar
+
+```text
+components/layouts/Navbar/index.tsx
+```
+
+---
+
+### 2️⃣ Tambahkan Script
+
+```tsx
+import Script from "next/script";
+
+<div className={styles.navbar}>
+  <div className={styles.navbar__brand} id="title"></div>
+  <Script id="my-script" strategy="lazyOnload">
+    {`document.getElementById('title').innerHTML = 'MyApp';`}
+  </Script>
+```
+
+---
+
+### 3️⃣ Perbedaan dengan JSX biasa
+
+#### JSX biasa
+
+```tsx
+<div id="title">MyApp</div>
+```
+
+#### Menggunakan Script
+
+```tsx
+<div id="title"></div>
+```
+
+---
+
+### 4️⃣ Penjelasan perbedaan
+
+#### Metode Rendering
+
+* JSX → langsung render
+* Script → render setelah load
+
+#### Performa & SEO
+
+* JSX → SEO bagus
+* Script → delay muncul
+
+#### Keamanan
+
+* JSX → aman (auto escape)
+* Script → raw HTML (berisiko XSS)
+
+---
+
+### 5️⃣ Strategi Script
+
+| Strategy          | Fungsi                 |
+| ----------------- | ---------------------- |
+| beforeInteractive | sebelum halaman siap   |
+| afterInteractive  | setelah halaman siap   |
+| lazyOnload        | setelah semua selesai  |
+| worker            | menggunakan web worker |
+
+---
+
+### 6️⃣ Hasil optimasi
+
+* Script tidak blocking
+* Cocok untuk analytics
+* Loading lebih ringan
+
+---
+
+## PRAKTIKUM 4 – Optimasi Avatar
+
+---
+
+### 1️⃣ Buka file Navbar
+
+```text
+components/layouts/Navbar/index.tsx
+```
+
+---
+
+### 2️⃣ Modifikasi avatar
+
+Gunakan next/image:
+
+```tsx
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-3.png)
+```
+
+---
+
+### 3️⃣ Tambahkan konfigurasi hostname
+
+Pada `next.config.js`:
+
+```js
+images: {
+  domains: ["lh3.googleusercontent.com"],
+}
+```
+
+---
+
+### 4️⃣ Hasil optimasi
+
+* Avatar lebih ringan
+* Loading lebih cepat
+* Mendukung lazy loading
+
+---
+
+## PRAKTIKUM 5 – Dynamic Import
+
+---
+
+### 1️⃣ Implementasi dynamic import
+
+Contoh:
+
+```tsx
+import dynamic from "next/dynamic";
+
+const HeavyComponent = dynamic(() => import("../components/HeavyComponent"), {
+  loading: () => <p>Loading...</p>,
+});
+```
+
+---
+
+### 2️⃣ Penggunaan
+
+```tsx
+<HeavyComponent />
+```
+
+---
+
+### 3️⃣ Hasil
+
+* Komponen tidak langsung di-load
+* Mengurangi bundle size
+* Performa meningkat
+
+---
+
 # D. Pengujian
 
-## Uji 1 – Performa Gambar
-Buka tab **Network** di Developer Tools. Pastikan gambar yang dimuat melalui `<Image />` memiliki type `webp` (atau format optimal lainnya) meskipun file aslinya adalah `.png` atau `.jpg`.
+## Uji 1 – Image Optimization
 
-## Uji 2 – Remote Image
-Login menggunakan Google Auth. Pastikan avatar muncul dengan benar menggunakan komponen `<Image />`. Jika konfigurasi `next.config.js` salah, maka gambar tidak akan muncul (error 400/500).
+Hasil:
 
-## Uji 3 – Lighthouse Audit
-Lakukan audit menggunakan Chrome Lighthouse. Fokus pada peningkatan skor **Performance**, khususnya pada metrik *Largest Contentful Paint* (LCP) dan *Cumulative Layout Shift* (CLS).
+![alt text](image.png)
+
+* Tidak ada warning
+* Gambar lebih cepat load
+
+---
+
+## Uji 2 – Font Optimization
+
+Hasil:
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-4.png)
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-5.png)
+
+* Font berubah ke Roboto
+* Tidak ada flicker
+
+---
+
+## Uji 3 – Script Optimization
+
+Hasil:
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-6.png)
+
+* Script tidak blocking
+* Teks muncul setelah load
+
+---
+
+## Uji 4 – Dynamic Import
+
+Hasil:
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-7.png)
+
+* Komponen load saat dibutuhkan
+* Halaman lebih ringan
+
+---
+
+## Uji 5 – Avatar Optimization
+
+Hasil:
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-8.png)
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-9.png)
+
+![alt text](/jobsheet-18/my-app/public/img/laporan/image-10.png)
+
+* Avatar tampil dengan baik
+* Loading lebih cepat
 
 ---
 
 # E. Tugas Praktikum
 
-1. **Optimasi Semua Image:** Pastikan tidak ada lagi tag `<img>` di seluruh project dan semuanya sudah diganti menjadi `<Image />`.
-2. **Implementasi Font:** Menggunakan minimal satu jenis font dari `next/font` dan menerapkannya secara global.
-3. **Google Analytics:** Menambahkan script analitik menggunakan `next/script`.
-4. **Dynamic Import:** Menerapkan lazy loading pada komponen Modal atau Chart yang ada di project.
-5. **Analisis Performa:** Melampirkan screenshot hasil Lighthouse sebelum dan sesudah optimasi.
+1. Mengoptimasi semua gambar menggunakan next/image
+2. Menggunakan minimal 1 font dari next/font
+3. Menambahkan script Google Analytics
+4. Menggunakan dynamic import
+5. Melakukan pengujian performa menggunakan Lighthouse
+
+## Hasil
+
+1. **Optimasi Image (next/image)**
+
+   * Ganti semua `<img>` menjadi `<Image />`
+   * Ambil screenshot sebelum
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-12.png)
+
+   * Ambil screenshot sesudah
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-11.png)
+
+2. **Menggunakan Font (next/font)**
+
+   * Import font dari `next/font/google`
+   * Terapkan ke layout/AppShell
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-13.png)
+
+   * Screenshot hasil tampilan font
+  ![alt text](/jobsheet-18/my-app/public/img/laporan/image-14.png)
+
+3. **Google Analytics**
+
+   * Tambahkan script `next/script` di `_app.tsx`
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-16.png)
+
+   * Jalankan project
+   * Screenshot halaman Realtime di GA
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-15.png)
+
+4. **Dynamic Import**
+
+   * Gunakan `dynamic()` pada minimal 1 komponen
+   * Screenshot kode & hasil di browser
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-18.png)
+
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-19.png)
+
+5. **Lighthouse Performance**
+
+   * Buka DevTools → Lighthouse
+   * Jalankan audit (Performance)
+   * Screenshot hasil skor Lighthouse
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-22.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-21.png)
+
+
 
 ---
 
-# F. Pertanyaan Analisis
+# F. Refleksi & Diskusi
 
-### 1. Mengapa `<img>` biasa tidak optimal?
-Tag `<img>` biasa memuat gambar dalam ukuran asli tanpa kompresi otomatis dan tidak mendukung fitur *lazy loading* secara bawaan yang efisien. Hal ini menyebabkan penggunaan bandwidth yang boros dan memperlambat waktu pemuatan halaman.
+### 1. Mengapa `<img>` tidak optimal?
 
-### 2. Apa perbedaan font CDN dan `next/font`?
-Font via CDN memerlukan request HTTP tambahan ke server pihak ketiga (seperti Google Fonts) saat aplikasi berjalan. `next/font` mengunduh font saat waktu build, menyajikannya secara *self-hosted*, dan secara otomatis mengatur CSS *size-adjust* untuk meminimalkan layout shift.
+Karena tidak memiliki fitur lazy loading, resizing, dan kompresi otomatis.
 
-### 3. Mengapa script bisa membuat website lambat?
-Script eksternal (terutama yang dimuat secara sinkron) dapat memblokir proses rendering DOM. Jika script tersebut besar atau server penyedianya lambat, browser akan berhenti memproses visual website hingga script selesai diunduh dan dieksekusi.
+---
 
-### 4. Kapan harus menggunakan Dynamic Import?
-Dynamic Import harus digunakan pada komponen yang tidak terlihat saat *initial load* (seperti Modal, Drawer), komponen yang berukuran sangat besar (seperti grafik/chart), atau komponen yang hanya dibutuhkan di sisi client (`ssr: false`).
+### 2. Perbedaan font CDN dan next/font?
+
+Font CDN membutuhkan request eksternal, sedangkan next/font langsung di-bundle sehingga lebih cepat.
+
+---
+
+### 3. Mengapa script bisa memperlambat website?
+
+Karena script dapat mem-block rendering jika tidak diatur dengan baik.
+
+---
+
+### 4. Kapan menggunakan dynamic import?
+
+Saat komponen berat atau tidak selalu digunakan.
+
+---
+
+### 5. Dampak bundle size terhadap UX?
+
+Semakin besar bundle size, semakin lama loading aplikasi.
 
 ---
 
 # G. Output yang Diharapkan
 
 Mahasiswa menghasilkan:
-* Halaman web dengan waktu muat lebih cepat.
-* Penggunaan resource gambar yang lebih efisien (WebP & Responsive sizes).
-* Pengaturan font yang stabil tanpa pergeseran tata letak.
-* Skor performa Lighthouse yang meningkat.
+
+* Semua gambar teroptimasi
+* Font terintegrasi dengan baik
+* Script tidak blocking
+* Dynamic import berjalan
+* Performa aplikasi meningkat
 
 ---
 
 # H. Kesimpulan
 
-Melalui praktikum ini, telah dipelajari berbagai teknik optimasi performa yang disediakan oleh Next.js. Penggunaan `next/image` terbukti mampu mengurangi beban bandwidth secara signifikan, sementara `next/font` dan `next/script` memberikan kontrol lebih baik terhadap sumber daya eksternal. Dengan menerapkan teknik-teknik ini, aplikasi web tidak hanya menjadi lebih cepat tetapi juga memberikan pengalaman pengguna yang lebih stabil dan profesional.
+Pada praktikum ini telah dipelajari:
+
+* Optimasi gambar menggunakan next/image
+* Konfigurasi remote image
+* Optimasi font dengan next/font
+* Optimasi script menggunakan next/script
+* Implementasi dynamic import
+
+Dengan menggunakan fitur bawaan Next.js, performa aplikasi dapat meningkat secara signifikan tanpa perlu konfigurasi kompleks. Optimasi ini sangat penting untuk meningkatkan kecepatan, efisiensi, dan pengalaman pengguna dalam aplikasi web modern.

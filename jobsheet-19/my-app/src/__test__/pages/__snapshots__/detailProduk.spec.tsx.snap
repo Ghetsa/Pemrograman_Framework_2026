@@ -1,69 +1,97 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`About Page renders correctly 1`] = `
+exports[`Detail Product Page renders correctly (snapshot) 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <main
-        class="className"
-      >
-        <div>
-          <h1
-            data-testid="title"
-          >
-            About Page
-          </h1>
-        </div>
-        <h1>
-          About Ghetsa Ramadhani
+      <div>
+        <h1
+          class="title"
+          data-testid="title"
+        >
+          Detail Produk
         </h1>
-         
-        <br />
-        <p>
-          Nama Mahasiswa: Ghetsa Ramadhani Riska Arryanti
-        </p>
-        <p>
-          Absen: 10
-        </p>
-        <p>
-          Kelas: TI-3D
-        </p>
-        <p>
-          Program Studi: D-IV Teknik Informatika
-        </p>
-      </main>
+        <div
+          class="produkdetail"
+        >
+          <div
+            class="produkdetail__image"
+          >
+            <img
+              alt="Sepatu"
+              data-testid="product-image"
+              src="/sepatu.png"
+            />
+                        
+          </div>
+          <div
+            class="produkdetail__info"
+          >
+            <h1
+              data-testid="product-name"
+            >
+              Sepatu
+            </h1>
+            <p
+              data-testid="product-category"
+            >
+              Fashion
+            </p>
+            <p
+              data-testid="product-price"
+            >
+              Rp 
+              1.000.000
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <main
-      class="className"
-    >
-      <div>
-        <h1
-          data-testid="title"
-        >
-          About Page
-        </h1>
-      </div>
-      <h1>
-        About Ghetsa Ramadhani
+    <div>
+      <h1
+        class="title"
+        data-testid="title"
+      >
+        Detail Produk
       </h1>
-       
-      <br />
-      <p>
-        Nama Mahasiswa: Ghetsa Ramadhani Riska Arryanti
-      </p>
-      <p>
-        Absen: 10
-      </p>
-      <p>
-        Kelas: TI-3D
-      </p>
-      <p>
-        Program Studi: D-IV Teknik Informatika
-      </p>
-    </main>
+      <div
+        class="produkdetail"
+      >
+        <div
+          class="produkdetail__image"
+        >
+          <img
+            alt="Sepatu"
+            data-testid="product-image"
+            src="/sepatu.png"
+          />
+                      
+        </div>
+        <div
+          class="produkdetail__info"
+        >
+          <h1
+            data-testid="product-name"
+          >
+            Sepatu
+          </h1>
+          <p
+            data-testid="product-category"
+          >
+            Fashion
+          </p>
+          <p
+            data-testid="product-price"
+          >
+            Rp 
+            1.000.000
+          </p>
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

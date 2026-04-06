@@ -1,0 +1,112 @@
+.profile {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 30px 0;
+    color: #ffffff;
+  }
+
+  &__card {
+    width: 100%;
+    max-width: 420px;
+    background: #0f172a;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+
+    &__header {
+      margin-bottom: 20px;
+    }
+
+    &__image {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #2a5298;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+
+
+    &__name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    &__button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #2a5298;
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &:hover {
+        background: #1e3c72;
+        transform: translateY(-2px);
+      }
+    }
+
+    &__info {
+      text-align: left;
+      margin-top: 20px;
+
+      p {
+        font-size: 14px;
+        color: #cbd5f5;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+          font-weight: 600;
+          color: #94a3b8;
+        }
+      }
+    }
+
+    .user__role {
+      text-transform: capitalize;
+    }
+  }
+
+  &__empty {
+    color: #cbd5f5;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+}
+
+/* Animasi biar konsisten sama login */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

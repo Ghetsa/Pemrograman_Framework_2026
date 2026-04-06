@@ -509,7 +509,8 @@ Hasil:
    * Buka DevTools → Lighthouse
    * Jalankan audit (Performance)
    * Screenshot hasil skor Lighthouse
-   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-20.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-22.png)
+   ![alt text](/jobsheet-18/my-app/public/img/laporan/image-21.png)
 
 
 

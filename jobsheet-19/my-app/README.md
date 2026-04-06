@@ -355,9 +355,20 @@ Received: "About Page"
 
 ### 1️⃣ Membuat File Testing Product
 
-```text
-src/__test__/pages/product.spec.tsx
+```js
+import { render, screen } from "@testing-library/react"
+import TampilanProduk from "@/pages/produk"
+
+describe("Product Page", () => {
+  it("renders product page correctly", () => {
+    const page = render(<TampilanProduk />)
+    expect(screen.getByTestId("title").textContent).toBe("Product Page")
+    expect(page).toMatchSnapshot()
+  })
+})
 ```
+
+
 
 ---
 
@@ -366,6 +377,8 @@ src/__test__/pages/product.spec.tsx
 ```text
 NextRouter was not mounted
 ```
+
+![alt text](image-14.png)
 
 ---
 

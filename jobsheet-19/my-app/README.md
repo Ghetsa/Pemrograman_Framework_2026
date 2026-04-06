@@ -224,6 +224,8 @@ PASS about.spec.tsx
 npm run test:coverage
 ```
 
+![alt text](image-5.png)
+
 ---
 
 ### 2️⃣ Hasil
@@ -239,6 +241,10 @@ Buka:
 ```text
 coverage/lcov-report/index.html
 ```
+
+![alt text](image-6.png)
+
+![alt text](image-7.png)
 
 ---
 

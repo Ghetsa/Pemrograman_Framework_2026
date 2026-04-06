@@ -255,11 +255,31 @@ coverage/lcov-report/index.html
 Tambahkan:
 
 ```js
-collectCoverage: true,
-collectCoverageFrom: [
-  "src/pages/**/*.{js,ts,jsx,tsx}",
-  "src/components/**/*.{js,ts,jsx,tsx}"
-],
+import nextJest from 'next/jest.js'
+
+const createJestConfig = nextJest({
+  dir: './',
+})
+
+const config = {
+  testEnvironment: "jsdom",
+  modulePaths: ['<rootDir>/src/'],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.{ts,tsx}',
+    '**/*.d.ts',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**',
+    '!**/jest.config.mjs',
+    '!**/next.config.mjs',
+    '!**/types/**',
+    '!**/views/**',
+    '!**/pages/api/**'
+  ],
+}
+
+export default createJestConfig(config)
 ```
 
 ---
@@ -269,6 +289,10 @@ collectCoverageFrom: [
 ```bash
 npm run test:coverage
 ```
+
+![alt text](image-8.png)
+
+![alt text](image-9.png)
 
 ---
 

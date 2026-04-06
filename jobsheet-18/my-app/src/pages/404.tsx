@@ -1,22 +1,24 @@
 import styles from "@/styles/404.module.scss"
-import Link from "next/dist/client/link"
-import Image from "next/image"
+import Link from "next/link" // Import Link yang lebih standar
+import Head from "next/head" // Gunakan Head dari next/head
 
 const Customer404 = () => {
   return (
     <div className={styles.error}>
-      <head>
+      {/* Gunakan komponen Head dari Next.js untuk metadata */}
+      <Head>
         <title>404 - Halaman Tidak Ditemukan</title>
-      </head>
+      </Head>
+      
       <div className={styles.error}>
-        <Image
+        {/* Mengganti <Image> dengan <img> standar */}
+        <img
           src="/no-results.png"
           alt="404"
-          width={400}
-          height={200}
+          width="400"
+          height="200"
           className={styles.error__image}
         />
-
 
         <h1 className={styles.title}>404</h1>
 

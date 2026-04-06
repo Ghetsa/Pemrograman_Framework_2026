@@ -1,3 +1,4 @@
+// jobsheet-18/my-app/src/utils/db/servicefirebase.ts
 import {
   getFirestore,
   collection,
@@ -14,7 +15,10 @@ import app from "./firebase";
 import bcrypt from "bcrypt";
 
 const db = getFirestore(app);
-
+export async function updateProfile(userId: string, data: any) {
+  const docRef = doc(db, "users", userId);
+  await updateDoc(docRef, data);
+}
 export async function retrieveProducts(collectionName: string) {
   const snapshot = await getDocs(collection(db, collectionName));
   const data = snapshot.docs.map((doc) => ({

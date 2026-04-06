@@ -11,10 +11,15 @@ const hanyaEditor = ["/editor"];
 
 export default function withAuth(
   middleware: NextMiddleware,
-  requireAuth: string[] = [],
+  requireAuth: string[] = []
 ) {
   return async (req: NextRequest, next: NextFetchEvent) => {
     const pathname = req.nextUrl.pathname;
+
+    // ✅ bypass login page (PENTING anti loop)
+    if (pathname.startsWith("/auth")) {
+      return middleware(req, next);
+    }
 
     if (requireAuth.some((path) => pathname.startsWith(path))) {
       const token = await getToken({
@@ -22,11 +27,11 @@ export default function withAuth(
         secret: process.env.NEXTAUTH_SECRET,
       });
 
-      // 🔐 Belum login
+      // 🔐 belum login
       if (!token) {
-        const Url = new URL("/auth/login", req.url);
-        Url.searchParams.set("callbackUrl", encodeURI(req.url));
-        return NextResponse.redirect(Url);
+        const url = new URL("/auth/login", req.url);
+        url.searchParams.set("callbackUrl", req.url);
+        return NextResponse.redirect(url);
       }
 
       const role = token.role as string;
@@ -39,7 +44,7 @@ export default function withAuth(
         return NextResponse.redirect(new URL("/", req.url));
       }
 
-      // ✏️ EDITOR ONLY (admin tetap boleh)
+      // ✏️ EDITOR ONLY
       if (
         hanyaEditor.some((path) => pathname.startsWith(path)) &&
         !["editor", "admin"].includes(role)

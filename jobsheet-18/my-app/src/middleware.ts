@@ -3,10 +3,19 @@ import type { NextRequest } from "next/server";
 import withAuth from "./Middleware/withAuth";
 
 export function MainMiddleware(request: NextRequest) {
-   const res = NextResponse.next();
-   return res;
+  return NextResponse.next();
 }
 
-// Middleware ini akan memeriksa apakah pengguna sudah login sebelum mengakses halaman profile
-export default withAuth(MainMiddleware, ["/profile", "/admin", "/editor"]);
+export default withAuth(MainMiddleware, [
+  "/profile",
+  "/admin",
+  "/editor",
+]);
 
+export const config = {
+  matcher: [
+    "/profile/:path*",
+    "/admin/:path*",
+    "/editor/:path*",
+  ],
+};

@@ -403,6 +403,8 @@ const HeavyComponent = dynamic(() => import("../components/HeavyComponent"), {
 
 Hasil:
 
+![alt text](image.png)
+
 * Tidak ada warning
 * Gambar lebih cepat load
 
@@ -411,6 +413,10 @@ Hasil:
 ## Uji 2 – Font Optimization
 
 Hasil:
+
+![alt text](image-4.png)
+
+![alt text](image-5.png)
 
 * Font berubah ke Roboto
 * Tidak ada flicker
@@ -421,6 +427,8 @@ Hasil:
 
 Hasil:
 
+![alt text](image-6.png)
+
 * Script tidak blocking
 * Teks muncul setelah load
 
@@ -430,6 +438,8 @@ Hasil:
 
 Hasil:
 
+![alt text](image-7.png)
+
 * Komponen load saat dibutuhkan
 * Halaman lebih ringan
 
@@ -438,6 +448,11 @@ Hasil:
 ## Uji 5 – Avatar Optimization
 
 Hasil:
+![alt text](image-8.png)
+
+![alt text](image-9.png)
+
+![alt text](image-10.png)
 
 * Avatar tampil dengan baik
 * Loading lebih cepat
@@ -451,6 +466,52 @@ Hasil:
 3. Menambahkan script Google Analytics
 4. Menggunakan dynamic import
 5. Melakukan pengujian performa menggunakan Lighthouse
+
+## Hasil
+
+1. **Optimasi Image (next/image)**
+
+   * Ganti semua `<img>` menjadi `<Image />`
+   * Ambil screenshot sebelum
+  ![alt text](image-12.png)
+
+   * Ambil screenshot sesudah
+  ![alt text](image-11.png)
+
+2. **Menggunakan Font (next/font)**
+
+   * Import font dari `next/font/google`
+   * Terapkan ke layout/AppShell
+  ![alt text](image-13.png)
+
+   * Screenshot hasil tampilan font
+  ![alt text](image-14.png)
+
+3. **Google Analytics**
+
+   * Tambahkan script `next/script` di `_app.tsx`
+   ![alt text](image-16.png)
+
+   * Jalankan project
+   * Screenshot halaman Realtime di GA
+   ![alt text](image-15.png)
+
+4. **Dynamic Import**
+
+   * Gunakan `dynamic()` pada minimal 1 komponen
+   * Screenshot kode & hasil di browser
+   ![alt text](image-18.png)
+
+   ![alt text](image-19.png)
+
+5. **Lighthouse Performance**
+
+   * Buka DevTools → Lighthouse
+   * Jalankan audit (Performance)
+   * Screenshot hasil skor Lighthouse
+   ![alt text](image-20.png)
+
+
 
 ---
 

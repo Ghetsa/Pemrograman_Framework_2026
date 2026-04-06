@@ -306,19 +306,26 @@ Tambahkan:
 <h1 data-testid="title">About Page</h1>
 ```
 
+![alt text](image-10.png)
+
 ---
 
 ### 2️⃣ Update Testing
 
 ```tsx
-import { render, screen } from "@testing-library/react";
-import About from "@/pages/about";
+import { render, screen } from "@testing-library/react"
+import AboutPage from "@/pages/about"
 
-test("check title content", () => {
-  render(<About />);
-  expect(screen.getByTestId("title").textContent).toBe("About Page");
-});
+describe("About Page", () => {
+  it("renders about page correctly", () => {
+    const page = render(<AboutPage />)
+    expect(screen.getByTestId("title").textContent).toBe("About Page")
+    expect(page).toMatchSnapshot()
+  })
+})
 ```
+
+![alt text](image-11.png)
 
 ---
 
@@ -337,6 +344,10 @@ FAIL
 Expected: "About"
 Received: "About Page"
 ```
+
+![alt text](image-12.png)
+
+![alt text](image-13.png)
 
 ---
 

@@ -1,43 +1,30 @@
-import { useRouter } from "next/dist/client/components/navigation"
-import { useState } from "react"
-import useSWR from "swr"
-import fetcher from "../../utils/swr/fetcher"
-import dynamic from "next/dynamic"
-import Head from 'next/head'; //
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import TampilanProduk from "../../views/produk";
+import useSWR from "swr";
+import fetcher from "../../utils/swr/fetcher";
 
-const TampilanProduk = dynamic(() => import("../../views/produk"), {
-  loading: () => <p>Loading produk...</p>,
-  ssr: true, // Tambahkan ini agar konten awal tetap ter-render di server untuk SEO
-})
 
+
+// const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const kategori = () => {
-  const { push } = useRouter()
-  const { data, error, isLoading } = useSWR("/api/produk", fetcher)
+  // const [isLogin, setIsLogin] = useState(true);
+  const { push } = useRouter();
+  const [products, setProducts] = useState([]);
+  
+  
+  const { data, error,isLoading } = useSWR("/api/produk", fetcher);
+  //cek apakah data, error, dan isLoading sudah benar
+  // console.log("data:", data);
+  // console.log("error:", error);
+  // console.log("isLoading:", isLoading);
+
 
   return (
-    <>
-      <Head>
-        {/* Judul halaman yang muncul di tab browser */}
-        <title>Daftar Koleksi Produk Sepatu Terbaru | NamaToko Kamu</title>
-        
-        {/* Deskripsi untuk hasil pencarian Google */}
-        <meta 
-          name="description" 
-          content="Temukan berbagai macam koleksi sepatu Nike original dengan harga terbaik. Belanja mudah dan cepat hanya di aplikasi kami." 
-        />
-        
-        {/* Penting untuk responsivitas layar */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
-        {/* Favicon atau Icon (opsional) */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <TampilanProduk products={isLoading ? [] : data?.data} />
+    </div>
+  );
+};
 
-      <div>
-        <TampilanProduk products={isLoading ? [] : data?.data} />
-      </div>
-    </>
-  )
-}
-
-export default kategori
+export default kategori;

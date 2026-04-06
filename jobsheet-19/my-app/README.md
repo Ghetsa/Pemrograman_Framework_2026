@@ -407,6 +407,8 @@ jest.mock("next/router", () => ({
 Cannot read properties of undefined
 ```
 
+ Praktikum 8 – Menangani Undefined Data
+
 ---
 
 ### 2️⃣ Perbaikan pada Komponen
@@ -435,14 +437,13 @@ npm run test:coverage
 
 ## Analisis Coverage
 
-Contoh hasil:
+Hasil:
 
-| Metric     | Hasil |
-| ---------- | ----- |
-| Statements | 85%   |
-| Branch     | 60%   |
-| Functions  | 90%   |
-| Lines      | 88%   |
+![alt text](image-15.png)
+
+![alt text](image-16.png)
+
+![alt text](image-17.png)
 
 Catatan:
 

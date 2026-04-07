@@ -10,8 +10,7 @@ const Navbar = () => {
   const defaultImage = "/user-default.jpeg"; // dari public
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.navbar__brand} id="title"></div>
+<div className={styles.navbar} data-testid="navbar">      <div className={styles.navbar__brand} id="title"></div>
 
       <Script id="my-script" strategy="lazyOnload">
         {`document.getElementById('title').innerHTML = 'MyApp';`}
@@ -25,6 +24,7 @@ const Navbar = () => {
 
               <Link href="/profile">
                 <Image
+                  data-testid="user-image"
                   width={50}
                   height={50}
                   src={data.user?.image || defaultImage}
@@ -35,6 +35,7 @@ const Navbar = () => {
             </div>
 
             <button
+              data-testid="signout-button"
               className={`${styles.navbar__button} ${styles["navbar__button--danger"]}`}
               onClick={() => signOut()}
             >
@@ -43,6 +44,7 @@ const Navbar = () => {
           </>
         ) : (
           <button
+            data-testid="signin-button"
             className={`${styles.navbar__button} ${styles["navbar__button--primary"]}`}
             onClick={() => signIn()}
           >

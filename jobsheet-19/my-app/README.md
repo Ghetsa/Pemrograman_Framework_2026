@@ -500,14 +500,14 @@ src/__test__/
 
 2. **Unit Test Komponen**
 
-   * Membuat unit test untuk komponen `TampilanProduk` pada file `src/__test__/components/tampilanProduk.spec.tsx`
+   * Membuat unit test untuk komponen `Navbar` pada file `src/__test__/components/navbar.spec.tsx`
    * Test memastikan komponen menampilkan title dan item produk menggunakan `getByTestId()` dan `toBe()`
 
    Screenshot kode unit test komponen
-   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-24.png)
+  ![alt text](/jobsheet-19/my-app/public/img/laporan/image-32.png)
 
    Screenshot hasil test komponen di terminal
-   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-25.png)
+   ![alt text](/jobsheet-19/my-app/public/img/laporan/image-33.png)
 
 3. **Penggunaan Snapshot Test**
 
